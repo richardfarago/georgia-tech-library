@@ -2,7 +2,10 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { MemberService } from './member.service';
 import { CreateMemberDto } from './dto/create-member.dto';
 import { UpdateMemberDto } from './dto/update-member.dto';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiBearerAuth()
+@ApiTags('Members')
 @Controller('member')
 export class MemberController {
   constructor(private readonly memberService: MemberService) { }

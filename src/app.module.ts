@@ -25,10 +25,6 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
       synchronize: false,
       logging: true,
       ssl: true,
-      cache: {
-        type: "database",
-        tableName: "configurable-table-query-result-cache"
-      },
       namingStrategy: new SnakeNamingStrategy(),
       extra: {
         trustServerCertificate: true,

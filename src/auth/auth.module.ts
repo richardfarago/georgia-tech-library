@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, NestModule, MiddlewareConsumer, RequestMethod } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 import { UserModule } from 'src/user/user.module';
 import { AuthService } from './auth.service';
@@ -8,8 +8,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
 import { ConfigService } from '@nestjs/config';
 import { JwtStrategy } from './strategies/jwt.strategy';
-
-
+import { logger } from 'src/middleware/logger.middleware';
 @Module({
     imports: [
         UserModule,
@@ -30,7 +29,17 @@ import { JwtStrategy } from './strategies/jwt.strategy';
     exports: [AuthService]
 })
 
-export class AuthModule {
+export class AuthModule implements NestModule {
     constructor(private configService: ConfigService) { }
+
+    //Middleware config
+    configure(consumer: MiddlewareConsumer) {
+        consumer
+            .apply(logger)
+            .exclude('')
+            .forRoutes(AuthController)
+        // .forRoutes({ path: '*', method: RequestMethod.ALL })
+        //consumer.apply(LoggerMiddleware).forRoutes('auth/me')
+    }
 }
 
