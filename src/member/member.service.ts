@@ -29,11 +29,9 @@ export class MemberService {
 
   findOne(id: string) {
     return this.memberRepository.findOne({
-      where: { id: id },
+      where: { userId: id },
       relations: ['user', 'member_card', 'loan_permission', 'school_member', 'campus_address']
     });
-
-
   }
 
   update(id: number, updateMemberDto: UpdateMemberDto) {
