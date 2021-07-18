@@ -39,7 +39,7 @@ const validationOptions: ValidationPipeOptions = {
       namingStrategy: new SnakeNamingStrategy(),
       extra: {
         trustServerCertificate: true,
-        Encrypt: true,
+        encrypt: false,
         IntegratedSecurity: false,
       }
     }),

@@ -4,6 +4,7 @@ import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 
 export const databaseProviders = [
     {
+        inject: [ConfigService],
         provide: 'DATABASE_CONNECTION',
         useFactory: async (configService: ConfigService) => await createConnection({
             type: 'mssql',
@@ -14,11 +15,11 @@ export const databaseProviders = [
             database: configService.get<string>("DATABASE"),
             extra: {
                 trustServerCertificate: true,
-                Encrypt: true,
-                IntegratedSecurity: false,
+                encrypt: false,
+                integratedSecurity: false,
                 ssl: true,
             },
-            //autoLoadEntities: true,
+            entities: [],
             synchronize: false,
             logging: true,
             namingStrategy: new SnakeNamingStrategy(),
