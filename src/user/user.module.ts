@@ -4,7 +4,7 @@ import { UserSubscriber } from './user.subscriber';
 import { UserController } from './user.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
-import { logger } from 'src/shared/middleware/logger.middleware';
+import { logger } from 'src/common/middleware/logger.middleware';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User])],

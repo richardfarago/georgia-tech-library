@@ -17,12 +17,10 @@ export class UserService {
 
   create(createUserDto: CreateUserDto) {
 
-    createUserDto.id = uuidv4()
-
     //TODO Hash password before inserting
     //user.password = createUserDto.password.hash()
 
-    return this.userRepository.save(createUserDto);
+    return this.userRepository.save({ id: uuidv4(), ...createUserDto });
   }
 
   findAll(): Promise<User[]> {
