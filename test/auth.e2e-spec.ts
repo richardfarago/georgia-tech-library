@@ -7,40 +7,40 @@ let app: INestApplication;
 let request: SuperTest<AgentTest>;
 let token: string;
 const user = {
-  username: 'test',
-  password: 'password',
+    username: 'test',
+    password: 'password',
 };
 
 beforeAll(async () => {
-  const moduleRef = await Test.createTestingModule({
-    imports: [AuthModule],
-  }).compile();
+    const moduleRef = await Test.createTestingModule({
+        imports: [AuthModule],
+    }).compile();
 
-  app = moduleRef.createNestApplication();
-  await app.init();
+    app = moduleRef.createNestApplication();
+    await app.init();
 
-  request = supertest.agent(app.getHttpServer());
+    request = supertest.agent(app.getHttpServer());
 });
 
 test('POST: /auth/login', async () => {
-  const { status, body } = await request
-    .post('/auth/login')
-    .send({ username: user.username, password: user.password });
+    const { status, body } = await request
+        .post('/auth/login')
+        .send({ username: user.username, password: user.password });
 
-  expect([200, 201]).toContain(status);
-  expect(body).toHaveProperty('access_token');
-  token = body.access_token;
+    expect([200, 201]).toContain(status);
+    expect(body).toHaveProperty('access_token');
+    token = body.access_token;
 });
 
 test('GET: /auth/me', async () => {
-  const { body } = await request
-    .get('/auth/me')
-    .set('Authorization', `Bearer ${token}`)
-    .expect(200);
+    const { body } = await request
+        .get('/auth/me')
+        .set('Authorization', `Bearer ${token}`)
+        .expect(200);
 
-  expect(body).toHaveProperty(user.username, user.password);
+    expect(body).toHaveProperty(user.username, user.password);
 });
 
 afterAll(async () => {
-  await app?.close();
+    await app?.close();
 });

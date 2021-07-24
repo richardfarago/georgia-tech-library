@@ -6,38 +6,38 @@ import { ROLES_KEY } from 'src/common/decorators/roles.decorator';
 
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {
-  constructor(private reflector: Reflector) {
-    super();
-  }
-
-  canActivate(context: ExecutionContext) {
-    //Getting is_public metadata
-    const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
-      context.getHandler(),
-      context.getClass(),
-    ]);
-    if (isPublic) {
-      return true;
+    constructor(private reflector: Reflector) {
+        super();
     }
 
-    /* RBAC */
+    canActivate(context: ExecutionContext) {
+        //Getting is_public metadata
+        const isPublic = this.reflector.getAllAndOverride<boolean>(
+            IS_PUBLIC_KEY,
+            [context.getHandler(), context.getClass()],
+        );
+        if (isPublic) {
+            return true;
+        }
 
-    // const request = context.switchToHttp().getRequest();
-    // const user = request.user;
+        /* RBAC */
 
-    // //Getting roles metadata
-    // const roles = this.reflector.get<string[]>(ROLES_KEY, context.getHandler());
-    // if (!roles && isPublic) {
-    //     return true;
-    // }
+        // const request = context.switchToHttp().getRequest();
+        // const user = request.user;
 
-    // //Evaluating roles
-    // if (roles.includes(user.role)) {
-    //     return true
-    // }
+        // //Getting roles metadata
+        // const roles = this.reflector.get<string[]>(ROLES_KEY, context.getHandler());
+        // if (!roles && isPublic) {
+        //     return true;
+        // }
 
-    // return false //--> 403 Forbidden
+        // //Evaluating roles
+        // if (roles.includes(user.role)) {
+        //     return true
+        // }
 
-    return super.canActivate(context);
-  }
+        // return false //--> 403 Forbidden
+
+        return super.canActivate(context);
+    }
 }

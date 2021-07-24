@@ -1,3 +1,3 @@
 export const RBAC = {
-  getMe: ['Admin', 'Emoloyee', 'Student'],
+    getMe: ['Admin', 'Emoloyee', 'Student'],
 };
