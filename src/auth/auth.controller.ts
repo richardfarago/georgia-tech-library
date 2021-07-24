@@ -4,14 +4,14 @@ import { AuthService } from './auth.service';
 import { Public } from 'src/common/decorators/public.decorator';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { User } from 'src/user/entities/user.entity';
-import { Roles } from 'src/common/decorators/roles.decorator';
+import { RequirePermission } from 'src/common/decorators/permission.decorator';
 import { Permissions } from 'src/common/constants/permissions.enum';
 
 @ApiBearerAuth()
 @ApiTags('Authentication')
 @Controller('auth')
 export class AuthController {
-    constructor(private authService: AuthService) {}
+    constructor(private authService: AuthService) { }
 
     @Public()
     @UseGuards(LocalAuthGuard)
@@ -22,7 +22,7 @@ export class AuthController {
     }
 
     @Get('me')
-    @Roles(Permissions.GET_ME)
+    @RequirePermission(Permissions.GET_ME)
     getProfile(@Request() req) {
         return req.user;
     }

@@ -9,17 +9,6 @@ export enum Roles {
     REF = 'Reference librarian',
 }
 
-// export const ALL_ROLES = [
-//     'Student',
-//     'Professor',
-//     'Library',
-//     'Chief librarian',
-//     'Departmental associate librarian',
-//     'Library assistant',
-//     'Check-out staff',
-//     'Reference librarian',
-// ];
-
 export const ALL_ROLES = [
     Roles.STUDENT,
     Roles.PROF,
@@ -30,3 +19,14 @@ export const ALL_ROLES = [
     Roles.CHECKOUT,
     Roles.REF,
 ];
+
+// export const ALL_ROLES = [
+//     'Student',
+//     'Professor',
+//     'Library',
+//     'Chief librarian',
+//     'Departmental associate librarian',
+//     'Library assistant',
+//     'Check-out staff',
+//     'Reference librarian',
+// ];

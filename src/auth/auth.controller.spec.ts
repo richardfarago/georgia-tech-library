@@ -1,3 +1,4 @@
+import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthController } from './auth.controller';
 import { AuthModule } from './auth.module';
@@ -9,6 +10,7 @@ describe('AuthController', () => {
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
+            imports: [JwtService],
             controllers: [AuthController],
             providers: [AuthService],
         })
@@ -23,12 +25,4 @@ describe('AuthController', () => {
     it('should be defined', () => {
         expect(controller).toBeDefined();
     });
-
-    // describe('findAll', () => {
-    //   it('should return an array of cats', async () => {
-    //     const result = ['test'];
-    //     jest.spyOn(service, 'login').mockImplementation(() => result);
-    //     expect(await controller.login('')).toBe(result);
-    //   });
-    // });
 });
