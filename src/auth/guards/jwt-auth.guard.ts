@@ -25,7 +25,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
 
         // //Getting roles metadata
         // const roles = this.reflector.get<string[]>(ROLES_KEY, context.getHandler());
-        // if (!roles) {
+        // if (!roles && isPublic) {
         //     return true;
         // }
 
@@ -34,7 +34,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
         //     return true
         // }
 
-        //return false //--> 403 Forbidden
+        // return false //--> 403 Forbidden
 
         return super.canActivate(context)
     }
