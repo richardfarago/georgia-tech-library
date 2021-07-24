@@ -15,8 +15,6 @@ import { NotImplementedException } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 
 export function logger(req: Request, res: Response, next: NextFunction) {
-    console.log(
-        `Incoming request: ${req.method} ${req.url} from ${req.hostname}`,
-    );
+    console.log(`Incoming request: ${req.method} ${req.url} from ${req.hostname}`);
     next();
 }

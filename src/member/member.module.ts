@@ -10,16 +10,7 @@ import { Address } from './entities/address.entity';
 import { City } from './entities/city.entity';
 
 @Module({
-    imports: [
-        TypeOrmModule.forFeature([
-            Member,
-            MemberCard,
-            LoanPermission,
-            SchoolMember,
-            Address,
-            City,
-        ]),
-    ],
+    imports: [TypeOrmModule.forFeature([Member, MemberCard, LoanPermission, SchoolMember, Address, City])],
     controllers: [MemberController],
     providers: [MemberService],
     exports: [MemberService],

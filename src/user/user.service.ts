@@ -11,9 +11,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class UserService {
-    constructor(
-        @InjectRepository(User) private userRepository: Repository<User>,
-    ) {}
+    constructor(@InjectRepository(User) private userRepository: Repository<User>) {}
 
     create(createUserDto: CreateUserDto) {
         //TODO Hash password before inserting

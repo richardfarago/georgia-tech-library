@@ -33,10 +33,7 @@ test('POST: /auth/login', async () => {
 });
 
 test('GET: /auth/me', async () => {
-    const { body } = await request
-        .get('/auth/me')
-        .set('Authorization', `Bearer ${token}`)
-        .expect(200);
+    const { body } = await request.get('/auth/me').set('Authorization', `Bearer ${token}`).expect(200);
 
     expect(body).toHaveProperty(user.username, user.password);
 });

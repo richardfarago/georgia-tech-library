@@ -7,9 +7,7 @@ import { Member } from './entities/member.entity';
 
 @Injectable()
 export class MemberService {
-    constructor(
-        @InjectRepository(Member) private memberRepository: Repository<Member>,
-    ) {}
+    constructor(@InjectRepository(Member) private memberRepository: Repository<Member>) {}
 
     create(createMemberDto: CreateMemberDto) {
         return 'This action adds a new member';
@@ -17,13 +15,7 @@ export class MemberService {
 
     async findAll() {
         return this.memberRepository.find({
-            relations: [
-                'user',
-                'member_card',
-                'loan_permission',
-                'school_member',
-                'campus_address',
-            ],
+            relations: ['user', 'member_card', 'loan_permission', 'school_member', 'campus_address'],
             take: 500,
         });
         // return this.memberRepository.query("SELECT M.*,U.*,MC.* FROM Member M INNER JOIN AuthUser U ON U.id = M.user_id INNER JOIN MemberCard MC ON MC.number = M.card_number")
@@ -36,13 +28,7 @@ export class MemberService {
     findOne(id: string) {
         return this.memberRepository.findOne({
             where: { userId: id },
-            relations: [
-                'user',
-                'member_card',
-                'loan_permission',
-                'school_member',
-                'campus_address',
-            ],
+            relations: ['user', 'member_card', 'loan_permission', 'school_member', 'campus_address'],
         });
     }
 

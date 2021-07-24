@@ -5,10 +5,7 @@ import { User } from 'src/user/entities/user.entity';
 
 @Injectable()
 export class AuthService {
-    constructor(
-        private userService: UserService,
-        private jwtService: JwtService,
-    ) {}
+    constructor(private userService: UserService, private jwtService: JwtService) {}
 
     async validateUser(username: string, pass: string) {
         const user = await this.userService.findOneUsername(username);

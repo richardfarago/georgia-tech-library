@@ -53,12 +53,7 @@ describe('UserController', () => {
             password: 'password1',
         };
 
-        expect(
-            controller.update(
-                'ff2e61fc-4cf4-4954-a2f2-fd3760e2b5fd',
-                updateUserDto,
-            ),
-        ).toEqual({
+        expect(controller.update('ff2e61fc-4cf4-4954-a2f2-fd3760e2b5fd', updateUserDto)).toEqual({
             id: expect.any(String),
             password: updateUserDto.password,
         });

@@ -1,12 +1,4 @@
-import {
-    Controller,
-    Request,
-    Post,
-    UseGuards,
-    Get,
-    Put,
-    NotImplementedException,
-} from '@nestjs/common';
+import { Controller, Request, Post, UseGuards, Get, Put, NotImplementedException } from '@nestjs/common';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { AuthService } from './auth.service';
 import { Public } from 'src/common/decorators/public.decorator';

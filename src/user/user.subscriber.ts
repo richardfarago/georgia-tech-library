@@ -61,20 +61,14 @@ export class UserSubscriber implements EntitySubscriberInterface<User> {
      * Called before entity removal.
      */
     beforeRemove(event: RemoveEvent<User>) {
-        console.log(
-            `BEFORE ENTITY WITH ID ${event.entityId} REMOVED: `,
-            event.entity,
-        );
+        console.log(`BEFORE ENTITY WITH ID ${event.entityId} REMOVED: `, event.entity);
     }
 
     /**
      * Called after entity removal.
      */
     afterRemove(event: RemoveEvent<User>) {
-        console.log(
-            `AFTER ENTITY WITH ID ${event.entityId} REMOVED: `,
-            event.entity,
-        );
+        console.log(`AFTER ENTITY WITH ID ${event.entityId} REMOVED: `, event.entity);
     }
 
     /**
