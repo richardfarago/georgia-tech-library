@@ -10,12 +10,17 @@ import {
 import { TransactionStartEvent } from 'typeorm/subscriber/event/TransactionStartEvent';
 import { TransactionCommitEvent } from 'typeorm/subscriber/event/TransactionCommitEvent';
 import { TransactionRollbackEvent } from 'typeorm/subscriber/event/TransactionRollbackEvent';
-import { User } from './entities/user.entity';
+import { User } from 'src/user/entities/user.entity';
+import { Inject, Injectable } from '@nestjs/common';
+import { Providers } from 'src/common/constants/providers.enum';
+import { InjectConnection } from '@nestjs/typeorm';
 
-@EventSubscriber()
-export class UserSubscriber implements EntitySubscriberInterface<User> {
-    constructor(connection: Connection) {
-        connection.subscribers.push(this);
+@Injectable()
+export class DatabaseSubscriber implements EntitySubscriberInterface<User> {
+    constructor(
+        @Inject(Providers.DATABASE_CONNECTION) private db: Connection,
+    ) {
+        this.db.subscribers.push(this);
     }
 
     listenTo() {
@@ -26,7 +31,7 @@ export class UserSubscriber implements EntitySubscriberInterface<User> {
      * Called after entity is loaded.
      */
     afterLoad(entity: User) {
-        //console.log(`AFTER ENTITY LOADED: `, entity);
+        console.log(`AFTER ENTITY LOADED: `, entity);
     }
 
     /**
