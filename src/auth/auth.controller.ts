@@ -5,7 +5,7 @@ import { Public } from 'src/common/decorators/public.decorator';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { User } from 'src/user/entities/user.entity';
 import { Roles } from 'src/common/decorators/roles.decorator';
-import { RBAC } from 'src/common/constants/roles.enum';
+import { Permissions } from 'src/common/constants/permissions.enum';
 
 @ApiBearerAuth()
 @ApiTags('Authentication')
@@ -22,7 +22,7 @@ export class AuthController {
     }
 
     @Get('me')
-    @Roles(RBAC.getMe)
+    @Roles(Permissions.GET_ME)
     getProfile(@Request() req) {
         return req.user;
     }

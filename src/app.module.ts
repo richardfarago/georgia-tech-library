@@ -34,7 +34,7 @@ const validationOptions: ValidationPipeOptions = {
             database: process.env.DATABASE,
             autoLoadEntities: true,
             synchronize: false,
-            logging: false,
+            logging: true,
             ssl: true,
             namingStrategy: new SnakeNamingStrategy(),
             extra: {

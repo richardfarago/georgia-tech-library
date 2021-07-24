@@ -5,9 +5,12 @@ import { UserController } from './user.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { logger } from 'src/common/middleware/logger.middleware';
+import { Member } from 'src/member/entities/member.entity';
+import { Employee } from 'src/employee/entities/employee.entity';
+import { LoanPermission } from 'src/member/entities/loan-permission.entity';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([User])],
+    imports: [TypeOrmModule.forFeature([User, Employee, Member])],
     controllers: [UserController],
     providers: [UserService, UserSubscriber],
     exports: [UserService],

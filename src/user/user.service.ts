@@ -8,6 +8,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { plainToClass } from 'class-transformer';
 
 import { v4 as uuidv4 } from 'uuid';
+import { UserWithRoleDTO } from './dto/with-role.dto';
 
 @Injectable()
 export class UserService {
@@ -27,11 +28,17 @@ export class UserService {
         return this.userRepository.findOne(id);
     }
 
-    findOneUsername(username: string): Promise<User> {
-        return this.userRepository.findOne({
-            where: { username: username },
-            relations: ['member', 'employee']
-        });
+    findUserWithRole(username: string): Promise<UserWithRoleDTO> {
+        return this.userRepository
+            .createQueryBuilder()
+            .select('username')
+            .addSelect('id')
+            .addSelect('password_hash', 'password')
+            .addSelect(`CONCAT(ISNULL(M.loan_permission,''),ISNULL(E.role,''))`, 'role')
+            .leftJoin('Member', 'M', 'M.user_id = User.id')
+            .leftJoin('Employee', 'E', 'E.user_id = User.id')
+            .where(`User.username = '${username}'`)
+            .getRawOne();
     }
 
     update(id: string, updateUserDto: UpdateUserDto) {

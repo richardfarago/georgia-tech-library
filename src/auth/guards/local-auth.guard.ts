@@ -8,8 +8,6 @@ export class LocalAuthGuard extends AuthGuard('local') {
         if (err || !user) {
             throw err || new UnauthorizedException();
         }
-
-        console.log(user);
         return user;
     }
 }
