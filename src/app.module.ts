@@ -11,6 +11,7 @@ import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { MemberModule } from './member/member.module';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { APP_GUARD, APP_PIPE } from '@nestjs/core';
+import { EmployeeModule } from './employee/employee.module';
 
 const validationOptions: ValidationPipeOptions = {
     whitelist: true,
@@ -45,6 +46,7 @@ const validationOptions: ValidationPipeOptions = {
         UserModule,
         AuthModule,
         MemberModule,
+        EmployeeModule,
     ],
     controllers: [AppController],
     providers: [

@@ -9,9 +9,6 @@ export class LocalAuthGuard extends AuthGuard('local') {
             throw err || new UnauthorizedException();
         }
 
-        //TODO get role for authorisation here
-        user.role = 'Admin';
-
         console.log(user);
         return user;
     }

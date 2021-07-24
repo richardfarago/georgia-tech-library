@@ -1,5 +1,6 @@
 import { Entity, Column, OneToMany, OneToOne } from 'typeorm';
 import { Member } from '../../member/entities/member.entity';
+import { Employee } from 'src/employee/entities/employee.entity';
 
 import { IsOptional } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
@@ -34,8 +35,8 @@ export class User {
     @OneToOne(() => Member, (member) => member.user)
     member: Member;
 
-    // @OneToOne(() => Employee, (employee) => employee.user)
-    // employee: Employee;
+    @OneToOne(() => Employee, (employee) => employee.user)
+    employee: Employee;
 
     // @OneToMany(() => Loan, (loan) => loan.user)
     // loans: Loan[];

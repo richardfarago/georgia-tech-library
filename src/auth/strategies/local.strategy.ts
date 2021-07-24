@@ -15,6 +15,8 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
         // password = password.hash()
 
         const user = await this.authService.validateUser(username, password);
+        //TODO get role for authorisation here
+        //user.role = 'Admin';
 
         if (!user) {
             throw new UnauthorizedException();

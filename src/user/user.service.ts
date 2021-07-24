@@ -11,12 +11,11 @@ import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class UserService {
-    constructor(@InjectRepository(User) private userRepository: Repository<User>) {}
+    constructor(@InjectRepository(User) private userRepository: Repository<User>) { }
 
     create(createUserDto: CreateUserDto) {
         //TODO Hash password before inserting
         //user.password = createUserDto.password.hash()
-
         return this.userRepository.save({ id: uuidv4(), ...createUserDto });
     }
 
@@ -29,7 +28,10 @@ export class UserService {
     }
 
     findOneUsername(username: string): Promise<User> {
-        return this.userRepository.findOne({ username: username });
+        return this.userRepository.findOne({
+            where: { username: username },
+            relations: ['member', 'employee']
+        });
     }
 
     update(id: string, updateUserDto: UpdateUserDto) {
