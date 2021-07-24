@@ -1,14 +1,13 @@
 import { IsOptional, IsString, IsUUID } from 'class-validator';
 
 export class CreateUserDto {
+  // @IsOptional()
+  // @IsUUID()
+  // id: string;
 
-    // @IsOptional()
-    // @IsUUID()
-    // id: string;
+  @IsString()
+  username: string;
 
-    @IsString()
-    username: string;
-
-    @IsString()
-    password: string;
+  @IsString()
+  password: string;
 }

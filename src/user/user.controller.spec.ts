@@ -7,17 +7,22 @@ import { UserService } from './user.service';
 
 describe('UserController', () => {
   let controller: UserController;
-  let mockService = {
-    create: jest.fn(dto => { return { id: "ff2e61fc-4cf4-4954-a2f2-fd3760e2b5fd", ...dto } }),
-    update: jest.fn((id, dto) => { return { id, ...dto } })
-  }
+  const mockService = {
+    create: jest.fn((dto) => {
+      return { id: 'ff2e61fc-4cf4-4954-a2f2-fd3760e2b5fd', ...dto };
+    }),
+    update: jest.fn((id, dto) => {
+      return { id, ...dto };
+    }),
+  };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UserController],
       providers: [UserService],
     })
-      .overrideProvider(UserService).useValue(mockService)
+      .overrideProvider(UserService)
+      .useValue(mockService)
       .compile();
 
     controller = module.get<UserController>(UserController);
@@ -28,31 +33,33 @@ describe('UserController', () => {
   });
 
   it('should create a user', () => {
-    let createUserDto: CreateUserDto = {
+    const createUserDto: CreateUserDto = {
       username: 'test',
-      password: 'password'
-    }
+      password: 'password',
+    };
 
     expect(controller.create(createUserDto)).toEqual({
       id: expect.any(String),
       username: createUserDto.username,
-      password: createUserDto.password
-    })
+      password: createUserDto.password,
+    });
 
-    expect(mockService.create).toBeCalled()
-    expect(mockService.create).toHaveBeenCalledWith(createUserDto)
+    expect(mockService.create).toBeCalled();
+    expect(mockService.create).toHaveBeenCalledWith(createUserDto);
   });
 
   it('should update a user', () => {
-    let updateUserDto: UpdateUserDto = {
-      password: 'password1'
-    }
+    const updateUserDto: UpdateUserDto = {
+      password: 'password1',
+    };
 
-    expect(controller.update("ff2e61fc-4cf4-4954-a2f2-fd3760e2b5fd", updateUserDto)).toEqual({
+    expect(
+      controller.update('ff2e61fc-4cf4-4954-a2f2-fd3760e2b5fd', updateUserDto),
+    ).toEqual({
       id: expect.any(String),
-      password: updateUserDto.password
-    })
+      password: updateUserDto.password,
+    });
 
-    expect(mockService.update).toHaveBeenCalled()
-  })
+    expect(mockService.update).toHaveBeenCalled();
+  });
 });

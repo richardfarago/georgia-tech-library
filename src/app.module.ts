@@ -12,51 +12,49 @@ import { MemberModule } from './member/member.module';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { APP_GUARD, APP_PIPE } from '@nestjs/core';
 
-
 const validationOptions: ValidationPipeOptions = {
-    whitelist: true,
-    forbidNonWhitelisted: true,
-    disableErrorMessages: false,
-    stopAtFirstError: true,
-    transform: true, //--> Transform request object into the desired entity type + conversion of primitive types
-    //skipMissingProperties: true //--> Only validate present properties
-}
+  whitelist: true,
+  forbidNonWhitelisted: true,
+  disableErrorMessages: false,
+  stopAtFirstError: true,
+  transform: true, //--> Transform request object into the desired entity type + conversion of primitive types
+  //skipMissingProperties: true //--> Only validate present properties
+};
 
 @Module({
-    imports: [
-        ConfigModule.forRoot({ isGlobal: true }),
-        TypeOrmModule.forRoot({
-            type: 'mssql',
-            host: process.env.AWS,
-            port: parseInt(process.env.PORT),
-            username: process.env.USERNAME,
-            password: process.env.PASSWORD,
-            database: process.env.DATABASE,
-            autoLoadEntities: true,
-            synchronize: false,
-            logging: false,
-            ssl: true,
-            namingStrategy: new SnakeNamingStrategy(),
-            extra: {
-                trustServerCertificate: true,
-                encrypt: false,
-                IntegratedSecurity: false,
-            }
-        }),
-        UserModule,
-        AuthModule,
-        MemberModule,
-    ],
-    controllers: [AppController],
-    providers: [
-        AppService,
-        { provide: APP_GUARD, useClass: JwtAuthGuard },
-        { provide: APP_PIPE, useValue: new ValidationPipe(validationOptions) } // { provide: APP_PIPE, useFactory: () => new ValidationPipe(validationOptions) }
-    ],
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    TypeOrmModule.forRoot({
+      type: 'mssql',
+      host: process.env.AWS,
+      port: parseInt(process.env.PORT),
+      username: process.env.USERNAME,
+      password: process.env.PASSWORD,
+      database: process.env.DATABASE,
+      autoLoadEntities: true,
+      synchronize: false,
+      logging: false,
+      ssl: true,
+      namingStrategy: new SnakeNamingStrategy(),
+      extra: {
+        trustServerCertificate: true,
+        encrypt: false,
+        IntegratedSecurity: false,
+      },
+    }),
+    UserModule,
+    AuthModule,
+    MemberModule,
+  ],
+  controllers: [AppController],
+  providers: [
+    AppService,
+    { provide: APP_GUARD, useClass: JwtAuthGuard },
+    { provide: APP_PIPE, useValue: new ValidationPipe(validationOptions) }, // { provide: APP_PIPE, useFactory: () => new ValidationPipe(validationOptions) }
+  ],
 })
-
 export class AppModule {
-    constructor() {
-        console.log(process.env.HOST)
-    }
+  constructor() {
+    console.log(process.env.HOST);
+  }
 }

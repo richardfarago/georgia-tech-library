@@ -10,10 +10,11 @@ describe('AuthController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [AuthController],
-      providers: [AuthService]
+      providers: [AuthService],
     })
-      .overrideProvider(AuthService).useValue({ login: () => ['ok'], validateUser: () => ['ok'] })
-      .compile()
+      .overrideProvider(AuthService)
+      .useValue({ login: () => ['ok'], validateUser: () => ['ok'] })
+      .compile();
 
     controller = module.get<AuthController>(AuthController);
     service = module.get<AuthService>(AuthService);

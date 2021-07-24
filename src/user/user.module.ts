@@ -10,12 +10,12 @@ import { logger } from 'src/common/middleware/logger.middleware';
   imports: [TypeOrmModule.forFeature([User])],
   controllers: [UserController],
   providers: [UserService, UserSubscriber],
-  exports: [UserService]
+  exports: [UserService],
 
   //Export TypeOrmModule if UserRepo needs to be used outside this module
 })
-export class UserModule { //implements NestModule
-
+export class UserModule {
+  //implements NestModule
   //Middleware config
   // configure(consumer: MiddlewareConsumer) {
   //   consumer

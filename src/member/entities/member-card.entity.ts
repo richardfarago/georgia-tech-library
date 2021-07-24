@@ -1,14 +1,13 @@
-import { Entity, Column, PrimaryColumn } from "typeorm";
+import { Entity, Column, PrimaryColumn } from 'typeorm';
 
 @Entity({ name: 'MemberCard', schema: 'dbo' })
 export class MemberCard {
+  @PrimaryColumn()
+  number: string;
 
-    @PrimaryColumn()
-    number: string;
+  @Column()
+  photo_url: string;
 
-    @Column()
-    photo_url: string;
-
-    @Column()
-    issuedAt: Date;
+  @Column()
+  issuedAt: Date;
 }

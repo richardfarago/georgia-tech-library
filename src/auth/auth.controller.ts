@@ -1,4 +1,12 @@
-import { Controller, Request, Post, UseGuards, Get, Put, NotImplementedException } from '@nestjs/common';
+import {
+  Controller,
+  Request,
+  Post,
+  UseGuards,
+  Get,
+  Put,
+  NotImplementedException,
+} from '@nestjs/common';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { AuthService } from './auth.service';
 import { Public } from 'src/common/decorators/public.decorator';
@@ -11,25 +19,24 @@ import { RBAC } from 'src/common/constants/roles.enum';
 @ApiTags('Authentication')
 @Controller('auth')
 export class AuthController {
+  constructor(private authService: AuthService) {}
 
-    constructor(private authService: AuthService) { }
+  @Public()
+  @UseGuards(LocalAuthGuard)
+  @Post('login')
+  async login(@Request() req) {
+    const user: User = req.user;
+    return this.authService.login(user);
+  }
 
-    @Public()
-    @UseGuards(LocalAuthGuard)
-    @Post('login')
-    async login(@Request() req) {
-        let user: User = req.user
-        return this.authService.login(user)
-    }
+  @Get('me')
+  @Roles(RBAC.getMe)
+  getProfile(@Request() req) {
+    return req.user;
+  }
 
-    @Get('me')
-    @Roles(RBAC.getMe)
-    getProfile(@Request() req) {
-        return req.user
-    }
-
-    @Put('password')
-    changePassword(@Request() req) {
-        throw new NotImplementedException()
-    }
+  @Put('password')
+  changePassword(@Request() req) {
+    throw new NotImplementedException();
+  }
 }

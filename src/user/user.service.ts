@@ -9,14 +9,13 @@ import { plainToClass } from 'class-transformer';
 
 import { v4 as uuidv4 } from 'uuid';
 
-
 @Injectable()
 export class UserService {
-
-  constructor(@InjectRepository(User) private userRepository: Repository<User>) { }
+  constructor(
+    @InjectRepository(User) private userRepository: Repository<User>,
+  ) {}
 
   create(createUserDto: CreateUserDto) {
-
     //TODO Hash password before inserting
     //user.password = createUserDto.password.hash()
 
@@ -42,5 +41,4 @@ export class UserService {
   async remove(id: string): Promise<void> {
     await this.userRepository.delete(id);
   }
-
 }

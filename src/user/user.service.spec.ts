@@ -5,13 +5,13 @@ import { UserService } from './user.service';
 
 describe('UserService', () => {
   let service: UserService;
-  let mockUsersRepository = {}
+  const mockUsersRepository = {};
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         UserService,
-        { provide: getRepositoryToken(User), useValue: mockUsersRepository }
+        { provide: getRepositoryToken(User), useValue: mockUsersRepository },
       ],
     }).compile();
 
@@ -23,7 +23,6 @@ describe('UserService', () => {
   });
 
   it('should create a user', () => {
-
     //expect(service.create(createUserDto))
-  })
+  });
 });

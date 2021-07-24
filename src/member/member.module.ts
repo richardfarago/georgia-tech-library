@@ -11,10 +11,17 @@ import { City } from './entities/city.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Member, MemberCard, LoanPermission, SchoolMember, Address, City])
+    TypeOrmModule.forFeature([
+      Member,
+      MemberCard,
+      LoanPermission,
+      SchoolMember,
+      Address,
+      City,
+    ]),
   ],
   controllers: [MemberController],
   providers: [MemberService],
-  exports: [MemberService]
+  exports: [MemberService],
 })
-export class MemberModule { }
+export class MemberModule {}
