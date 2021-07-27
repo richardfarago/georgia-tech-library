@@ -12,7 +12,7 @@ import { JwtUserDto } from 'src/user/dto/jwt-user.dto';
 @ApiTags('Authentication')
 @Controller('auth')
 export class AuthController {
-    constructor(private authService: AuthService) { }
+    constructor(private authService: AuthService) {}
 
     @Public()
     @UseGuards(LocalAuthGuard)

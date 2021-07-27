@@ -6,21 +6,22 @@ import { AuthService } from './auth.service';
 describe('AuthController', () => {
     let controller: AuthController;
 
-    let jwt_user: JwtUserDto = { id: 'uuid', username: 'test', role: 'test_user' }
-    let token_object = { access_token: 'access_token' }
+    const jwt_user: JwtUserDto = { id: 'uuid', username: 'test', role: 'test_user' };
+    const token_object = { access_token: 'access_token' };
 
-    let mock_service = {
-        login: jest.fn(() => token_object)
-    }
+    const mock_service = {
+        login: jest.fn(() => token_object),
+    };
 
-    let mock_request = { jwt_user }
+    const mock_request = { jwt_user };
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
             controllers: [AuthController],
             providers: [AuthService],
         })
-            .overrideProvider(AuthService).useValue(mock_service)
+            .overrideProvider(AuthService)
+            .useValue(mock_service)
             .compile();
 
         controller = module.get<AuthController>(AuthController);
@@ -32,17 +33,13 @@ describe('AuthController', () => {
 
     describe('login', () => {
         it('should return token', () => {
-            jest.spyOn(mock_service, 'login')
-            expect(controller.login(mock_request)).toEqual(token_object)
-            expect(mock_service.login).toBeCalled()
-        })
-    })
+            jest.spyOn(mock_service, 'login');
+            expect(controller.login(mock_request)).toEqual(token_object);
+            expect(mock_service.login).toBeCalled();
+        });
+    });
 
-    describe('get me', () => {
+    describe('get me', () => {});
 
-    })
-
-    describe('change password', () => {
-
-    })
+    describe('change password', () => {});
 });

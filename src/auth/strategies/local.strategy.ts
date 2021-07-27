@@ -12,13 +12,12 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     }
 
     async validate(username: string, password: string): Promise<JwtUserDto> {
-
         //TODO Hash password before checking
         // password = password.hash()
 
         const user: JwtUserDto = await this.authService.validateUser(username, password);
-        if (ALL_ROLES.filter(x => x === user.role).length === 0) {
-            user.role = Roles.LIB
+        if (ALL_ROLES.filter((x) => x === user.role).length === 0) {
+            user.role = Roles.LIB;
         }
 
         if (!user) {

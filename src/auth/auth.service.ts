@@ -6,7 +6,7 @@ import { UserRoleDto } from 'src/user/dto/user-role.dto';
 
 @Injectable()
 export class AuthService {
-    constructor(private userService: UserService, private jwtService: JwtService) { }
+    constructor(private userService: UserService, private jwtService: JwtService) {}
 
     async validateUser(username: string, pass: string): Promise<JwtUserDto> {
         const user: UserRoleDto = await this.userService.findUserWithRole(username);

@@ -24,26 +24,26 @@ describe('UserService', () => {
 
     const user_array: PlainUserDto[] = [
         {
-            id: "00005591-6afb-4c47-b010-e64350bffbd8",
-            username: "nilchenko4r"
+            id: '00005591-6afb-4c47-b010-e64350bffbd8',
+            username: 'nilchenko4r',
         },
         {
-            id: "0003950f-d088-47d7-8e10-7384d503fd30",
-            username: "gbardema"
+            id: '0003950f-d088-47d7-8e10-7384d503fd30',
+            username: 'gbardema',
         },
         {
-            id: "0006ed9f-50fa-491e-88d7-03d646ea6ace",
-            username: "charbincc"
-        }
-    ]
+            id: '0006ed9f-50fa-491e-88d7-03d646ea6ace',
+            username: 'charbincc',
+        },
+    ];
 
     const mock_user_repository = {
         createQueryBuilder: jest.fn(() => createQueryBuilder),
         save: jest.fn((dto: CreateUserDto) => Promise.resolve(dto)),
         find: jest.fn(() => Promise.resolve(user_array)),
-        findOne: jest.fn((id) => Promise.resolve(user_array.filter(x => x.id === id)[0])),
+        findOne: jest.fn((id) => Promise.resolve(user_array.filter((x) => x.id === id)[0])),
         update: jest.fn((id, dto) => Promise.resolve(true)),
-        delete: jest.fn(id => Promise.resolve(true))
+        delete: jest.fn((id) => Promise.resolve(true)),
     };
 
     beforeEach(async () => {
@@ -59,7 +59,6 @@ describe('UserService', () => {
 
         repo = module.get<Repository<User>>(getRepositoryToken(User));
         service = module.get<UserService>(UserService);
-
     });
 
     it('should be defined', () => {
@@ -67,60 +66,55 @@ describe('UserService', () => {
     });
 
     describe('create user', () => {
-
         it('should add UUID', async () => {
-
             jest.spyOn(repo, 'save');
-            let result = await service.create(create_user_dto)
+            const result = await service.create(create_user_dto);
 
             expect(repo.save).toBeCalledWith({
                 id: result.id,
-                ...create_user_dto
+                ...create_user_dto,
             });
-
         });
 
         it('should not return password', async () => {
             jest.spyOn(repo, 'save');
             expect(await service.create(create_user_dto)).toEqual({
                 id: expect.any(String),
-                username: create_user_dto.username
+                username: create_user_dto.username,
             });
-
         });
-    })
+    });
 
     describe('get all users', () => {
         it('should return array', async () => {
-            jest.spyOn(repo, 'find')
-            expect(await service.findAll()).toEqual(user_array)
-        })
-    })
+            jest.spyOn(repo, 'find');
+            expect(await service.findAll()).toEqual(user_array);
+        });
+    });
 
     describe('get one user', () => {
         it('should return a user', async () => {
-            jest.spyOn(repo, 'findOne')
-            expect(await service.findOneId(user_array[0].id)).toEqual(user_array[0])
-        })
+            jest.spyOn(repo, 'findOne');
+            expect(await service.findOneId(user_array[0].id)).toEqual(user_array[0]);
+        });
 
         it('should return a user with role', async () => {
-            jest.spyOn(repo, 'createQueryBuilder')
-            expect(await service.findUserWithRole('id')).toEqual(true)
-        })
-    })
+            jest.spyOn(repo, 'createQueryBuilder');
+            expect(await service.findUserWithRole('id')).toEqual(true);
+        });
+    });
 
     describe('update user', () => {
         it('should update a user', async () => {
-            jest.spyOn(repo, 'update')
-            expect(await service.update(user_array[0].id, update_user_dto)).toEqual(true)
-        })
-    })
+            jest.spyOn(repo, 'update');
+            expect(await service.update(user_array[0].id, update_user_dto)).toEqual(true);
+        });
+    });
 
     describe('remove user', () => {
         it('should remove a user', async () => {
-            jest.spyOn(repo, 'delete')
-            expect(await service.remove(user_array[0].id)).toEqual(true)
-        })
-    })
-
+            jest.spyOn(repo, 'delete');
+            expect(await service.remove(user_array[0].id)).toEqual(true);
+        });
+    });
 });

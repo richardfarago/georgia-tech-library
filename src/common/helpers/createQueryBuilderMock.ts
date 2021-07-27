@@ -6,4 +6,4 @@ export const createQueryBuilder: any = {
     where: jest.fn(() => createQueryBuilder),
     getRawOne: jest.fn(() => Promise.resolve(true)),
     getRawMany: jest.fn(() => Promise.resolve(true)),
-}
+};

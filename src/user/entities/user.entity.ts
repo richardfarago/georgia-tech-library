@@ -6,14 +6,11 @@ import { IsOptional } from 'class-validator';
 
 @Entity({ name: 'AuthUser', schema: 'dbo' })
 export class User {
-
     @Column('varchar', { primary: true, name: 'id', length: 50 })
     id: string;
 
-
     @Column('varchar', { name: 'username', unique: true, length: 50 })
     username: string;
-
 
     @IsOptional()
     @Column('varchar', { name: 'password_hash', length: 100 })
