@@ -2,46 +2,35 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, ParseUUIDPipe } from
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { ApiBearerAuth, ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { PlainUserDto } from './dto/plain-user.dto';
+import { DeleteResult, UpdateResult } from 'typeorm';
 
-@ApiBearerAuth()
-@ApiTags('Users')
 @Controller('user')
 export class UserController {
-    constructor(private readonly userService: UserService) {}
+    constructor(private readonly userService: UserService) { }
 
     @Post()
-    @ApiOperation({ summary: 'Create user' })
-    @ApiResponse({ status: 201, description: 'User created' })
-    create(@Body() createUserDto: CreateUserDto) {
+    create(@Body() createUserDto: CreateUserDto): Promise<PlainUserDto> {
         return this.userService.create(createUserDto);
     }
 
     @Get()
-    @ApiOperation({ summary: 'Find all users' })
-    @ApiResponse({ status: 200, description: 'Get all users' })
-    findAll() {
+    findAll(): Promise<PlainUserDto[]> {
         return this.userService.findAll();
     }
 
     @Get(':id')
-    @ApiOperation({ summary: 'Find user' })
-    @ApiResponse({ status: 200, description: 'Find one user by ID' })
-    findOneId(@Param('id', ParseUUIDPipe) id: string) {
+    findOneId(@Param('id', ParseUUIDPipe) id: string): Promise<PlainUserDto> {
         return this.userService.findOneId(id);
     }
 
     @Patch(':id')
-    @ApiOperation({ summary: 'Update user' })
-    @ApiResponse({ status: 200, description: 'Update user by ID' })
-    update(@Param('id', ParseUUIDPipe) id: string, @Body() updateUserDto: UpdateUserDto) {
+    update(@Param('id', ParseUUIDPipe) id: string, @Body() updateUserDto: UpdateUserDto): Promise<UpdateResult> {
         return this.userService.update(id, updateUserDto);
     }
 
     @Delete(':id')
-    @ApiOperation({ summary: 'Delete user' })
-    @ApiResponse({ status: 200, description: 'Delete user by ID' })
-    remove(@Param('id', ParseUUIDPipe) id: string) {
+    remove(@Param('id', ParseUUIDPipe) id: string): Promise<DeleteResult> {
         return this.userService.remove(id);
     }
 }

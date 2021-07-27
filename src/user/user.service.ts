@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { DeleteResult, Repository } from 'typeorm';
 
 import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -9,22 +9,28 @@ import { plainToClass } from 'class-transformer';
 
 import { v4 as uuidv4 } from 'uuid';
 import { UserWithRoleDTO } from './dto/with-role.dto';
+import { PlainUserDto } from './dto/plain-user.dto';
 
 @Injectable()
 export class UserService {
     constructor(@InjectRepository(User) private userRepository: Repository<User>) { }
 
-    create(createUserDto: CreateUserDto) {
+    create(createUserDto: CreateUserDto): Promise<PlainUserDto> {
+
         //TODO Hash password before inserting
         //user.password = createUserDto.password.hash()
-        return this.userRepository.save({ id: uuidv4(), ...createUserDto });
+
+        return this.userRepository.save({ id: uuidv4(), ...createUserDto }).then(newUser => {
+            const { password, ...result } = newUser;
+            return plainToClass(PlainUserDto, result);
+        })
     }
 
-    findAll(): Promise<User[]> {
+    findAll(): Promise<PlainUserDto[]> {
         return this.userRepository.find();
     }
 
-    findOneId(id: string): Promise<User> {
+    findOneId(id: string): Promise<PlainUserDto> {
         return this.userRepository.findOne(id);
     }
 
@@ -45,7 +51,7 @@ export class UserService {
         return this.userRepository.update(id, updateUserDto);
     }
 
-    async remove(id: string): Promise<void> {
-        await this.userRepository.delete(id);
+    remove(id: string): Promise<DeleteResult> {
+        return this.userRepository.delete(id);
     }
 }
