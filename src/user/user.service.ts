@@ -8,34 +8,34 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { plainToClass } from 'class-transformer';
 
 import { v4 as uuidv4 } from 'uuid';
-import { UserWithRoleDTO } from './dto/with-role.dto';
 import { PlainUserDto } from './dto/plain-user.dto';
+import { UserRoleDto } from './dto/user-role.dto';
 
 @Injectable()
 export class UserService {
-    constructor(@InjectRepository(User) private userRepository: Repository<User>) { }
+    constructor(@InjectRepository(User) private user_repository: Repository<User>) { }
 
-    create(createUserDto: CreateUserDto): Promise<PlainUserDto> {
+    create(create_user_dto: CreateUserDto): Promise<PlainUserDto> {
 
         //TODO Hash password before inserting
         //user.password = createUserDto.password.hash()
 
-        return this.userRepository.save({ id: uuidv4(), ...createUserDto }).then(newUser => {
+        return this.user_repository.save({ id: uuidv4(), ...create_user_dto }).then(newUser => {
             const { password, ...result } = newUser;
             return plainToClass(PlainUserDto, result);
         })
     }
 
     findAll(): Promise<PlainUserDto[]> {
-        return this.userRepository.find();
+        return this.user_repository.find();
     }
 
     findOneId(id: string): Promise<PlainUserDto> {
-        return this.userRepository.findOne(id);
+        return this.user_repository.findOne(id);
     }
 
-    findUserWithRole(username: string): Promise<UserWithRoleDTO> {
-        return this.userRepository
+    findUserWithRole(username: string): Promise<UserRoleDto> {
+        return this.user_repository
             .createQueryBuilder()
             .select('username')
             .addSelect('id')
@@ -47,11 +47,11 @@ export class UserService {
             .getRawOne();
     }
 
-    update(id: string, updateUserDto: UpdateUserDto) {
-        return this.userRepository.update(id, updateUserDto);
+    update(id: string, update_user_dto: UpdateUserDto) {
+        return this.user_repository.update(id, update_user_dto);
     }
 
     remove(id: string): Promise<DeleteResult> {
-        return this.userRepository.delete(id);
+        return this.user_repository.delete(id);
     }
 }

@@ -6,6 +6,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { User } from 'src/user/entities/user.entity';
 import { RequirePermission } from 'src/common/decorators/permission.decorator';
 import { Permissions } from 'src/common/constants/permissions.enum';
+import { JwtUserDto } from 'src/user/dto/jwt-user.dto';
 
 @ApiBearerAuth()
 @ApiTags('Authentication')
@@ -16,8 +17,8 @@ export class AuthController {
     @Public()
     @UseGuards(LocalAuthGuard)
     @Post('login')
-    async login(@Request() req) {
-        const user: User = req.user;
+    login(@Request() req): { access_token: string } {
+        const user: JwtUserDto = req.user;
         return this.authService.login(user);
     }
 

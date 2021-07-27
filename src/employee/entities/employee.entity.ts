@@ -5,12 +5,12 @@ import { User } from 'src/user/entities/user.entity';
 @Entity('Employee', { schema: 'dbo' })
 export class Employee {
     @Column('varchar', { primary: true, name: 'user_id', length: 50 })
-    userId: string;
+    user_id: string;
 
     @Column('varchar', { name: 'role', length: 50 })
     @ManyToOne(() => Address)
     @JoinColumn([{ name: 'home_address_id', referencedColumnName: 'id' }])
-    homeAddress: Address;
+    home_address: Address;
 
     @OneToOne(() => User, (user) => user.employee)
     @JoinColumn([{ name: 'user_id', referencedColumnName: 'id' }])

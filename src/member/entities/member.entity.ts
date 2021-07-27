@@ -10,7 +10,7 @@ import { Address } from './address.entity';
 @Entity({ name: 'Member', schema: 'dbo' })
 export class Member {
     @Column('varchar', { primary: true, name: 'user_id', length: 50 })
-    userId: string;
+    user_id: string;
 
     @Column('varchar', { name: 'phone_number', length: 50 })
     phoneNumber: string;

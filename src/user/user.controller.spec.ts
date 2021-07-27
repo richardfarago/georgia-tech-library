@@ -10,17 +10,17 @@ describe('UserController', () => {
     let service: UserService;
 
 
-    const createUserDto: CreateUserDto = {
+    const create_user_dto: CreateUserDto = {
         username: 'test',
         password: 'password',
     };
 
-    const updateUserDto: UpdateUserDto = {
+    const update_user_dto: UpdateUserDto = {
         username: 'test123',
         password: 'password123',
     };
 
-    const userArray: PlainUserDto[] = [
+    const user_array: PlainUserDto[] = [
         {
             id: "00005591-6afb-4c47-b010-e64350bffbd8",
             username: "nilchenko4r"
@@ -35,10 +35,10 @@ describe('UserController', () => {
         }
     ]
 
-    const mockService = {
+    const mock_service = {
         create: jest.fn((dto: CreateUserDto) => Promise.resolve(dto)),
-        findAll: jest.fn(() => Promise.resolve(userArray)),
-        findOneId: jest.fn((id) => Promise.resolve(userArray.filter(x => x.id === id)[0])),
+        findAll: jest.fn(() => Promise.resolve(user_array)),
+        findOneId: jest.fn((id) => Promise.resolve(user_array.filter(x => x.id === id)[0])),
         update: jest.fn((id, dto) => Promise.resolve(true)),
         remove: jest.fn(id => Promise.resolve(true))
     };
@@ -48,7 +48,7 @@ describe('UserController', () => {
             controllers: [UserController],
             providers: [UserService],
         })
-            .overrideProvider(UserService).useValue(mockService)
+            .overrideProvider(UserService).useValue(mock_service)
             .compile();
 
         controller = module.get<UserController>(UserController);
@@ -63,8 +63,8 @@ describe('UserController', () => {
         it('should create a user', async () => {
             jest.spyOn(service, 'create');
 
-            expect(await controller.create(createUserDto)).toBeTruthy()
-            expect(service.create).toBeCalledWith(createUserDto);
+            expect(await controller.create(create_user_dto)).toBeTruthy()
+            expect(service.create).toBeCalledWith(create_user_dto);
         });
     })
 
@@ -72,17 +72,17 @@ describe('UserController', () => {
         it('should return all users', async () => {
             jest.spyOn(service, 'findAll');
 
-            expect(await controller.create(createUserDto)).toBeTruthy()
-            expect(service.create).toBeCalledWith(createUserDto);
+            expect(await controller.findAll()).toEqual(user_array)
+            expect(service.findAll).toBeCalledWith();
         });
     })
 
     describe('get user', () => {
         it('should return a user', async () => {
-            jest.spyOn(service, 'findAll');
+            jest.spyOn(service, 'findOneId');
 
-            expect(await controller.findAll()).toBeTruthy()
-            expect(service.findAll).toBeCalled();
+            expect(await controller.findOneId(user_array[0].id)).toEqual(user_array[0])
+            expect(service.findOneId).toBeCalled();
         });
     })
 
@@ -90,8 +90,8 @@ describe('UserController', () => {
         it('should updpate a user', async () => {
             jest.spyOn(service, 'update');
 
-            expect(await controller.update(userArray[0].id, updateUserDto)).toBeTruthy()
-            expect(service.update).toBeCalledWith(userArray[0].id, updateUserDto);
+            expect(await controller.update(user_array[0].id, update_user_dto)).toBeTruthy()
+            expect(service.update).toBeCalledWith(user_array[0].id, update_user_dto);
         });
     })
 
@@ -99,8 +99,8 @@ describe('UserController', () => {
         it('should remove a user', async () => {
             jest.spyOn(service, 'remove');
 
-            expect(await controller.remove(userArray[0].id)).toBeTruthy()
-            expect(service.remove).toBeCalledWith(userArray[0].id);
+            expect(await controller.remove(user_array[0].id)).toBeTruthy()
+            expect(service.remove).toBeCalledWith(user_array[0].id);
         });
     })
 });

@@ -1,28 +1,48 @@
-import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
+import { JwtUserDto } from 'src/user/dto/jwt-user.dto';
 import { AuthController } from './auth.controller';
-import { AuthModule } from './auth.module';
 import { AuthService } from './auth.service';
 
 describe('AuthController', () => {
     let controller: AuthController;
-    let service: AuthService;
+
+    let jwt_user: JwtUserDto = { id: 'uuid', username: 'test', role: 'test_user' }
+    let token_object = { access_token: 'access_token' }
+
+    let mock_service = {
+        login: jest.fn(() => token_object)
+    }
+
+    let mock_request = { jwt_user }
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
-            imports: [JwtService],
             controllers: [AuthController],
             providers: [AuthService],
         })
-            .overrideProvider(AuthService)
-            .useValue({ login: () => ['ok'], validateUser: () => ['ok'] })
+            .overrideProvider(AuthService).useValue(mock_service)
             .compile();
 
         controller = module.get<AuthController>(AuthController);
-        service = module.get<AuthService>(AuthService);
     });
 
     it('should be defined', () => {
         expect(controller).toBeDefined();
     });
+
+    describe('login', () => {
+        it('should return token', () => {
+            jest.spyOn(mock_service, 'login')
+            expect(controller.login(mock_request)).toEqual(token_object)
+            expect(mock_service.login).toBeCalled()
+        })
+    })
+
+    describe('get me', () => {
+
+    })
+
+    describe('change password', () => {
+
+    })
 });

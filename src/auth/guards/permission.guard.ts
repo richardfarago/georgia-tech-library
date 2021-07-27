@@ -7,14 +7,14 @@ export class RolesGuard implements CanActivate {
     constructor(private reflector: Reflector) { }
 
     canActivate(context: ExecutionContext): boolean {
-        const requiredRoles = this.reflector.getAllAndOverride<string[]>(PERMISSION_KEY, [
+        const required_roles = this.reflector.getAllAndOverride<string[]>(PERMISSION_KEY, [
             context.getHandler(),
             context.getClass(),
         ])
 
-        if (requiredRoles) {
+        if (required_roles) {
             const { user } = context.switchToHttp().getRequest();
-            return requiredRoles.some((role) => user.role?.includes(role));
+            return required_roles.some((role) => user.role?.includes(role));
         }
         return true;
     }

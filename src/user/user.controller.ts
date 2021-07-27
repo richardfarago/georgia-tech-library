@@ -10,8 +10,8 @@ export class UserController {
     constructor(private readonly userService: UserService) { }
 
     @Post()
-    create(@Body() createUserDto: CreateUserDto): Promise<PlainUserDto> {
-        return this.userService.create(createUserDto);
+    create(@Body() create_user_dto: CreateUserDto): Promise<PlainUserDto> {
+        return this.userService.create(create_user_dto);
     }
 
     @Get()
@@ -25,8 +25,8 @@ export class UserController {
     }
 
     @Patch(':id')
-    update(@Param('id', ParseUUIDPipe) id: string, @Body() updateUserDto: UpdateUserDto): Promise<UpdateResult> {
-        return this.userService.update(id, updateUserDto);
+    update(@Param('id', ParseUUIDPipe) id: string, @Body() update_user_dto: UpdateUserDto): Promise<UpdateResult> {
+        return this.userService.update(id, update_user_dto);
     }
 
     @Delete(':id')

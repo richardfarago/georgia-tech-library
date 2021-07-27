@@ -7,7 +7,7 @@ import { Member } from './entities/member.entity';
 
 @Injectable()
 export class MemberService {
-    constructor(@InjectRepository(Member) private memberRepository: Repository<Member>) {}
+    constructor(@InjectRepository(Member) private memberRepository: Repository<Member>) { }
 
     create(createMemberDto: CreateMemberDto) {
         return 'This action adds a new member';
@@ -27,7 +27,7 @@ export class MemberService {
 
     findOne(id: string) {
         return this.memberRepository.findOne({
-            where: { userId: id },
+            where: { user_id: id },
             relations: ['user', 'member_card', 'loan_permission', 'school_member', 'campus_address'],
         });
     }
