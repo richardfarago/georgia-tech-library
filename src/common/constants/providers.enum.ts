@@ -1,3 +1,0 @@
-export enum Providers {
-    DATABASE_CONNECTION = 'DATABASE_CONNECTION'
-}

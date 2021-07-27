@@ -1,34 +1,35 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { Connection } from 'typeorm';
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+
 import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { plainToClass } from 'class-transformer';
+
 import { v4 as uuidv4 } from 'uuid';
 import { UserWithRoleDTO } from './dto/with-role.dto';
-import { Providers } from 'src/common/constants/providers.enum';
 
 @Injectable()
 export class UserService {
-    constructor(
-        @Inject(Providers.DATABASE_CONNECTION) private db: Connection,
-    ) { }
+    constructor(@InjectRepository(User) private userRepository: Repository<User>) { }
 
     create(createUserDto: CreateUserDto) {
         //TODO Hash password before inserting
         //user.password = createUserDto.password.hash()
-        return this.db.getRepository(User).save({ id: uuidv4(), ...createUserDto });
+        return this.userRepository.save({ id: uuidv4(), ...createUserDto });
     }
 
     findAll(): Promise<User[]> {
-        return this.db.getRepository(User).find();
+        return this.userRepository.find();
     }
 
     findOneId(id: string): Promise<User> {
-        return this.db.getRepository(User).findOne(id)
+        return this.userRepository.findOne(id);
     }
 
     findUserWithRole(username: string): Promise<UserWithRoleDTO> {
-        return this.db.getRepository(User)
+        return this.userRepository
             .createQueryBuilder()
             .select('username')
             .addSelect('id')
@@ -41,10 +42,10 @@ export class UserService {
     }
 
     update(id: string, updateUserDto: UpdateUserDto) {
-        return this.db.getRepository(User).update(id, updateUserDto);
+        return this.userRepository.update(id, updateUserDto);
     }
 
     async remove(id: string): Promise<void> {
-        await this.db.getRepository(User).delete(id);
+        await this.userRepository.delete(id);
     }
 }

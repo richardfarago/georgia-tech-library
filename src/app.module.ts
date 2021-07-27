@@ -13,7 +13,6 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { APP_GUARD, APP_PIPE } from '@nestjs/core';
 import { EmployeeModule } from './employee/employee.module';
 import { RolesGuard } from './auth/guards/permission.guard';
-import { DatabaseModule } from './database/database.module';
 
 const validationOptions: ValidationPipeOptions = {
     whitelist: true,
@@ -27,6 +26,24 @@ const validationOptions: ValidationPipeOptions = {
 @Module({
     imports: [
         ConfigModule.forRoot({ isGlobal: true }),
+        TypeOrmModule.forRoot({
+            type: 'mssql',
+            host: process.env.AWS,
+            port: parseInt(process.env.PORT),
+            username: process.env.USERNAME,
+            password: process.env.PASSWORD,
+            database: process.env.DATABASE,
+            autoLoadEntities: true,
+            synchronize: false,
+            logging: true,
+            ssl: true,
+            namingStrategy: new SnakeNamingStrategy(),
+            extra: {
+                trustServerCertificate: true,
+                encrypt: false,
+                IntegratedSecurity: false,
+            },
+        }),
         UserModule,
         AuthModule,
         MemberModule,
@@ -40,5 +57,8 @@ const validationOptions: ValidationPipeOptions = {
         { provide: APP_PIPE, useValue: new ValidationPipe(validationOptions) }, // { provide: APP_PIPE, useFactory: () => new ValidationPipe(validationOptions) }
     ],
 })
-export class AppModule { }
-
+export class AppModule {
+    constructor() {
+        console.log(process.env.HOST);
+    }
+}
