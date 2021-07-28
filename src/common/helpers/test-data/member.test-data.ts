@@ -12,7 +12,6 @@ export const create_lib: CreateMemberDto = {
     },
     school_member: null,
     user: {
-        id: null,
         username: "testlib",
         password: "test"
     },
@@ -39,7 +38,6 @@ export const create_student: CreateMemberDto = {
     },
     library: null,
     user: {
-        id: null,
         username: "mariatestova",
         password: "test"
     },
@@ -129,8 +127,7 @@ export const member_list: Member[] = [
         },
         user: {
             id: "00005591-6afb-4c47-b010-e64350bffbd8",
-            username: "nilchenko4r",
-            password: "WfE8EowJDnH"
+            username: "nilchenko4r"
         },
         member_card: {
             number: "85-785-3299",
@@ -173,8 +170,7 @@ export const member_list: Member[] = [
         },
         user: {
             id: "0003950f-d088-47d7-8e10-7384d503fd30",
-            username: "gbardema",
-            password: "7XK5n8IS8DYh"
+            username: "gbardema"
         },
         member_card: {
             number: "40-546-8476",
@@ -217,8 +213,7 @@ export const member_list: Member[] = [
         },
         user: {
             id: "0006ed9f-50fa-491e-88d7-03d646ea6ace",
-            username: "charbincc",
-            password: "84NfLK6mx8TD"
+            username: "charbincc"
         },
         member_card: {
             number: "88-111-5090",
@@ -248,7 +243,7 @@ export const member_list: Member[] = [
     },
     {
         user_id: "000919ad-582f-4f8c-93f5-bbb285953b0a",
-        phone_number: "+86 (408) 898-0340",
+        phone_number: "+4560371289",
         library: null,
         campus_address: {
             id: "d4665dcc-8e91-4ce5-8ffc-5e0e59bddba7",
@@ -261,8 +256,7 @@ export const member_list: Member[] = [
         },
         user: {
             id: "000919ad-582f-4f8c-93f5-bbb285953b0a",
-            username: "lflipsener",
-            password: "zZRgDkQXBMq"
+            username: "lflipsener"
         },
         member_card: {
             number: "63-585-9618",
@@ -305,8 +299,7 @@ export const member_list: Member[] = [
         },
         user: {
             id: "00098a50-cbd0-455e-9cf1-5164d1661ced",
-            username: "kgrasner2s",
-            password: "sDUbWKSt"
+            username: "kgrasner2s"
         },
         member_card: {
             number: "98-179-0343",
@@ -349,8 +342,7 @@ export const member_list: Member[] = [
         },
         user: {
             id: "000adf36-1d16-45c1-8482-ce2b7bedf274",
-            username: "nslarkep9",
-            password: "OBr67cvnngC"
+            username: "nslarkep9"
         },
         member_card: {
             number: "42-239-4077",
@@ -393,8 +385,7 @@ export const member_list: Member[] = [
         },
         user: {
             id: "0013eeab-9d5f-4030-8d01-6f45afe5943a",
-            username: "dmcane72",
-            password: "EvhpyTmQI4"
+            username: "dmcane72"
         },
         member_card: {
             number: "58-351-2598",
@@ -418,50 +409,6 @@ export const member_list: Member[] = [
                 city: {
                     zip: "20430",
                     city: "Washington"
-                }
-            }
-        }
-    },
-    {
-        user_id: "00147a79-a1e2-48ca-b8e4-6e4c45ed2854",
-        phone_number: "+66 (410) 118-0234",
-        library: null,
-        campus_address: {
-            id: "4eeba1af-c315-4a5d-80b0-bfecf4b3e6b1",
-            street: "Luster Pass",
-            house_number: "1",
-            city: {
-                zip: "71161",
-                city: "Shreveport"
-            }
-        },
-        user: {
-            id: "00147a79-a1e2-48ca-b8e4-6e4c45ed2854",
-            username: "mmerillkr",
-            password: "J7jRj5H"
-        },
-        member_card: {
-            number: "77-430-3567",
-            photo_url: "http://dummyimage.com/169x205.png/5fa2dd/ffffff",
-            issuedAt: "2020-07-20T21:52:09.000Z"
-        },
-        loan_permission: {
-            name: "Student",
-            book_limit: 5,
-            loan_period: 21,
-            grace_period: 7
-        },
-        school_member: {
-            ssn: "369-12-9284",
-            first_name: "Monika",
-            last_name: "Merill",
-            home_address: {
-                id: "cb52fa01-5aa6-4061-ab61-87a85810bd9f",
-                street: "Rowland Road",
-                house_number: "572",
-                city: {
-                    zip: "65110",
-                    city: "Jefferson City"
                 }
             }
         }

@@ -3,7 +3,6 @@ import { PlainUserDto } from "src/user/dto/plain-user.dto";
 import { UpdateUserDto } from "src/user/dto/update-user.dto";
 
 export const create_user_dto: CreateUserDto = {
-    id: null,
     username: 'test',
     password: 'password',
 };
