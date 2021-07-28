@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectConnection, InjectRepository } from '@nestjs/typeorm';
 import { Connection, DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { CreateMemberDto } from './dto/create-member.dto';
@@ -56,11 +56,10 @@ export class MemberService {
     async remove(id: string): Promise<any> {
         return this.connection.transaction(async (manager) => {
             try {
-
                 const member: Member = await this.findOne(id);
 
                 if (member) {
-                    await manager.query(`DELETE FROM AuthUser WHERE id = '${member.user_id}'`);
+                    await manager.query(`DELETE FROM AuthUser WHERE id = '${member.user_id}'`); //--> Member relation cascades
                     await manager.query(`DELETE FROM SchoolMember WHERE ssn = '${member.school_member?.ssn}'`);
                     await manager.query(`DELETE FROM Library WHERE name = '${member.library?.name}'`);
                     await manager.query(`DELETE FROM Address WHERE id IN ('${member.campus_address.id}','${member.school_member?.home_address.id}')`);
@@ -70,8 +69,8 @@ export class MemberService {
                     return 'Member does not exist';
                 }
             } catch (err) {
-                console.log(err);
-                return err;
+                console.log(err)
+                throw new InternalServerErrorException(err)
             }
         });
     }
