@@ -1,3 +1,5 @@
+import { Type } from 'class-transformer';
+import { IsObject, IsString, ValidateNested } from 'class-validator';
 import { Entity, Column, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
 import { City } from './city.entity';
 
@@ -12,7 +14,22 @@ export class Address {
     @Column('varchar', { name: 'house_number', length: 50 })
     house_number: string;
 
-    @ManyToOne(() => City, { eager: true })
+    @ManyToOne(() => City, { cascade: true, eager: true })
     @JoinColumn({ name: 'zip', referencedColumnName: 'zip' })
+    city: City;
+}
+
+
+export class CreateAddressDto {
+
+    @IsString()
+    street: string;
+
+    @IsString()
+    house_number: string;
+
+    @IsObject()
+    @ValidateNested({ each: true })
+    @Type(() => City)
     city: City;
 }

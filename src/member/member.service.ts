@@ -1,42 +1,89 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Inject, Injectable } from '@nestjs/common';
+import { InjectConnection, InjectRepository } from '@nestjs/typeorm';
+import { Connection, DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { CreateMemberDto } from './dto/create-member.dto';
 import { UpdateMemberDto } from './dto/update-member.dto';
 import { Member } from './entities/member.entity';
+import { v4 as uuidv4 } from 'uuid';
+import * as moment from 'moment';
+import { MemberCard } from './entities/member-card.entity';
+const RandExp = require('randexp');
 
 @Injectable()
 export class MemberService {
-    constructor(@InjectRepository(Member) private memberRepository: Repository<Member>) {}
+    constructor(
+        @InjectConnection() private connection: Connection,
+        @InjectRepository(Member) private member_repository: Repository<Member>,
+    ) { }
 
-    create(createMemberDto: CreateMemberDto) {
-        return 'This action adds a new member';
+    async create(create_member_dto: CreateMemberDto): Promise<Member> {
+
+        let member: Member = this.member_repository.create(create_member_dto)
+
+        let id = uuidv4()
+        member.user.id = id
+        member.user_id = id
+
+        let campus_id = uuidv4()
+        member.campus_address.id = campus_id
+        member.member_card = this.create_member_card(id)
+
+        if (member.school_member) {
+            let home_id = uuidv4()
+            member.school_member.home_address.id = home_id
+        }
+
+        return this.member_repository.save(member)
     }
 
-    async findAll() {
-        return this.memberRepository.find({
-            relations: ['user', 'member_card', 'loan_permission', 'school_member', 'campus_address'],
+    async findAll(): Promise<Member[]> {
+        return this.member_repository.find({
+            relations: ['user', 'member_card', 'loan_permission', 'school_member'],
             take: 500,
         });
-        // return this.memberRepository.query("SELECT M.*,U.*,MC.* FROM Member M INNER JOIN AuthUser U ON U.id = M.user_id INNER JOIN MemberCard MC ON MC.number = M.card_number")
-        // return this.memberRepository.createQueryBuilder('M')
-        //   .leftJoinAndMapMany('User', 'U', 'U.id = M.user_id')
-        //   .leftJoinAndMapMany('MemberCard', 'MC', 'MC.number = M.card_number')
-        //   .limit(50).getMany()
     }
 
-    findOne(id: string) {
-        return this.memberRepository.findOne({
+    findOne(id: string): Promise<Member> {
+        return this.member_repository.findOne({
             where: { user_id: id },
-            relations: ['user', 'member_card', 'loan_permission', 'school_member', 'campus_address'],
+            relations: ['user', 'member_card', 'loan_permission', 'school_member'],
         });
     }
 
-    update(id: number, updateMemberDto: UpdateMemberDto) {
-        return `This action updates a #${id} member`;
+    update(id: string, update_member_dto: UpdateMemberDto): Promise<UpdateResult> {
+        return this.member_repository.update(id, update_member_dto);
     }
 
-    remove(id: number) {
-        return `This action removes a #${id} member`;
+    async remove(id: string): Promise<any> {
+
+        return this.connection.transaction(async manager => {
+            try {
+                const member: Member = await this.findOne(id)
+
+                if (member) {
+                    await manager.query(`DELETE FROM AuthUser WHERE id = '${member.user_id}'`)
+                    await manager.query(`DELETE FROM SchoolMember WHERE ssn = '${member.school_member?.ssn}'`)
+                    await manager.query(`DELETE FROM Library WHERE name = '${member.library?.name}'`)
+                    await manager.query(`DELETE FROM Address WHERE id IN ('${member.campus_address.id}','${member.school_member?.home_address.id}')`)
+                    await manager.query(`DELETE FROM MemberCard WHERE number = '${member.member_card.number}'`)
+                    return "Member deleted"
+                } else {
+                    return "Member does not exist"
+                }
+
+            } catch (err) {
+                console.log(err)
+                return err
+            }
+
+        });
+    }
+
+    private create_member_card(id: string): MemberCard {
+        return {
+            number: new RandExp(/\d{9}/).gen(),
+            issuedAt: moment().toDate(),
+            photo_url: `http://dummyimage.com/131x108.png/${id}`
+        }
     }
 }

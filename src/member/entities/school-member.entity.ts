@@ -1,6 +1,8 @@
 import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { Member } from './member.entity';
-import { Address } from './address.entity';
+import { Address, CreateAddressDto } from './address.entity';
+import { IsObject, IsString, ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
 
 @Entity({ name: 'SchoolMember', schema: 'dbo' })
 export class SchoolMember {
@@ -13,7 +15,23 @@ export class SchoolMember {
     @Column('varchar', { name: 'last_name', length: 50 })
     last_name: string;
 
-    @ManyToOne(() => Address, { eager: true })
+    @ManyToOne(() => Address, { cascade: true, eager: true })
     @JoinColumn([{ name: 'home_address_id', referencedColumnName: 'id' }])
     home_address: Address;
+}
+
+export class CreateSchoolMemberDto {
+    @IsString()
+    ssn: string
+
+    @IsString()
+    first_name: string
+
+    @IsString()
+    last_name: string
+
+    @IsObject()
+    @ValidateNested()
+    @Type(() => CreateAddressDto)
+    home_address: CreateAddressDto
 }

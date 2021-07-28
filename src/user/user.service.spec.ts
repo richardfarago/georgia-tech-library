@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { createQueryBuilder } from '../../src/common/helpers/createQueryBuilderMock';
+import { createQueryBuilder } from '../common/helpers/mocks/createQueryBuilderMock';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { PlainUserDto } from './dto/plain-user.dto';
