@@ -13,5 +13,5 @@ export class MemberCard {
 
     @IsDateString()
     @Column()
-    issuedAt: Date;
+    issuedAt: string;
 }

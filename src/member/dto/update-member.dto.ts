@@ -1,11 +1,10 @@
-import { PartialType } from '@nestjs/swagger';
-import { IsPhoneNumber, IsString } from 'class-validator';
+import { IsObject, IsPhoneNumber } from 'class-validator';
+import { QueryPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 import { LoanPermission } from '../entities/loan-permission.entity';
-import { CreateMemberDto } from './create-member.dto';
 
 export class UpdateMemberDto {
-    @IsString()
-    loan_permission: LoanPermission;
+    @IsObject()
+    loan_permission: QueryPartialEntity<LoanPermission>;
 
     @IsPhoneNumber()
     phone_number: string;

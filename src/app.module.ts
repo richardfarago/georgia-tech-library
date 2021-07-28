@@ -1,4 +1,4 @@
-import { Module, ValidationPipe, ValidationPipeOptions } from '@nestjs/common';
+import { ClassSerializerInterceptor, Module, ValidationPipe, ValidationPipeOptions } from '@nestjs/common';
 import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
@@ -57,4 +57,4 @@ const validationOptions: ValidationPipeOptions = {
         { provide: APP_PIPE, useValue: new ValidationPipe(validationOptions) }, // { provide: APP_PIPE, useFactory: () => new ValidationPipe(validationOptions) }
     ],
 })
-export class AppModule {}
+export class AppModule { }

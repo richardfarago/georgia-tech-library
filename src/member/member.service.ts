@@ -14,7 +14,7 @@ export class MemberService {
     constructor(
         @InjectConnection() private connection: Connection,
         @InjectRepository(Member) private member_repository: Repository<Member>,
-    ) {}
+    ) { }
 
     async create(create_member_dto: CreateMemberDto): Promise<Member> {
         const member: Member = this.member_repository.create(create_member_dto);
@@ -56,15 +56,14 @@ export class MemberService {
     async remove(id: string): Promise<any> {
         return this.connection.transaction(async (manager) => {
             try {
+
                 const member: Member = await this.findOne(id);
 
                 if (member) {
                     await manager.query(`DELETE FROM AuthUser WHERE id = '${member.user_id}'`);
                     await manager.query(`DELETE FROM SchoolMember WHERE ssn = '${member.school_member?.ssn}'`);
                     await manager.query(`DELETE FROM Library WHERE name = '${member.library?.name}'`);
-                    await manager.query(
-                        `DELETE FROM Address WHERE id IN ('${member.campus_address.id}','${member.school_member?.home_address.id}')`,
-                    );
+                    await manager.query(`DELETE FROM Address WHERE id IN ('${member.campus_address.id}','${member.school_member?.home_address.id}')`);
                     await manager.query(`DELETE FROM MemberCard WHERE number = '${member.member_card.number}'`);
                     return 'Member deleted';
                 } else {
@@ -77,10 +76,10 @@ export class MemberService {
         });
     }
 
-    private create_member_card(id: string): MemberCard {
+    create_member_card(id: string): MemberCard {
         return {
             number: new RandExp(/\d{9}/).gen(),
-            issuedAt: moment().toDate(),
+            issuedAt: moment().toISOString(),
             photo_url: `http://dummyimage.com/131x108.png/${id}`,
         };
     }

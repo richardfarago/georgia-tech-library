@@ -7,6 +7,7 @@ import { MemberCard } from './member-card.entity';
 import { SchoolMember } from './school-member.entity';
 import { Address } from './address.entity';
 import { Library } from './library.entity';
+import { CreateUserDto } from 'src/user/dto/create-user.dto';
 
 @Entity({ name: 'Member', schema: 'dbo' })
 export class Member {
@@ -16,18 +17,14 @@ export class Member {
     @Column('varchar', { name: 'phone_number', length: 50 })
     phone_number: string;
 
-    // @IsOptional()
-    // @Column()
-    // institution_name: string;
-
     @IsOptional()
     @OneToOne(() => Library, { cascade: true, eager: true })
     @JoinColumn({ name: 'institution_name', referencedColumnName: 'name' })
     library: Library;
 
-    @OneToOne(() => User, { cascade: true }) //{ eager: true })
+    @OneToOne(() => User, { cascade: true })
     @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
-    user: User;
+    user: CreateUserDto;
 
     @IsOptional()
     @OneToOne(() => SchoolMember, { cascade: true })

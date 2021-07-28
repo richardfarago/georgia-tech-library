@@ -3,6 +3,7 @@ import { Member } from '../../member/entities/member.entity';
 import { Employee } from 'src/employee/entities/employee.entity';
 
 import { IsOptional } from 'class-validator';
+import { Exclude } from 'class-transformer';
 
 @Entity({ name: 'AuthUser', schema: 'dbo' })
 export class User {
@@ -12,8 +13,9 @@ export class User {
     @Column('varchar', { name: 'username', unique: true, length: 50 })
     username: string;
 
+    @Exclude()
     @IsOptional()
-    @Column('varchar', { name: 'password_hash', length: 100 })
+    @Column('varchar', { select: false, name: 'password_hash', length: 100 })
     password: string;
 
     @OneToOne(() => Member, (member) => member.user)
