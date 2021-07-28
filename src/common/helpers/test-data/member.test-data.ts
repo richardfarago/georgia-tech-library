@@ -427,4 +427,4 @@ export const update_member = {
     body: update_body
 }
 
-export const user_id = 'UUID'
+export const member_id = 'UUID'

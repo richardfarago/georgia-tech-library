@@ -1,25 +1,25 @@
-import { Controller, Request, Post, UseGuards, Get, Put, NotImplementedException } from '@nestjs/common';
+import { Controller, Request, Post, UseGuards, Get, Put, Body } from '@nestjs/common';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { AuthService } from './auth.service';
 import { Public } from 'src/common/decorators/public.decorator';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { User } from 'src/user/entities/user.entity';
 import { RequirePermission } from 'src/common/decorators/permission.decorator';
 import { Permissions } from 'src/common/constants/permissions.enum';
 import { JwtUserDto } from 'src/user/dto/jwt-user.dto';
+import { UpdateResult } from 'typeorm';
 
 @ApiBearerAuth()
 @ApiTags('Authentication')
 @Controller('auth')
 export class AuthController {
-    constructor(private authService: AuthService) {}
+    constructor(private auth_service: AuthService) { }
 
     @Public()
     @UseGuards(LocalAuthGuard)
     @Post('login')
     login(@Request() req): { access_token: string } {
         const user: JwtUserDto = req.user;
-        return this.authService.login(user);
+        return this.auth_service.login(user);
     }
 
     @Get('me')
@@ -29,7 +29,7 @@ export class AuthController {
     }
 
     @Put('password')
-    changePassword(@Request() req) {
-        throw new NotImplementedException();
+    changePassword(@Request() req, @Body('password') password: string): Promise<UpdateResult> {
+        return this.auth_service.changePassword(req.user.id, password)
     }
 }

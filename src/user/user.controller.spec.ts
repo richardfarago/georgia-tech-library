@@ -1,8 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { create_user_dto, update_user_dto, user_array } from 'src/common/helpers/test-data/user.test-data';
+import { create_user_dto, update_user_dto, user_list } from 'src/common/helpers/test-data/user.test-data';
 import { CreateUserDto } from './dto/create-user.dto';
-import { PlainUserDto } from './dto/plain-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
 
@@ -12,8 +10,8 @@ describe('UserController', () => {
 
     const mock_service = {
         create: jest.fn((dto: CreateUserDto) => Promise.resolve(dto)),
-        findAll: jest.fn(() => Promise.resolve(user_array)),
-        findOneId: jest.fn((id) => Promise.resolve(user_array.filter((x) => x.id === id)[0])),
+        findAll: jest.fn(() => Promise.resolve(user_list)),
+        findOneId: jest.fn((id) => Promise.resolve(user_list.filter((x) => x.id === id)[0])),
         update: jest.fn((id, dto) => Promise.resolve(true)),
         remove: jest.fn((id) => Promise.resolve(true)),
     };
@@ -48,7 +46,7 @@ describe('UserController', () => {
         it('should return all users', async () => {
             jest.spyOn(service, 'findAll');
 
-            expect(await controller.findAll()).toEqual(user_array);
+            expect(await controller.findAll()).toEqual(user_list);
             expect(service.findAll).toBeCalledWith();
         });
     });
@@ -57,7 +55,7 @@ describe('UserController', () => {
         it('should return a user', async () => {
             jest.spyOn(service, 'findOneId');
 
-            expect(await controller.findOneId(user_array[0].id)).toEqual(user_array[0]);
+            expect(await controller.findOneId(user_list[0].id)).toEqual(user_list[0]);
             expect(service.findOneId).toBeCalled();
         });
     });
@@ -66,8 +64,8 @@ describe('UserController', () => {
         it('should updpate a user', async () => {
             jest.spyOn(service, 'update');
 
-            expect(await controller.update(user_array[0].id, update_user_dto)).toBeTruthy();
-            expect(service.update).toBeCalledWith(user_array[0].id, update_user_dto);
+            expect(await controller.update(user_list[0].id, update_user_dto)).toBeTruthy();
+            expect(service.update).toBeCalledWith(user_list[0].id, update_user_dto);
         });
     });
 
@@ -75,8 +73,8 @@ describe('UserController', () => {
         it('should remove a user', async () => {
             jest.spyOn(service, 'remove');
 
-            expect(await controller.remove(user_array[0].id)).toBeTruthy();
-            expect(service.remove).toBeCalledWith(user_array[0].id);
+            expect(await controller.remove(user_list[0].id)).toBeTruthy();
+            expect(service.remove).toBeCalledWith(user_list[0].id);
         });
     });
 });

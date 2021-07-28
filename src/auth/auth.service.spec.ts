@@ -14,6 +14,7 @@ describe('AuthService', () => {
 
     const mock_user_service = {
         findUserWithRole: jest.fn((username, password) => user),
+        update: jest.fn((id, password) => Promise.resolve(true))
     };
 
     beforeEach(async () => {
@@ -57,14 +58,22 @@ describe('AuthService', () => {
     });
 
     describe('login', () => {
-        it('should return jwt token', async () => {
-            const { access_token } = await service.login(user);
+        it('should return jwt token', () => {
+            const { access_token } = service.login(user);
             const { username, id, role } = (jwt as any).decode(access_token);
 
             expect(access_token).toBeTruthy();
             expect(username).toEqual(user.username);
             expect(id).toEqual(user.id);
             expect(role).toEqual(user.role);
+        });
+    });
+
+    describe('change password', () => {
+        it('should change password', async () => {
+            jest.spyOn(mock_user_service, 'update')
+            expect(await service.changePassword(user.id, user.password)).toBe(true)
+            expect(mock_user_service.update).toBeCalledWith(user.id, { password: user.password })
         });
     });
 });

@@ -3,7 +3,7 @@ import { getConnectionToken, getRepositoryToken } from '@nestjs/typeorm';
 import { Member } from './entities/member.entity';
 import { MemberService } from './member.service';
 import { mock_connection } from 'src/common/helpers/mocks/dbConnectionMock';
-import { create_student, create_lib, member_list, member_single, update_member, user_id } from 'src/common/helpers/test-data/member.test-data';
+import { create_student, create_lib, member_list, member_single, update_member, member_id } from 'src/common/helpers/test-data/member.test-data';
 
 describe('MemberService', () => {
     let service: MemberService;
@@ -37,7 +37,7 @@ describe('MemberService', () => {
 
     it('should be defined', () => {
         expect(service).toBeDefined();
-        expect(console.log(mock_connection.transaction((manager) => manager.query())))
+        expect(mock_connection.transaction((manager) => manager.query())).toBeTruthy()
     });
 
     describe('create a member', () => {
@@ -68,7 +68,7 @@ describe('MemberService', () => {
         })
 
         it('should create member card', () => {
-            const card = service.create_member_card(user_id)
+            const card = service.create_member_card(member_id)
             expect(card.issuedAt).toBeTruthy()
             expect(card.number).toBeTruthy()
             expect(card.photo_url).toBeTruthy()
@@ -78,7 +78,7 @@ describe('MemberService', () => {
     describe('find', () => {
         it('should find one', async () => {
             jest.spyOn(mock_member_repository, 'findOne')
-            expect(await service.findOne(user_id)).toEqual(member_single)
+            expect(await service.findOne(member_id)).toEqual(member_single)
             expect(mock_member_repository.findOne).toBeCalled()
         })
 
@@ -99,13 +99,14 @@ describe('MemberService', () => {
 
     describe('remove', () => {
         it('should remove a member', async () => {
-            jest.spyOn(service, 'findOne') //--> external input
             jest.spyOn(mock_connection, 'transaction')
+            jest.spyOn(service, 'findOne') //--> external input
 
-            expect(await service.remove(user_id)).toBe('Member deleted')
+            expect(await service.remove(member_id)).toBe('Member deleted')
 
-            expect(service.findOne).toBeCalledWith(user_id)
             expect(mock_connection.transaction).toBeCalled()
+            expect(service.findOne).toBeCalledWith(member_id)
+
         })
     })
 

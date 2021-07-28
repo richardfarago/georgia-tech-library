@@ -9,17 +9,17 @@ export class UpdateEmployeeDto {
     @IsObject()
     @ValidateNested()
     @Type(() => CreateUserDto)
-    user: CreateUserDto;
+    user?: Partial<CreateUserDto>;
 
     @IsOptional()
     @IsObject()
     @ValidateNested()
     @Type(() => EmployeeRole)
-    role: EmployeeRole;
+    role?: Partial<EmployeeRole>;
 
     @IsOptional()
     @IsObject()
     @ValidateNested()
     @Type(() => CreateAddressDto)
-    home_address: CreateAddressDto;
+    home_address?: Partial<CreateAddressDto>;
 }

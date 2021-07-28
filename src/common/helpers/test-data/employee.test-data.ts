@@ -1,4 +1,5 @@
 import { Roles } from "src/common/constants/roles.enum"
+import { UpdateEmployeeDto } from "src/employee/dto/update-employee.dto"
 
 export const create_employee_dto = {
     user: {
@@ -10,7 +11,7 @@ export const create_employee_dto = {
     },
     home_address: {
         street: "Testrup Kirkevej",
-        house_number: 77,
+        house_number: "77",
         city: {
             zip: "7777",
             city: "Testrup"
@@ -97,10 +98,16 @@ export const employee_list = [
     }
 ]
 
-export const update_employee_body = {
+export const employee_id = 'UUID'
+
+const update_employee_dto: UpdateEmployeeDto = {
     role: {
         name: Roles.CHIEF
     },
 }
 
-export const user_id = 'UUID'
+export const update_employee = {
+    id: employee_id,
+    body: update_employee_dto
+}
+

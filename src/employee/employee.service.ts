@@ -16,8 +16,7 @@ export class EmployeeService {
     create(create_employee_dto: CreateEmployeeDto): Promise<Employee> {
         let employee: Employee = this.employee_repository.create(create_employee_dto)
 
-        employee.user.id = uuid()
-        // employee.user_id= uuid()
+        employee.user.id = uuid() // --> No need to set employee.user_id
         employee.home_address.id = uuid()
 
         return this.employee_repository.save(employee);

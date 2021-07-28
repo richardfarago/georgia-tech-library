@@ -20,8 +20,7 @@ export class MemberService {
         const member: Member = this.member_repository.create(create_member_dto);
 
         const id = uuidv4();
-        member.user.id = id;
-        member.user_id = id;
+        member.user.id = id; // --> No need to set member.user_id
 
         const campus_id = uuidv4();
         member.campus_address.id = campus_id;

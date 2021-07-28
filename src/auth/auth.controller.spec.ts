@@ -38,8 +38,4 @@ describe('AuthController', () => {
             expect(mock_service.login).toBeCalled();
         });
     });
-
-    describe('get me', () => {});
-
-    describe('change password', () => {});
 });
