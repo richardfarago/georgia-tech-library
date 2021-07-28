@@ -14,9 +14,12 @@ import { User } from 'src/user/entities/user.entity';
 import { Library } from './entities/library.entity';
 
 @Module({
-    imports: [UserModule, TypeOrmModule.forFeature([User, Member, MemberCard, LoanPermission, SchoolMember, Library, Address, City])],
+    imports: [
+        UserModule,
+        TypeOrmModule.forFeature([User, Member, MemberCard, LoanPermission, SchoolMember, Library, Address, City]),
+    ],
     controllers: [MemberController],
     providers: [MemberService, MemberSubscriber],
     exports: [MemberService],
 })
-export class MemberModule { }
+export class MemberModule {}

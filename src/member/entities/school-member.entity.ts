@@ -22,16 +22,16 @@ export class SchoolMember {
 
 export class CreateSchoolMemberDto {
     @IsString()
-    ssn: string
+    ssn: string;
 
     @IsString()
-    first_name: string
+    first_name: string;
 
     @IsString()
-    last_name: string
+    last_name: string;
 
     @IsObject()
     @ValidateNested()
     @Type(() => CreateAddressDto)
-    home_address: CreateAddressDto
+    home_address: CreateAddressDto;
 }

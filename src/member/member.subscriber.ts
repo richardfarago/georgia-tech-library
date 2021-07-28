@@ -22,7 +22,6 @@ export class MemberSubscriber implements EntitySubscriberInterface<Member> {
         return Member;
     }
 
-
     beforeInsert(event: InsertEvent<Member>) {
         console.log(`BEFORE POST INSERTED: `, event.entity);
     }

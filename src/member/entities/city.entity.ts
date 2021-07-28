@@ -3,7 +3,6 @@ import { Column, Entity } from 'typeorm';
 
 @Entity('City', { schema: 'dbo' })
 export class City {
-
     @IsNumberString()
     @Column('varchar', { primary: true, name: 'zip', length: 10 })
     zip: string;

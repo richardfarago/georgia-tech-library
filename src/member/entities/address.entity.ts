@@ -19,9 +19,7 @@ export class Address {
     city: City;
 }
 
-
 export class CreateAddressDto {
-
     @IsString()
     street: string;
 

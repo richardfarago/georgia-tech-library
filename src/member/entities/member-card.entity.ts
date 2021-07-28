@@ -3,7 +3,6 @@ import { Entity, Column, PrimaryColumn } from 'typeorm';
 
 @Entity({ name: 'MemberCard', schema: 'dbo' })
 export class MemberCard {
-
     @IsString()
     @PrimaryColumn()
     number: string;

@@ -1,13 +1,12 @@
-import { Type } from "class-transformer";
-import { IsObject, IsOptional, IsPhoneNumber, IsString, ValidateNested } from "class-validator";
-import { CreateUserDto } from "src/user/dto/create-user.dto";
-import { CreateAddressDto } from "../entities/address.entity";
-import { Library } from "../entities/library.entity";
-import { LoanPermission } from "../entities/loan-permission.entity";
-import { CreateSchoolMemberDto } from "../entities/school-member.entity";
+import { Type } from 'class-transformer';
+import { IsObject, IsOptional, IsPhoneNumber, IsString, ValidateNested } from 'class-validator';
+import { CreateUserDto } from 'src/user/dto/create-user.dto';
+import { CreateAddressDto } from '../entities/address.entity';
+import { Library } from '../entities/library.entity';
+import { LoanPermission } from '../entities/loan-permission.entity';
+import { CreateSchoolMemberDto } from '../entities/school-member.entity';
 
 export class CreateMemberDto {
-
     @IsPhoneNumber()
     phone_number: string;
 

@@ -13,11 +13,12 @@ import { UserRoleDto } from './dto/user-role.dto';
 
 @Injectable()
 export class UserService {
-    constructor(@InjectRepository(User) private user_repository: Repository<User>) {}
+    constructor(@InjectRepository(User) private user_repository: Repository<User>) { }
 
     create(create_user_dto: CreateUserDto): Promise<PlainUserDto> {
+
         //TODO Hash password before inserting
-        //user.password = createUserDto.password.hash()
+        //user.password = create_user_dto.password.hash()
 
         return this.user_repository.save({ id: uuidv4(), ...create_user_dto }).then((newUser) => {
             const { password, ...result } = newUser;

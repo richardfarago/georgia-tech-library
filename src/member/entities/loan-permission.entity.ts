@@ -3,7 +3,6 @@ import { Entity, Column } from 'typeorm';
 
 @Entity({ name: 'LoanPermission', schema: 'dbo' })
 export class LoanPermission {
-
     @IsString()
     @Column('varchar', { primary: true, name: 'name', length: 50 })
     name: string;
