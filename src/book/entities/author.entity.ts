@@ -11,12 +11,12 @@ export class Author {
     @IsOptional()
     @IsString()
     @Column('varchar', { name: 'first_name', length: 50 })
-    first_name: string;
+    first_name?: string;
 
     @IsOptional()
     @IsString()
     @Column('varchar', { name: 'last_name', length: 50 })
-    last_name: string;
+    last_name?: string;
 
     @IsOptional()
     @ManyToMany(() => BookDescription, (bookDescription) => bookDescription.authors)
@@ -26,5 +26,5 @@ export class Author {
         inverseJoinColumns: [{ name: 'isbn', referencedColumnName: 'isbn' }],
         schema: 'dbo',
     })
-    books: BookDescription[];
+    books?: BookDescription[];
 }

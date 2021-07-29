@@ -2,14 +2,20 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { BookInstanceService } from './book-instance.service';
 import { BookInstanceController } from './book-instance.controller';
 
-describe('BookController', () => {
+describe('BookInstanceController', () => {
     let controller: BookInstanceController;
+
+    const mock_instance_service = {
+
+    }
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
             controllers: [BookInstanceController],
             providers: [BookInstanceService],
-        }).compile();
+        })
+            .overrideProvider(BookInstanceService).useValue(mock_instance_service)
+            .compile();
 
         controller = module.get<BookInstanceController>(BookInstanceController);
     });

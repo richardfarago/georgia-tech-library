@@ -11,5 +11,5 @@ export class BookInstance {
 
     @ManyToOne(() => BookDescription, (book_description) => book_description.book_instances)
     @JoinColumn([{ name: 'isbn', referencedColumnName: 'isbn' }])
-    isbn: BookDescription;
+    isbn?: BookDescription;
 }
