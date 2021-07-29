@@ -8,6 +8,7 @@ import { Loan } from './entities/loan.entity';
 import { v4 as uuid } from 'uuid'
 import * as moment from 'moment';
 import * as _ from 'lodash';
+import { PlainUserDto } from 'src/user/dto/plain-user.dto';
 
 @Injectable()
 export class LoanService {
@@ -16,7 +17,7 @@ export class LoanService {
         @Inject(MemberService) private member_service: MemberService
     ) { }
 
-    async create(user: User, create_loan_dto: CreateLoanDto): Promise<Loan> {
+    async create(user: PlainUserDto, create_loan_dto: CreateLoanDto): Promise<Loan> {
         const member = await this.member_service.findOne(user.id)
         let loan = this.loan_repository.create(create_loan_dto)
 
@@ -57,12 +58,12 @@ export class LoanService {
         return this.loan_repository.findOne(id)
     }
 
-    async findLoanHistory(user: User): Promise<any> {
+    async findLoanHistory(user: PlainUserDto): Promise<any> {
         return this.loan_repository.query(`SELECT * FROM Loan L INNER JOIN LoanContent LC ON L.id = LC.loan_id WHERE user_id = '${user.id}'`)
 
     }
 
-    async findActiveLoans(user: User): Promise<any> {
+    async findActiveLoans(user: PlainUserDto): Promise<any> {
         return this.loan_repository.query(`SELECT * FROM Loan L INNER JOIN LoanContent LC ON L.id = LC.loan_id WHERE user_id = '${user.id}' AND returned_at IS NULL`)
     }
 

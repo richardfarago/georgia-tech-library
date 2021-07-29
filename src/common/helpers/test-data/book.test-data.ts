@@ -249,3 +249,5 @@ export const create_book_instance_dto = {
     condition: "10",
     isbn: { isbn }
 }
+
+export const book_id = 'BOOK_ID'

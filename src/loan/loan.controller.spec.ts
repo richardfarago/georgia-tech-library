@@ -3,18 +3,22 @@ import { LoanController } from './loan.controller';
 import { LoanService } from './loan.service';
 
 describe('LoanController', () => {
-  let controller: LoanController;
+    let controller: LoanController;
 
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      controllers: [LoanController],
-      providers: [LoanService],
-    }).compile();
+    const mock_loan_service = {}
 
-    controller = module.get<LoanController>(LoanController);
-  });
+    beforeEach(async () => {
+        const module: TestingModule = await Test.createTestingModule({
+            controllers: [LoanController],
+            providers: [LoanService],
+        })
+            .overrideProvider(LoanService).useValue(mock_loan_service)
+            .compile();
 
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
-  });
+        controller = module.get<LoanController>(LoanController);
+    });
+
+    it('should be defined', () => {
+        expect(controller).toBeDefined();
+    });
 });
