@@ -1,5 +1,5 @@
 import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
-import { BookInstance } from "src/book/entities/book-instance.entity";
+import { BookInstance } from "../../../src/book/entities/book-instance.entity";
 import { Loan } from "./loan.entity";
 
 @Entity("LoanContent", { schema: "dbo" })

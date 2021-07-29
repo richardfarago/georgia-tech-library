@@ -1,5 +1,5 @@
 import { IsArray } from "class-validator";
-import { BookInstance } from "src/book/entities/book-instance.entity";
+import { BookInstance } from "../../../src/book/entities/book-instance.entity";
 import { LoanContent } from "../entities/loan.content";
 
 export class CreateLoanDto {
