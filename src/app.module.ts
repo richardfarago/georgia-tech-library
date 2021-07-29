@@ -14,6 +14,7 @@ import { APP_GUARD, APP_PIPE } from '@nestjs/core';
 import { EmployeeModule } from './employee/employee.module';
 import { RolesGuard } from './auth/guards/permission.guard';
 import { BookModule } from './book/book.module';
+import { LoanModule } from './loan/loan.module';
 
 const validationOptions: ValidationPipeOptions = {
     whitelist: true,
@@ -50,6 +51,7 @@ const validationOptions: ValidationPipeOptions = {
         MemberModule,
         EmployeeModule,
         BookModule,
+        LoanModule,
     ],
     controllers: [AppController],
     providers: [

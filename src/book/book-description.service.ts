@@ -15,7 +15,9 @@ export class BookDescriptionService {
     }
 
     findAll() {
-        return this.book_repository.find();
+        return this.book_repository.find({
+            take: 500,
+        });
     }
 
     findOne(isbn: string) {

@@ -11,7 +11,7 @@ const RandExp = require('randexp');
 
 @Injectable()
 export class MemberService {
-    constructor(@InjectConnection() private connection: Connection, @InjectRepository(Member) private member_repository: Repository<Member>) {}
+    constructor(@InjectConnection() private connection: Connection, @InjectRepository(Member) private member_repository: Repository<Member>) { }
 
     async create(create_member_dto: CreateMemberDto): Promise<Member> {
         const member: Member = this.member_repository.create(create_member_dto);
@@ -33,7 +33,6 @@ export class MemberService {
 
     async findAll(): Promise<Member[]> {
         return this.member_repository.find({
-            relations: ['user', 'member_card', 'loan_permission', 'school_member'],
             take: 500,
         });
     }
@@ -41,7 +40,6 @@ export class MemberService {
     findOne(id: string): Promise<Member> {
         return this.member_repository.findOne({
             where: { user_id: id },
-            relations: ['user', 'member_card', 'loan_permission', 'school_member'],
         });
     }
 

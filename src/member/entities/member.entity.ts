@@ -7,7 +7,6 @@ import { MemberCard } from './member-card.entity';
 import { SchoolMember } from './school-member.entity';
 import { Address } from './address.entity';
 import { Library } from './library.entity';
-import { CreateUserDto } from 'src/user/dto/create-user.dto';
 
 @Entity({ name: 'Member', schema: 'dbo' })
 export class Member {
@@ -21,19 +20,19 @@ export class Member {
     @JoinColumn({ name: 'institution_name', referencedColumnName: 'name' })
     library: Library;
 
-    @OneToOne(() => User, { cascade: true })
+    @OneToOne(() => User, { cascade: true, eager: true })
     @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
     user: Partial<User>;
 
-    @OneToOne(() => SchoolMember, { cascade: true })
+    @OneToOne(() => SchoolMember, { cascade: true, eager: true })
     @JoinColumn({ name: 'ssn', referencedColumnName: 'ssn' })
     school_member: SchoolMember;
 
-    @OneToOne(() => MemberCard, { cascade: true })
+    @OneToOne(() => MemberCard, { cascade: true, eager: true })
     @JoinColumn({ name: 'card_number', referencedColumnName: 'number' })
     member_card: MemberCard;
 
-    @ManyToOne(() => LoanPermission, { cascade: true })
+    @ManyToOne(() => LoanPermission, { cascade: true, eager: true })
     @JoinColumn({ name: 'loan_permission', referencedColumnName: 'name' })
     loan_permission: LoanPermission;
 
