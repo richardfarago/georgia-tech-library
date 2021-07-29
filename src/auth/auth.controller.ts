@@ -1,18 +1,18 @@
 import { Controller, Request, Post, UseGuards, Get, Put, Body } from '@nestjs/common';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { AuthService } from './auth.service';
-import { Public } from 'src/common/decorators/public.decorator';
+import { Public } from '../../src/common/decorators/public.decorator';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { RequirePermission } from 'src/common/decorators/permission.decorator';
-import { Permissions } from 'src/common/constants/permissions.enum';
-import { JwtUserDto } from 'src/user/dto/jwt-user.dto';
+import { RequirePermission } from '../../src/common/decorators/permission.decorator';
+import { Permissions } from '../../src/common/constants/permissions.enum';
+import { JwtUserDto } from '../../src/user/dto/jwt-user.dto';
 import { UpdateResult } from 'typeorm';
 
 @ApiBearerAuth()
 @ApiTags('Authentication')
 @Controller('auth')
 export class AuthController {
-    constructor(private auth_service: AuthService) {}
+    constructor(private auth_service: AuthService) { }
 
     @Public()
     @UseGuards(LocalAuthGuard)

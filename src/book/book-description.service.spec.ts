@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { book_description_list, book_description_single, create_book_description_dto, isbn, update_book_dto } from 'src/common/helpers/test-data/book.test-data';
+import { book_description_list, book_description_single, create_book_description_dto, isbn, update_book_dto } from '../../src/common/helpers/test-data/book.test-data';
 import { BookDescriptionService } from './book-description.service';
 import { BookDescription } from './entities/book-description.entity';
 

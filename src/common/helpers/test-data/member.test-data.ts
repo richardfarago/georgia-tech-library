@@ -1,6 +1,6 @@
-import { CreateMemberDto } from 'src/member/dto/create-member.dto';
-import { UpdateMemberDto } from 'src/member/dto/update-member.dto';
-import { Member } from 'src/member/entities/member.entity';
+import { CreateMemberDto } from '../../../../src/member/dto/create-member.dto';
+import { UpdateMemberDto } from '../../../../src/member/dto/update-member.dto';
+import { Member } from '../../../../src/member/entities/member.entity';
 
 export const create_lib: CreateMemberDto = {
     phone_number: '+4550226649',

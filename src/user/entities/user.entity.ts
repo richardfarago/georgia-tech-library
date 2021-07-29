@@ -1,6 +1,6 @@
 import { Entity, Column, OneToMany, OneToOne } from 'typeorm';
 import { Member } from '../../member/entities/member.entity';
-import { Employee } from 'src/employee/entities/employee.entity';
+import { Employee } from '../../../src/employee/entities/employee.entity';
 
 import { IsOptional } from 'class-validator';
 import { Exclude } from 'class-transformer';

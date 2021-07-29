@@ -1,8 +1,8 @@
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
-import { JwtUserDto } from 'src/user/dto/jwt-user.dto';
-import { UserRoleDto } from 'src/user/dto/user-role.dto';
-import { UserService } from 'src/user/user.service';
+import { JwtUserDto } from '../../src/user/dto/jwt-user.dto';
+import { UserRoleDto } from '../../src/user/dto/user-role.dto';
+import { UserService } from '../../src/user/user.service';
 import { AuthService } from './auth.service';
 
 describe('AuthService', () => {
