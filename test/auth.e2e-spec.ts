@@ -23,9 +23,7 @@ beforeAll(async () => {
 });
 
 test('POST: /auth/login', async () => {
-    const { status, body } = await request
-        .post('/auth/login')
-        .send({ username: user.username, password: user.password });
+    const { status, body } = await request.post('/auth/login').send({ username: user.username, password: user.password });
 
     expect([200, 201]).toContain(status);
     expect(body).toHaveProperty('access_token');

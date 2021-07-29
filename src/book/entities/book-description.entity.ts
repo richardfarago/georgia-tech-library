@@ -1,33 +1,25 @@
-import {
-    Column,
-    Entity,
-    Index,
-    JoinColumn,
-    ManyToMany,
-    ManyToOne,
-    OneToMany,
-} from "typeorm";
+import { Column, Entity, Index, JoinColumn, ManyToMany, ManyToOne, OneToMany } from 'typeorm';
 // import { BookSubject } from "./BookSubject";
 // import { BookLanguage } from "./BookLanguage";
 // import { BookCover } from "./BookCover";
-import { Author } from "./author.entity";
-import { BookInstance } from "./book-instance.entity";
+import { Author } from './author.entity';
+import { BookInstance } from './book-instance.entity';
 
-@Entity("BookDescription", { schema: "dbo" })
+@Entity('BookDescription', { schema: 'dbo' })
 export class BookDescription {
-    @Column("varchar", { primary: true, name: "isbn", length: 13 })
+    @Column('varchar', { primary: true, name: 'isbn', length: 13 })
     isbn: string;
 
-    @Column("varchar", { name: "title", length: 100 })
+    @Column('varchar', { name: 'title', length: 100 })
     title: string;
 
-    @Column("text", { name: "description", nullable: true })
+    @Column('text', { name: 'description', nullable: true })
     description: string | null;
 
-    @Column("bit", { name: "is_watchlist" })
+    @Column('bit', { name: 'is_watchlist' })
     is_watchlist: boolean;
 
-    @Column("bit", { name: "is_loanable" })
+    @Column('bit', { name: 'is_loanable' })
     is_loanable: boolean;
 
     //   @ManyToOne(() => BookSubject, (bookSubject) => bookSubject.bookDescriptions)
@@ -46,13 +38,13 @@ export class BookDescription {
     //   cover: BookCover;
 
     @Column()
-    language: string
+    language: string;
 
     @Column()
-    cover: string
+    cover: string;
 
     @Column()
-    subject_area: string
+    subject_area: string;
 
     @ManyToMany(() => Author, (author) => author.books, { cascade: true, eager: true })
     authors: Author[];

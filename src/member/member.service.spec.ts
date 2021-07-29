@@ -26,10 +26,9 @@ describe('MemberService', () => {
                 },
                 {
                     provide: getConnectionToken(),
-                    useValue: mock_connection
-                }
+                    useValue: mock_connection,
+                },
             ],
-
         }).compile();
 
         service = module.get<MemberService>(MemberService);
@@ -37,77 +36,75 @@ describe('MemberService', () => {
 
     it('should be defined', () => {
         expect(service).toBeDefined();
-        expect(mock_connection.transaction((manager) => manager.query())).toBeTruthy()
+        expect(mock_connection.transaction((manager) => manager.query())).toBeTruthy();
     });
 
     describe('create a member', () => {
         it('should create a student', async () => {
-            jest.spyOn(mock_member_repository, 'save')
+            jest.spyOn(mock_member_repository, 'save');
 
-            const created = await service.create(create_student)
+            const created = await service.create(create_student);
 
-            expect(created.user.id).toBeDefined()
-            expect(created.member_card).toBeDefined()
-            expect(created.school_member.home_address.id).toBeDefined()
-            expect(created.campus_address.id).toBeDefined()
-            expect(created.library).toBeNull()
-            expect(mock_member_repository.save).toBeCalledWith(create_student)
-        })
+            expect(created.user.id).toBeDefined();
+            expect(created.member_card).toBeDefined();
+            expect(created.school_member.home_address.id).toBeDefined();
+            expect(created.campus_address.id).toBeDefined();
+            expect(created.library).toBeNull();
+            expect(mock_member_repository.save).toBeCalledWith(create_student);
+        });
 
         it('should create a library', async () => {
-            jest.spyOn(mock_member_repository, 'save')
+            jest.spyOn(mock_member_repository, 'save');
 
-            const created = await service.create(create_lib)
+            const created = await service.create(create_lib);
 
-            expect(created.user.id).toBeDefined()
-            expect(created.member_card).toBeDefined()
-            expect(created.school_member).toBeNull()
-            expect(created.campus_address.id).toBeDefined()
-            expect(created.library).toBeDefined()
-            expect(mock_member_repository.save).toBeCalledWith(create_lib)
-        })
+            expect(created.user.id).toBeDefined();
+            expect(created.member_card).toBeDefined();
+            expect(created.school_member).toBeNull();
+            expect(created.campus_address.id).toBeDefined();
+            expect(created.library).toBeDefined();
+            expect(mock_member_repository.save).toBeCalledWith(create_lib);
+        });
 
         it('should create member card', () => {
-            const card = service.create_member_card(member_id)
-            expect(card.issuedAt).toBeTruthy()
-            expect(card.number).toBeTruthy()
-            expect(card.photo_url).toBeTruthy()
-        })
-    })
+            const card = service.create_member_card(member_id);
+            expect(card.issuedAt).toBeTruthy();
+            expect(card.number).toBeTruthy();
+            expect(card.photo_url).toBeTruthy();
+        });
+    });
 
     describe('find', () => {
         it('should find one', async () => {
-            jest.spyOn(mock_member_repository, 'findOne')
-            expect(await service.findOne(member_id)).toEqual(member_single)
-            expect(mock_member_repository.findOne).toBeCalled()
-        })
+            jest.spyOn(mock_member_repository, 'findOne');
+            expect(await service.findOne(member_id)).toEqual(member_single);
+            expect(mock_member_repository.findOne).toBeCalled();
+        });
 
         it('should find all', async () => {
-            jest.spyOn(mock_member_repository, 'find')
-            expect(await service.findAll()).toEqual(member_list)
-            expect(mock_member_repository.find).toBeCalled()
-        })
-    })
+            jest.spyOn(mock_member_repository, 'find');
+            expect(await service.findAll()).toEqual(member_list);
+            expect(mock_member_repository.find).toBeCalled();
+        });
+    });
 
     describe('update', () => {
         it('should update a member', async () => {
-            jest.spyOn(mock_member_repository, 'update')
-            expect(await service.update(update_member.id, update_member.body)).toBeTruthy()
-            expect(mock_member_repository.update).toBeCalledWith(update_member.id, update_member.body)
-        })
-    })
+            jest.spyOn(mock_member_repository, 'update');
+            expect(await service.update(update_member.id, update_member.body)).toBeTruthy();
+            expect(mock_member_repository.update).toBeCalledWith(update_member.id, update_member.body);
+        });
+    });
 
     describe('remove', () => {
         it('should remove a member', async () => {
-            jest.spyOn(mock_connection, 'transaction')
-            jest.spyOn(service, 'findOne') //--> external input
+            jest.spyOn(mock_connection, 'transaction');
+            jest.spyOn(service, 'findOne'); //--> external input
 
-            expect(await service.remove(member_id)).toBe('Member deleted')
+            expect(await service.remove(member_id)).toBe('Member deleted');
 
-            expect(mock_connection.transaction).toBeCalled()
-            expect(service.findOne).toBeCalledWith(member_id)
-
-        })
-    })
-
+            expect(mock_connection.transaction).toBeCalled();
+            expect(service.findOne).toBeCalledWith(member_id);
+        });
+    });
 });

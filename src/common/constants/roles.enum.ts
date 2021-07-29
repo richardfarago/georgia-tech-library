@@ -9,16 +9,7 @@ export enum Roles {
     REF = 'Reference librarian',
 }
 
-export const ALL_ROLES = [
-    Roles.STUDENT,
-    Roles.PROF,
-    Roles.LIB,
-    Roles.CHIEF,
-    Roles.ASSOC,
-    Roles.ASSIST,
-    Roles.CHECKOUT,
-    Roles.REF,
-];
+export const ALL_ROLES = [Roles.STUDENT, Roles.PROF, Roles.LIB, Roles.CHIEF, Roles.ASSOC, Roles.ASSIST, Roles.CHECKOUT, Roles.REF];
 
 // export const ALL_ROLES = [
 //     'Student',

@@ -9,7 +9,7 @@ import { DeleteResult, UpdateResult } from 'typeorm';
 @ApiTags('Members')
 @Controller('member')
 export class MemberController {
-    constructor(private readonly memberService: MemberService) { }
+    constructor(private readonly memberService: MemberService) {}
 
     @Post()
     create(@Body() create_member_dto: CreateMemberDto) {

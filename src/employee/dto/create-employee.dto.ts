@@ -1,8 +1,8 @@
-import { Type } from "class-transformer";
-import { IsObject, ValidateNested } from "class-validator";
-import { CreateAddressDto } from "src/member/entities/address.entity";
-import { CreateUserDto } from "src/user/dto/create-user.dto";
-import { EmployeeRole } from "../entities/employee-role.entity";
+import { Type } from 'class-transformer';
+import { IsObject, ValidateNested } from 'class-validator';
+import { CreateAddressDto } from 'src/member/entities/address.entity';
+import { CreateUserDto } from 'src/user/dto/create-user.dto';
+import { EmployeeRole } from '../entities/employee-role.entity';
 
 export class CreateEmployeeDto {
     @IsObject()

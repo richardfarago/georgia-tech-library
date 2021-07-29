@@ -1,6 +1,6 @@
-import { CreateUserDto } from "src/user/dto/create-user.dto";
-import { PlainUserDto } from "src/user/dto/plain-user.dto";
-import { UpdateUserDto } from "src/user/dto/update-user.dto";
+import { CreateUserDto } from 'src/user/dto/create-user.dto';
+import { PlainUserDto } from 'src/user/dto/plain-user.dto';
+import { UpdateUserDto } from 'src/user/dto/update-user.dto';
 
 export const create_user_dto: CreateUserDto = {
     username: 'test',

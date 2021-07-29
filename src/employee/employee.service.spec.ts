@@ -14,7 +14,7 @@ describe('EmployeeService', () => {
         find: jest.fn(() => employee_list),
         findOne: jest.fn(() => employee_single),
         update: jest.fn((id, dto) => Promise.resolve(true)),
-    }
+    };
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
@@ -22,12 +22,12 @@ describe('EmployeeService', () => {
                 EmployeeService,
                 {
                     provide: getRepositoryToken(Employee),
-                    useValue: mock_employee_repository
+                    useValue: mock_employee_repository,
                 },
                 {
                     provide: getConnectionToken(),
-                    useValue: mock_connection
-                }
+                    useValue: mock_connection,
+                },
             ],
         }).compile();
 
@@ -40,50 +40,50 @@ describe('EmployeeService', () => {
 
     describe('create', () => {
         it('should create an employee', async () => {
-            jest.spyOn(mock_employee_repository, 'create')
-            jest.spyOn(mock_employee_repository, 'save')
+            jest.spyOn(mock_employee_repository, 'create');
+            jest.spyOn(mock_employee_repository, 'save');
 
-            const employee: Employee = await service.create(create_employee_dto)
+            const employee: Employee = await service.create(create_employee_dto);
 
-            expect(employee.user.id).toBeDefined()
-            expect(employee.home_address.id).toBeDefined()
+            expect(employee.user.id).toBeDefined();
+            expect(employee.home_address.id).toBeDefined();
 
-            expect(mock_employee_repository.create).toBeCalledWith(create_employee_dto)
-            expect(mock_employee_repository.save).toBeCalled()
-        })
-    })
+            expect(mock_employee_repository.create).toBeCalledWith(create_employee_dto);
+            expect(mock_employee_repository.save).toBeCalled();
+        });
+    });
 
     describe('find', () => {
         it('should find all employees', async () => {
-            jest.spyOn(mock_employee_repository, 'find')
-            expect(await service.findAll()).toEqual(employee_list)
-            expect(mock_employee_repository.find).toBeCalled()
-        })
+            jest.spyOn(mock_employee_repository, 'find');
+            expect(await service.findAll()).toEqual(employee_list);
+            expect(mock_employee_repository.find).toBeCalled();
+        });
 
         it('should find one employees', async () => {
-            jest.spyOn(mock_employee_repository, 'findOne')
-            expect(await service.findOne(employee_id)).toEqual(employee_single)
-            expect(mock_employee_repository.findOne).toBeCalledWith(employee_id)
-        })
-    })
+            jest.spyOn(mock_employee_repository, 'findOne');
+            expect(await service.findOne(employee_id)).toEqual(employee_single);
+            expect(mock_employee_repository.findOne).toBeCalledWith(employee_id);
+        });
+    });
 
     describe('update', () => {
         it('should update an employee', async () => {
-            jest.spyOn(mock_employee_repository, 'update')
-            expect(await service.update(update_employee.id, update_employee.body)).toBeTruthy()
-            expect(mock_employee_repository.update).toBeCalledWith(update_employee.id, update_employee.body)
-        })
-    })
+            jest.spyOn(mock_employee_repository, 'update');
+            expect(await service.update(update_employee.id, update_employee.body)).toBeTruthy();
+            expect(mock_employee_repository.update).toBeCalledWith(update_employee.id, update_employee.body);
+        });
+    });
 
     describe('remove', () => {
         it('should remove an employee', async () => {
-            jest.spyOn(mock_connection, 'transaction')
-            jest.spyOn(service, 'findOne') //--> external input
+            jest.spyOn(mock_connection, 'transaction');
+            jest.spyOn(service, 'findOne'); //--> external input
 
-            expect(await service.remove(employee_id)).toEqual("Employee deleted")
+            expect(await service.remove(employee_id)).toEqual('Employee deleted');
 
-            expect(mock_connection.transaction).toBeCalled()
-            expect(service.findOne).toBeCalledWith(employee_id)
-        })
-    })
+            expect(mock_connection.transaction).toBeCalled();
+            expect(service.findOne).toBeCalledWith(employee_id);
+        });
+    });
 });

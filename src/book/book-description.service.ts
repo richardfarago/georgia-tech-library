@@ -6,20 +6,17 @@ import { UpdateBookDto } from './dto/update-book.dto';
 import { BookDescription } from './entities/book-description.entity';
 
 @Injectable()
-export class BookService {
-    constructor(
-        @InjectRepository(BookDescription) private book_repository: Repository<BookDescription>
-    ) { }
+export class BookDescriptionService {
+    constructor(@InjectRepository(BookDescription) private book_repository: Repository<BookDescription>) {}
 
     create(create_book_dto: CreateBookDto) {
-
-        let book: BookDescription = this.book_repository.create(create_book_dto);
-        console.log(book)
-        return this.book_repository.save(book)
+        const book: BookDescription = this.book_repository.create(create_book_dto);
+        console.log(book);
+        return this.book_repository.save(book);
     }
 
     findAll() {
-        return this.book_repository.find()
+        return this.book_repository.find();
     }
 
     findOne(isbn: string) {

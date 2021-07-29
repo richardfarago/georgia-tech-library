@@ -14,7 +14,7 @@ describe('AuthService', () => {
 
     const mock_user_service = {
         findUserWithRole: jest.fn((username, password) => user),
-        update: jest.fn((id, password) => Promise.resolve(true))
+        update: jest.fn((id, password) => Promise.resolve(true)),
     };
 
     beforeEach(async () => {
@@ -71,9 +71,9 @@ describe('AuthService', () => {
 
     describe('change password', () => {
         it('should change password', async () => {
-            jest.spyOn(mock_user_service, 'update')
-            expect(await service.changePassword(user.id, user.password)).toBe(true)
-            expect(mock_user_service.update).toBeCalledWith(user.id, { password: user.password })
+            jest.spyOn(mock_user_service, 'update');
+            expect(await service.changePassword(user.id, user.password)).toBe(true);
+            expect(mock_user_service.update).toBeCalledWith(user.id, { password: user.password });
         });
     });
 });

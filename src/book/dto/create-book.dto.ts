@@ -1,10 +1,9 @@
-import { Type } from "class-transformer";
-import { IsArray, IsBoolean, IsISBN, IsString, ValidateNested } from "class-validator";
-import { Author } from "../entities/author.entity";
+import { Type } from 'class-transformer';
+import { IsArray, IsBoolean, IsISBN, IsString, ValidateNested } from 'class-validator';
+import { Author } from '../entities/author.entity';
 
 export class CreateBookDto {
-
-    @IsISBN("10")
+    @IsISBN('10')
     isbn: string;
 
     @IsString()
@@ -20,13 +19,13 @@ export class CreateBookDto {
     is_loanable: boolean;
 
     @IsString()
-    language: string
+    language: string;
 
     @IsString()
-    cover: string
+    cover: string;
 
     @IsString()
-    subject_area: string
+    subject_area: string;
 
     @IsArray()
     @ValidateNested()

@@ -5,7 +5,7 @@ import { UpdateEmployeeDto } from './dto/update-employee.dto';
 
 @Controller('employee')
 export class EmployeeController {
-    constructor(private readonly employeeService: EmployeeService) { }
+    constructor(private readonly employeeService: EmployeeService) {}
 
     @Post()
     create(@Body() createEmployeeDto: CreateEmployeeDto) {

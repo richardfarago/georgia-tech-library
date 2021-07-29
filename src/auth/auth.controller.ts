@@ -12,7 +12,7 @@ import { UpdateResult } from 'typeorm';
 @ApiTags('Authentication')
 @Controller('auth')
 export class AuthController {
-    constructor(private auth_service: AuthService) { }
+    constructor(private auth_service: AuthService) {}
 
     @Public()
     @UseGuards(LocalAuthGuard)
@@ -30,6 +30,6 @@ export class AuthController {
 
     @Put('password')
     changePassword(@Request() req, @Body('password') password: string): Promise<UpdateResult> {
-        return this.auth_service.changePassword(req.user.id, password)
+        return this.auth_service.changePassword(req.user.id, password);
     }
 }

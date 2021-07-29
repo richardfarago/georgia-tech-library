@@ -1,8 +1,7 @@
-import { IsISBN, IsString } from "class-validator";
-import { BookDescription } from "../entities/book-description.entity";
+import { IsISBN, IsString } from 'class-validator';
+import { BookDescription } from '../entities/book-description.entity';
 
 export class CreateBookInstanceDto {
-
     @IsString()
     condition: string;
 

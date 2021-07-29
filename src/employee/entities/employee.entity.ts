@@ -9,11 +9,11 @@ export class Employee {
     user_id: string;
 
     @ManyToOne(() => EmployeeRole, { cascade: true, eager: true })
-    @JoinColumn([{ name: "role", referencedColumnName: "name" }])
+    @JoinColumn([{ name: 'role', referencedColumnName: 'name' }])
     role: EmployeeRole;
 
     @ManyToOne(() => Address, { cascade: true, eager: true })
-    @JoinColumn([{ name: "home_address_id", referencedColumnName: "id" }])
+    @JoinColumn([{ name: 'home_address_id', referencedColumnName: 'id' }])
     home_address: Address;
 
     @OneToOne(() => User, (user) => user.employee, { cascade: true, eager: true })

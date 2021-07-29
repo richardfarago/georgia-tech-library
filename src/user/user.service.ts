@@ -13,10 +13,9 @@ import { UserRoleDto } from './dto/user-role.dto';
 
 @Injectable()
 export class UserService {
-    constructor(@InjectRepository(User) private user_repository: Repository<User>) { }
+    constructor(@InjectRepository(User) private user_repository: Repository<User>) {}
 
     create(create_user_dto: CreateUserDto): Promise<PlainUserDto> {
-
         //TODO Hash password before inserting
         //user.password = create_user_dto.password.hash()
 

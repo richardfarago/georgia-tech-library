@@ -1,12 +1,4 @@
-import {
-    Connection,
-    EntitySubscriberInterface,
-    EventSubscriber,
-    InsertEvent,
-    UpdateEvent,
-    LoadEvent,
-    RemoveEvent,
-} from 'typeorm';
+import { Connection, EntitySubscriberInterface, EventSubscriber, InsertEvent, UpdateEvent, LoadEvent, RemoveEvent } from 'typeorm';
 import { TransactionStartEvent } from 'typeorm/subscriber/event/TransactionStartEvent';
 import { TransactionCommitEvent } from 'typeorm/subscriber/event/TransactionCommitEvent';
 import { TransactionRollbackEvent } from 'typeorm/subscriber/event/TransactionRollbackEvent';

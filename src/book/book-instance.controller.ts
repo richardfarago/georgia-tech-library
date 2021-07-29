@@ -2,8 +2,8 @@ import { Controller, Post, Body, Param, Delete } from '@nestjs/common';
 import { BookInstanceService } from './book-instance.service';
 
 @Controller('book/:isbn')
-export class BoonInstanceController {
-    constructor(private readonly book_instance_service: BookInstanceService) { }
+export class BookInstanceController {
+    constructor(private readonly book_instance_service: BookInstanceService) {}
 
     @Post()
     addToBook(@Param('isbn') isbn: string, @Body() body: any) {
