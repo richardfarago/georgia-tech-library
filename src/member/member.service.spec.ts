@@ -2,8 +2,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getConnectionToken, getRepositoryToken } from '@nestjs/typeorm';
 import { Member } from './entities/member.entity';
 import { MemberService } from './member.service';
-import { mock_connection } from '../common/helpers/mocks/dbConnectionMock';
-import { create_student, create_lib, member_list, member_single, update_member, member_id } from '../common/helpers/test-data/member.test-data';
+import { mock_connection } from '../common/utilities/mocks/dbConnectionMock';
+import { create_student_dto, create_lib_dto, member_list, member_single, update_member, member_id } from '../common/utilities/test-data/member.test-data';
 
 describe('MemberService', () => {
     let service: MemberService;
@@ -43,27 +43,27 @@ describe('MemberService', () => {
         it('should create a student', async () => {
             jest.spyOn(mock_member_repository, 'save');
 
-            const created = await service.create(create_student);
+            const created = await service.create(create_student_dto);
 
             expect(created.user.id).toBeDefined();
             expect(created.member_card).toBeDefined();
             expect(created.school_member.home_address.id).toBeDefined();
             expect(created.campus_address.id).toBeDefined();
             expect(created.library).toBeNull();
-            expect(mock_member_repository.save).toBeCalledWith(create_student);
+            expect(mock_member_repository.save).toBeCalledWith(create_student_dto);
         });
 
         it('should create a library', async () => {
             jest.spyOn(mock_member_repository, 'save');
 
-            const created = await service.create(create_lib);
+            const created = await service.create(create_lib_dto);
 
             expect(created.user.id).toBeDefined();
             expect(created.member_card).toBeDefined();
             expect(created.school_member).toBeNull();
             expect(created.campus_address.id).toBeDefined();
             expect(created.library).toBeDefined();
-            expect(mock_member_repository.save).toBeCalledWith(create_lib);
+            expect(mock_member_repository.save).toBeCalledWith(create_lib_dto);
         });
 
         it('should create member card', () => {

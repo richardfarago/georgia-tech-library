@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { create_user_dto, update_user_dto, user_list } from '../common/helpers/test-data/user.test-data';
+import { create_user_dto, update_user_dto, user_list } from '../common/utilities/test-data/user.test-data';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';

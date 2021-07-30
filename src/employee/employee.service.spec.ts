@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getConnectionToken, getRepositoryToken } from '@nestjs/typeorm';
-import { mock_connection } from '../common/helpers/mocks/dbConnectionMock';
-import { create_employee_dto, employee_list, employee_single, employee_id, update_employee } from '../common/helpers/test-data/employee.test-data';
+import { mock_connection } from '../common/utilities/mocks/dbConnectionMock';
+import { create_employee_dto, employee_list, employee_single, employee_id, update_employee } from '../common/utilities/test-data/employee.test-data';
 import { EmployeeService } from './employee.service';
 import { Employee } from './entities/employee.entity';
 

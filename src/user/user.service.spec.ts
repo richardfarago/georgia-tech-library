@@ -1,11 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { createQueryBuilder } from '../common/helpers/mocks/createQueryBuilderMock';
+import { createQueryBuilder } from '../common/utilities/mocks/createQueryBuilderMock';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
 import { UserService } from './user.service';
-import { create_user_dto, update_user_dto, user_list } from '../common/helpers/test-data/user.test-data';
+import { create_user_dto, update_user_dto, user_list } from '../common/utilities/test-data/user.test-data';
 
 describe('UserService', () => {
     let service: UserService;

@@ -9,14 +9,13 @@ import { SchoolMember } from './entities/school-member.entity';
 import { Address } from './entities/address.entity';
 import { City } from './entities/city.entity';
 import { UserModule } from '../user/user.module';
-import { MemberSubscriber } from './member.subscriber';
 import { User } from '../user/entities/user.entity';
 import { Library } from './entities/library.entity';
 
 @Module({
     imports: [UserModule, TypeOrmModule.forFeature([User, Member, MemberCard, LoanPermission, SchoolMember, Library, Address, City])],
     controllers: [MemberController],
-    providers: [MemberService, MemberSubscriber],
+    providers: [MemberService],
     exports: [MemberService],
 })
-export class MemberModule {}
+export class MemberModule { }

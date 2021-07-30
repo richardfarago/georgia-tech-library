@@ -2,7 +2,7 @@ import { CreateMemberDto } from '../../../member/dto/create-member.dto';
 import { UpdateMemberDto } from '../../../member/dto/update-member.dto';
 import { Member } from '../../../member/entities/member.entity';
 
-export const create_lib: CreateMemberDto = {
+export const create_lib_dto: CreateMemberDto = {
     phone_number: '+4550226649',
     loan_permission: {
         name: 'Test library',
@@ -28,7 +28,7 @@ export const create_lib: CreateMemberDto = {
     },
 };
 
-export const create_student: CreateMemberDto = {
+export const create_student_dto: CreateMemberDto = {
     phone_number: '+4550226649',
     loan_permission: {
         name: 'Student',
