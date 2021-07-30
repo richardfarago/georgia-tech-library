@@ -1,6 +1,6 @@
-import { Inject, Injectable, InternalServerErrorException } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectConnection, InjectRepository } from '@nestjs/typeorm';
-import { Connection, DeleteResult, Repository, UpdateResult } from 'typeorm';
+import { Connection, Repository, UpdateResult } from 'typeorm';
 import { CreateMemberDto } from './dto/create-member.dto';
 import { UpdateMemberDto } from './dto/update-member.dto';
 import { Member } from './entities/member.entity';
@@ -11,7 +11,7 @@ import RandExp = require('randexp');
 
 @Injectable()
 export class MemberService {
-    constructor(@InjectConnection() private connection: Connection, @InjectRepository(Member) private member_repository: Repository<Member>) {}
+    constructor(@InjectConnection() private connection: Connection, @InjectRepository(Member) private member_repository: Repository<Member>) { }
 
     async create(create_member_dto: CreateMemberDto): Promise<Member> {
         const member: Member = this.member_repository.create(create_member_dto);
