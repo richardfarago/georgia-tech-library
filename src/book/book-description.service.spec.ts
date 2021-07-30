@@ -36,6 +36,7 @@ describe('BookDescriptionService', () => {
 
     describe('create', () => {
         it('should create a book description', async () => {
+            jest.spyOn(mock_description_repository, 'findOne').mockImplementation(jest.fn(() => Promise.resolve(undefined)));
             jest.spyOn(mock_description_repository, 'create');
             jest.spyOn(mock_description_repository, 'save');
             expect(await service.create(create_book_description_dto)).toBeTruthy();
@@ -48,11 +49,11 @@ describe('BookDescriptionService', () => {
         it('should find all book descriptions', async () => {
             jest.spyOn(mock_description_repository, 'find');
             expect(await service.findAll()).toEqual(book_description_list);
-            expect(mock_description_repository.create).toBeCalled();
+            expect(mock_description_repository.find).toBeCalled();
         });
 
         it('should find a book description', async () => {
-            jest.spyOn(mock_description_repository, 'findOne');
+            jest.spyOn(mock_description_repository, 'findOne').mockImplementation(jest.fn(() => Promise.resolve(book_description_single)));
             expect(await service.findOne(isbn)).toEqual(book_description_single);
             expect(mock_description_repository.findOne).toBeCalled();
         });
