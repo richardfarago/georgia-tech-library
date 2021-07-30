@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
-import { Address } from '../../../src/member/entities/address.entity';
-import { User } from '../../../src/user/entities/user.entity';
+import { Address } from '../../member/entities/address.entity';
+import { User } from '../../user/entities/user.entity';
 import { EmployeeRole } from './employee-role.entity';
 
 @Entity('Employee', { schema: 'dbo' })

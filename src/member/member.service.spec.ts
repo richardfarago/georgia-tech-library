@@ -2,8 +2,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getConnectionToken, getRepositoryToken } from '@nestjs/typeorm';
 import { Member } from './entities/member.entity';
 import { MemberService } from './member.service';
-import { mock_connection } from '../../src/common/helpers/mocks/dbConnectionMock';
-import { create_student, create_lib, member_list, member_single, update_member, member_id } from '../../src/common/helpers/test-data/member.test-data';
+import { mock_connection } from '../common/helpers/mocks/dbConnectionMock';
+import { create_student, create_lib, member_list, member_single, update_member, member_id } from '../common/helpers/test-data/member.test-data';
 
 describe('MemberService', () => {
     let service: MemberService;

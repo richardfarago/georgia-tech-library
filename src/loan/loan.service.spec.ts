@@ -2,12 +2,12 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { isDateString } from 'class-validator';
 import { find } from 'rxjs';
-import { book_id } from '../../src/common/helpers/test-data/book.test-data';
-import { create_loan_dto, loan_id, loan_list, loan_single } from '../../src/common/helpers/test-data/loan.test-data';
-import { member_single } from '../../src/common/helpers/test-data/member.test-data';
-import { user_single } from '../../src/common/helpers/test-data/user.test-data';
-import { MemberModule } from '../../src/member/member.module';
-import { MemberService } from '../../src/member/member.service';
+import { book_id } from '../common/helpers/test-data/book.test-data';
+import { create_loan_dto, loan_id, loan_list, loan_single } from '../common/helpers/test-data/loan.test-data';
+import { member_single } from '../common/helpers/test-data/member.test-data';
+import { user_single } from '../common/helpers/test-data/user.test-data';
+import { MemberModule } from '../member/member.module';
+import { MemberService } from '../member/member.service';
 import { Loan } from './entities/loan.entity';
 import { LoanService } from './loan.service';
 

@@ -1,7 +1,7 @@
 import { IsOptional } from 'class-validator';
 import { Entity, Column, OneToOne, ManyToOne, JoinColumn } from 'typeorm';
 
-import { User } from '../../../src/user/entities/user.entity';
+import { User } from '../../user/entities/user.entity';
 import { LoanPermission } from './loan-permission.entity';
 import { MemberCard } from './member-card.entity';
 import { SchoolMember } from './school-member.entity';

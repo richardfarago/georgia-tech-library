@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { create_book_instance_body, create_book_instance_dto, isbn } from '../../src/common/helpers/test-data/book.test-data';
+import { create_book_instance_body, create_book_instance_dto, isbn } from '../common/helpers/test-data/book.test-data';
 import { BookInstanceService } from './book-instance.service';
 import { BookInstance } from './entities/book-instance.entity';
 

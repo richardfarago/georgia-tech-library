@@ -4,10 +4,8 @@ import { UserSubscriber } from './user.subscriber';
 import { UserController } from './user.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
-import { logger } from '../../src/common/middleware/logger.middleware';
-import { Member } from '../../src/member/entities/member.entity';
-import { Employee } from '../../src/employee/entities/employee.entity';
-import { LoanPermission } from '../../src/member/entities/loan-permission.entity';
+import { Member } from '../member/entities/member.entity';
+import { Employee } from '../employee/entities/employee.entity';
 
 @Module({
     imports: [TypeOrmModule.forFeature([User, Employee, Member])],

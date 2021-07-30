@@ -8,9 +8,9 @@ import { LoanPermission } from './entities/loan-permission.entity';
 import { SchoolMember } from './entities/school-member.entity';
 import { Address } from './entities/address.entity';
 import { City } from './entities/city.entity';
-import { UserModule } from '../../src/user/user.module';
+import { UserModule } from '../user/user.module';
 import { MemberSubscriber } from './member.subscriber';
-import { User } from '../../src/user/entities/user.entity';
+import { User } from '../user/entities/user.entity';
 import { Library } from './entities/library.entity';
 
 @Module({

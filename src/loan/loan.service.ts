@@ -1,14 +1,13 @@
 import { Inject, Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { MemberService } from '../../src/member/member.service';
-import { User } from '../../src/user/entities/user.entity';
-import { IsNull, Not, Repository, UpdateResult } from 'typeorm';
+import { MemberService } from '../member/member.service';
+import { Repository, UpdateResult } from 'typeorm';
 import { CreateLoanDto } from './dto/create-loan.dto';
 import { Loan } from './entities/loan.entity';
 import { v4 as uuid } from 'uuid'
 import * as moment from 'moment';
 import * as _ from 'lodash';
-import { PlainUserDto } from '../../src/user/dto/plain-user.dto';
+import { PlainUserDto } from '../user/dto/plain-user.dto';
 
 @Injectable()
 export class LoanService {

@@ -1,5 +1,5 @@
-import { Roles } from '../../../../src/common/constants/roles.enum';
-import { UpdateEmployeeDto } from '../../../../src/employee/dto/update-employee.dto';
+import { Roles } from '../../../common/constants/roles.enum';
+import { UpdateEmployeeDto } from '../../../employee/dto/update-employee.dto';
 
 export const create_employee_dto = {
     user: {

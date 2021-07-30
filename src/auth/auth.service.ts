@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { UserService } from '../../src/user/user.service';
+import { UserService } from '../user/user.service';
 import { JwtService } from '@nestjs/jwt';
-import { JwtUserDto } from '../../src/user/dto/jwt-user.dto';
-import { UserRoleDto } from '../../src/user/dto/user-role.dto';
+import { JwtUserDto } from '../user/dto/jwt-user.dto';
+import { UserRoleDto } from '../user/dto/user-role.dto';
 import { UpdateResult } from 'typeorm';
 
 @Injectable()

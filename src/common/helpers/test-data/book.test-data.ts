@@ -1,7 +1,7 @@
-import { CreateBookInstanceDto } from "../../../../src/book/dto/create-book-instance.dto";
-import { CreateBookDto } from "../../../../src/book/dto/create-book.dto";
-import { UpdateBookDto } from "../../../../src/book/dto/update-book.dto";
-import { BookDescription } from "../../../../src/book/entities/book-description.entity";
+import { CreateBookInstanceDto } from "../../../book/dto/create-book-instance.dto";
+import { CreateBookDto } from "../../../book/dto/create-book.dto";
+import { UpdateBookDto } from "../../../book/dto/update-book.dto";
+import { BookDescription } from "../../../book/entities/book-description.entity";
 
 export const create_book_description_dto: CreateBookDto = {
     isbn: '0-7390-4524-5',
