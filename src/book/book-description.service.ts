@@ -7,18 +7,17 @@ import { BookDescription } from './entities/book-description.entity';
 
 @Injectable()
 export class BookDescriptionService {
-    constructor(@InjectRepository(BookDescription) private book_repository: Repository<BookDescription>) { }
+    constructor(@InjectRepository(BookDescription) private book_repository: Repository<BookDescription>) {}
 
     async create(create_book_dto: CreateBookDto) {
-        let exists = await this.book_repository.findOne(create_book_dto.isbn)
+        const exists = await this.book_repository.findOne(create_book_dto.isbn);
 
         if (exists) {
-            throw new BadRequestException('ISBN already exists in the database')
+            throw new BadRequestException('ISBN already exists in the database');
         }
 
         const book: BookDescription = this.book_repository.create(create_book_dto);
         return this.book_repository.save(book);
-
     }
 
     findAll() {

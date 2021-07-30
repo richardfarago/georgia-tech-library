@@ -18,4 +18,4 @@ import { Library } from './entities/library.entity';
     providers: [MemberService],
     exports: [MemberService],
 })
-export class MemberModule { }
+export class MemberModule {}

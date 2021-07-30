@@ -7,7 +7,7 @@ import { v4 as uuid } from 'uuid';
 
 @Injectable()
 export class BookInstanceService {
-    constructor(@InjectRepository(BookInstance) private book_instance_repository: Repository<BookInstance>) { }
+    constructor(@InjectRepository(BookInstance) private book_instance_repository: Repository<BookInstance>) {}
 
     async create(isbn: string, body: any) {
         const dto: CreateBookInstanceDto = {
@@ -22,7 +22,7 @@ export class BookInstanceService {
     }
 
     findOne(id: string) {
-        return this.book_instance_repository.findOne(id)
+        return this.book_instance_repository.findOne(id);
     }
 
     remove(id: string) {

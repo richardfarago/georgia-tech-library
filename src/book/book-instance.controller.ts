@@ -4,7 +4,7 @@ import { BookInstanceService } from './book-instance.service';
 
 @Controller('book/:isbn')
 export class BookInstanceController {
-    constructor(private readonly book_instance_service: BookInstanceService) { }
+    constructor(private readonly book_instance_service: BookInstanceService) {}
 
     @Post()
     addToBook(@Param('isbn', ParseISBNPipe) isbn: string, @Body() body: any) {
@@ -13,7 +13,7 @@ export class BookInstanceController {
 
     @Get(':id')
     findOne(@Param() id: string) {
-        return this.book_instance_service.findOne(id)
+        return this.book_instance_service.findOne(id);
     }
 
     @Delete(':id')
