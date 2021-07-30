@@ -1,41 +1,60 @@
+import { Test, TestingModule } from '@nestjs/testing';
+import * as request from 'supertest';
+import { AppModule } from '../src/app.module';
 import { INestApplication } from '@nestjs/common';
-import { Test } from '@nestjs/testing';
-import supertest, { SuperTest, Test as AgentTest } from 'supertest';
-import { AuthModule } from '../src/auth/auth.module';
+import { login_member_dto } from '../src/common/utilities/test-data/auth.test-data';
 
-let app: INestApplication;
-let request: SuperTest<AgentTest>;
-let token: string;
-const user = {
-    username: 'test',
-    password: 'password',
-};
+describe('R01 - Authentication', () => {
 
-beforeAll(async () => {
-    const moduleRef = await Test.createTestingModule({
-        imports: [AuthModule],
-    }).compile();
+    let app: INestApplication;
+    let token: string
 
-    app = moduleRef.createNestApplication();
-    await app.init();
+    beforeAll(async () => {
+        const module: TestingModule = await Test.createTestingModule({
+            imports: [AppModule],
+        }).compile();
 
-    request = supertest.agent(app.getHttpServer());
-});
-
-afterAll(async () => {
-    await app?.close();
-});
-
-describe('Authentication', () => {
-    test('POST: /auth/login', async () => {
-        const { status, body } = await request.post('/auth/login').send({ username: user.username, password: user.password });
-        expect([200, 201]).toContain(status);
-        expect(body).toHaveProperty('access_token');
-        token = body.access_token;
+        app = module.createNestApplication();
+        await app.init();
     });
 
-    test('GET: /auth/me', async () => {
-        const { body } = await request.get('/auth/me').set('Authorization', `Bearer ${token}`).expect(200);
-        expect(body).toHaveProperty(user.username, user.password);
+    afterAll(async () => {
+        await app?.close();
     });
-})
+
+    it('should be defined', () => {
+        expect(app).toBeDefined()
+    })
+
+    describe('R01_C1 - Not logged in', () => {
+
+        it('R01_C1_01 - Log in with correct credentials', async () => {
+            const { body } = await request(app.getHttpServer()).post('/auth/login').send({ username: login_member_dto.username, password: login_member_dto.password }).expect(201)
+            token = body.access_token
+            expect(body).toHaveProperty('access_token');
+            expect(body.access_token).toEqual(expect.any(String));
+        })
+
+        it('R01_C1_02 - Log in with wrong password', async () => {
+            const { body } = await request(app.getHttpServer()).post('/auth/login').send({ username: login_member_dto.username, password: 'wrong password' }).expect(401)
+            expect(body.message).toEqual('Invalid credentials')
+        })
+
+        it('R01_C1_03 - Log in with wrong username', async () => {
+            const { body } = await request(app.getHttpServer()).post('/auth/login').send({ username: 'wrong username', password: 'wrong password' }).expect(401)
+            expect(body.message).toEqual('Invalid credentials')
+        })
+    });
+
+    describe('R01_C2 - Logged in', () => {
+
+        it('R01_C2_01 - Call "get me"', async () => {
+            const { body } = await request(app.getHttpServer()).get('/auth/me').auth(token, { type: 'bearer' }).expect(200)
+            expect(body).toEqual({
+                id: expect.any(String),
+                username: login_member_dto.username,
+                role: expect.any(String),
+            })
+        })
+    });
+});

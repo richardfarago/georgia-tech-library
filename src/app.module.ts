@@ -37,8 +37,9 @@ const validationOptions: ValidationPipeOptions = {
             database: process.env.DATABASE,
             autoLoadEntities: true,
             synchronize: false,
-            logging: true,
+            logging: false,
             ssl: true,
+            keepConnectionAlive: true,
             namingStrategy: new SnakeNamingStrategy(),
             extra: {
                 trustServerCertificate: true,
@@ -61,4 +62,4 @@ const validationOptions: ValidationPipeOptions = {
         { provide: APP_PIPE, useValue: new ValidationPipe(validationOptions) }, // { provide: APP_PIPE, useFactory: () => new ValidationPipe(validationOptions) }
     ],
 })
-export class AppModule {}
+export class AppModule { }

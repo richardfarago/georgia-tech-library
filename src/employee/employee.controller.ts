@@ -2,32 +2,39 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, ParseUUIDPipe } from
 import { EmployeeService } from './employee.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
+import { RequirePermission } from '../common/decorators/permission.decorator';
+import { Permissions } from '../common/constants/permissions.enum';
 
 @Controller('employee')
 export class EmployeeController {
-    constructor(private readonly employeeService: EmployeeService) {}
+    constructor(private readonly employeeService: EmployeeService) { }
 
     @Post()
+    @RequirePermission(Permissions.CREATE_EMPLOYEE)
     create(@Body() createEmployeeDto: CreateEmployeeDto) {
         return this.employeeService.create(createEmployeeDto);
     }
 
     @Get()
+    @RequirePermission(Permissions.READ_EMPLOYEE)
     findAll() {
         return this.employeeService.findAll();
     }
 
     @Get(':id')
+    @RequirePermission(Permissions.READ_EMPLOYEE)
     findOne(@Param('id', ParseUUIDPipe) id: string) {
         return this.employeeService.findOne(id);
     }
 
     @Patch(':id')
+    @RequirePermission(Permissions.UPDATE_EMPLOYEE)
     update(@Param('id', ParseUUIDPipe) id: string, @Body() updateEmployeeDto: UpdateEmployeeDto) {
         return this.employeeService.update(id, updateEmployeeDto);
     }
 
     @Delete(':id')
+    @RequirePermission(Permissions.DELETE_EMPLOYEE)
     remove(@Param('id', ParseUUIDPipe) id: string) {
         return this.employeeService.remove(id);
     }
