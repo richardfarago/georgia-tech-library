@@ -16,7 +16,7 @@ export const update_user_dto: UpdateUserDto = {
 export const user_single: PlainUserDto = {
     id: '00005591-6afb-4c47-b010-e64350bffbd8',
     username: 'nilchenko4r',
-}
+};
 
 export const user_list: PlainUserDto[] = [
     {

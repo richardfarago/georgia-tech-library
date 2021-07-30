@@ -11,6 +11,6 @@ import { MemberModule } from '../member/member.module';
 @Module({
     imports: [MemberModule, TypeOrmModule.forFeature([Loan, LoanContent, BookInstance, Member])],
     controllers: [LoanController],
-    providers: [LoanService]
+    providers: [LoanService],
 })
-export class LoanModule { }
+export class LoanModule {}

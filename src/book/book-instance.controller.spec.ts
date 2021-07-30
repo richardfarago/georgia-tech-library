@@ -5,16 +5,15 @@ import { BookInstanceController } from './book-instance.controller';
 describe('BookInstanceController', () => {
     let controller: BookInstanceController;
 
-    const mock_instance_service = {
-
-    }
+    const mock_instance_service = {};
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
             controllers: [BookInstanceController],
             providers: [BookInstanceService],
         })
-            .overrideProvider(BookInstanceService).useValue(mock_instance_service)
+            .overrideProvider(BookInstanceService)
+            .useValue(mock_instance_service)
             .compile();
 
         controller = module.get<BookInstanceController>(BookInstanceController);

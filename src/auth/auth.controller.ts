@@ -12,7 +12,7 @@ import { UpdateResult } from 'typeorm';
 @ApiTags('Authentication')
 @Controller('auth')
 export class AuthController {
-    constructor(private auth_service: AuthService) { }
+    constructor(private auth_service: AuthService) {}
 
     @Public()
     @UseGuards(LocalAuthGuard)

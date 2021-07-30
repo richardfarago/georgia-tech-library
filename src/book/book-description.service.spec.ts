@@ -36,41 +36,41 @@ describe('BookDescriptionService', () => {
 
     describe('create', () => {
         it('should create a book description', async () => {
-            jest.spyOn(mock_description_repository, 'create')
-            jest.spyOn(mock_description_repository, 'save')
-            expect(await service.create(create_book_description_dto)).toBeTruthy()
-            expect(mock_description_repository.create).toBeCalledWith(create_book_description_dto)
-            expect(mock_description_repository.save).toBeCalled()
+            jest.spyOn(mock_description_repository, 'create');
+            jest.spyOn(mock_description_repository, 'save');
+            expect(await service.create(create_book_description_dto)).toBeTruthy();
+            expect(mock_description_repository.create).toBeCalledWith(create_book_description_dto);
+            expect(mock_description_repository.save).toBeCalled();
         });
     });
 
     describe('find', () => {
         it('should find all book descriptions', async () => {
-            jest.spyOn(mock_description_repository, 'find')
-            expect(await service.findAll()).toEqual(book_description_list)
-            expect(mock_description_repository.create).toBeCalled()
+            jest.spyOn(mock_description_repository, 'find');
+            expect(await service.findAll()).toEqual(book_description_list);
+            expect(mock_description_repository.create).toBeCalled();
         });
 
         it('should find a book description', async () => {
-            jest.spyOn(mock_description_repository, 'findOne')
-            expect(await service.findOne(isbn)).toEqual(book_description_single)
-            expect(mock_description_repository.findOne).toBeCalled()
+            jest.spyOn(mock_description_repository, 'findOne');
+            expect(await service.findOne(isbn)).toEqual(book_description_single);
+            expect(mock_description_repository.findOne).toBeCalled();
         });
     });
 
     describe('update', () => {
         it('should update a book description', async () => {
-            jest.spyOn(mock_description_repository, 'update')
-            expect(await service.update(isbn, update_book_dto)).toBe(true)
-            expect(mock_description_repository.update).toBeCalled()
+            jest.spyOn(mock_description_repository, 'update');
+            expect(await service.update(isbn, update_book_dto)).toBe(true);
+            expect(mock_description_repository.update).toBeCalled();
         });
     });
 
     describe('remove', () => {
         it('should delete a book description', async () => {
-            jest.spyOn(mock_description_repository, 'delete')
-            expect(await service.remove(isbn)).toBe(true)
-            expect(mock_description_repository.delete).toBeCalled()
+            jest.spyOn(mock_description_repository, 'delete');
+            expect(await service.remove(isbn)).toBe(true);
+            expect(mock_description_repository.delete).toBeCalled();
         });
     });
 });

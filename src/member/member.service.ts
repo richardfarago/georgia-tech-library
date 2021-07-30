@@ -7,11 +7,11 @@ import { Member } from './entities/member.entity';
 import { v4 as uuidv4 } from 'uuid';
 import * as moment from 'moment';
 import { MemberCard } from './entities/member-card.entity';
-const RandExp = require('randexp');
+import RandExp = require('randexp');
 
 @Injectable()
 export class MemberService {
-    constructor(@InjectConnection() private connection: Connection, @InjectRepository(Member) private member_repository: Repository<Member>) { }
+    constructor(@InjectConnection() private connection: Connection, @InjectRepository(Member) private member_repository: Repository<Member>) {}
 
     async create(create_member_dto: CreateMemberDto): Promise<Member> {
         const member: Member = this.member_repository.create(create_member_dto);

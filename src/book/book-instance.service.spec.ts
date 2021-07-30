@@ -10,7 +10,7 @@ describe('BookInstanceService', () => {
         create: jest.fn((dto) => dto),
         save: jest.fn(() => Promise.resolve(true)),
         delete: jest.fn(() => Promise.resolve(true)),
-    }
+    };
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
@@ -18,8 +18,8 @@ describe('BookInstanceService', () => {
                 BookInstanceService,
                 {
                     provide: getRepositoryToken(BookInstance),
-                    useValue: mock_instance_repository
-                }
+                    useValue: mock_instance_repository,
+                },
             ],
         }).compile();
 
@@ -32,24 +32,24 @@ describe('BookInstanceService', () => {
 
     describe('add to book', () => {
         it('should create a transform to DTO', async () => {
-            expect(await service.create(isbn, create_book_instance_body)).toBe(true)
-            expect(mock_instance_repository.create).toBeCalled()
+            expect(await service.create(isbn, create_book_instance_body)).toBe(true);
+            expect(mock_instance_repository.create).toBeCalled();
         });
 
         it('should add UUID', async () => {
-            expect(await service.create(isbn, create_book_instance_body)).toBe(true)
+            expect(await service.create(isbn, create_book_instance_body)).toBe(true);
             expect(mock_instance_repository.save).toBeCalledWith({
                 id: expect.any(String),
-                ...create_book_instance_dto
-            })
+                ...create_book_instance_dto,
+            });
         });
     });
 
     describe('remove', () => {
         it('should delete a book instance', async () => {
-            jest.spyOn(mock_instance_repository, 'delete')
-            expect(await service.remove(isbn)).toBe(true)
-            expect(mock_instance_repository.delete).toBeCalled()
+            jest.spyOn(mock_instance_repository, 'delete');
+            expect(await service.remove(isbn)).toBe(true);
+            expect(mock_instance_repository.delete).toBeCalled();
         });
     });
 });
