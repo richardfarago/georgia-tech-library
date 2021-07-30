@@ -13,7 +13,6 @@ describe('R04 - Employee', () => {
 
         app = module.createNestApplication();
         await app.init();
-
     });
 
     afterAll(async () => {
@@ -21,6 +20,6 @@ describe('R04 - Employee', () => {
     });
 
     it('should be defined', () => {
-        expect(app).toBeDefined()
-    })
-})
+        expect(app).toBeDefined();
+    });
+});

@@ -1,4 +1,3 @@
-
 import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
@@ -8,9 +7,9 @@ import { login_employee_dto, login_employee_manager_dto, login_member_dto } from
 describe('R02 - RBAC', () => {
     let app: INestApplication;
 
-    let member_token: string
-    let employee_token: string
-    let employee_manager_token: string
+    let member_token: string;
+    let employee_token: string;
+    let employee_manager_token: string;
 
     beforeAll(async () => {
         const module: TestingModule = await Test.createTestingModule({
@@ -20,14 +19,23 @@ describe('R02 - RBAC', () => {
         app = module.createNestApplication();
         await app.init();
 
-        let member_response = await request(app.getHttpServer()).post('/auth/login').send({ username: login_member_dto.username, password: login_member_dto.password }).expect(201)
-        member_token = member_response.body.access_token
+        const member_response = await request(app.getHttpServer())
+            .post('/auth/login')
+            .send({ username: login_member_dto.username, password: login_member_dto.password })
+            .expect(201);
+        member_token = member_response.body.access_token;
 
-        let employee_response = await request(app.getHttpServer()).post('/auth/login').send({ username: login_employee_dto.username, password: login_employee_dto.password }).expect(201)
-        employee_token = employee_response.body.access_token
+        const employee_response = await request(app.getHttpServer())
+            .post('/auth/login')
+            .send({ username: login_employee_dto.username, password: login_employee_dto.password })
+            .expect(201);
+        employee_token = employee_response.body.access_token;
 
-        let employee_manager_response = await request(app.getHttpServer()).post('/auth/login').send({ username: login_employee_manager_dto.username, password: login_employee_manager_dto.password }).expect(201)
-        employee_manager_token = employee_manager_response.body.access_token
+        const employee_manager_response = await request(app.getHttpServer())
+            .post('/auth/login')
+            .send({ username: login_employee_manager_dto.username, password: login_employee_manager_dto.password })
+            .expect(201);
+        employee_manager_token = employee_manager_response.body.access_token;
     });
 
     afterAll(async () => {
@@ -35,29 +43,27 @@ describe('R02 - RBAC', () => {
     });
 
     it('should be defined', () => {
-        expect(app).toBeDefined()
-    })
+        expect(app).toBeDefined();
+    });
 
     describe('PRE - Verify tokens', () => {
-
         it('should be a member token', async () => {
-            const { body } = await request(app.getHttpServer()).get('/auth/me').auth(member_token, { type: 'bearer' })
-            expect(body.role).toEqual('Student')
+            const { body } = await request(app.getHttpServer()).get('/auth/me').auth(member_token, { type: 'bearer' });
+            expect(body.role).toEqual('Student');
         });
 
         it('should be an employee token', async () => {
-            const { body } = await request(app.getHttpServer()).get('/auth/me').auth(employee_token, { type: 'bearer' })
-            expect(body.role).toEqual('Check-out staff')
+            const { body } = await request(app.getHttpServer()).get('/auth/me').auth(employee_token, { type: 'bearer' });
+            expect(body.role).toEqual('Check-out staff');
         });
 
         it('should be a chief employee token', async () => {
-            const { body } = await request(app.getHttpServer()).get('/auth/me').auth(employee_manager_token, { type: 'bearer' })
-            expect(body.role).toEqual('Chief librarian')
+            const { body } = await request(app.getHttpServer()).get('/auth/me').auth(employee_manager_token, { type: 'bearer' });
+            expect(body.role).toEqual('Chief librarian');
         });
-    })
+    });
 
     describe('R02_C1 - Unauthorized (no token)', () => {
-
         it('R02_C1_01 - Call "get me"', () => {
             return request(app.getHttpServer()).get('/auth/me').expect(401);
         });
@@ -80,7 +86,6 @@ describe('R02 - RBAC', () => {
     });
 
     describe('R02_C2 - Member (token)', () => {
-
         it('R02_C2_01 - Call "get me"', () => {
             return request(app.getHttpServer()).get('/auth/me').auth(member_token, { type: 'bearer' }).expect(200);
         });
@@ -103,7 +108,6 @@ describe('R02 - RBAC', () => {
     });
 
     describe('R02_C3 - Employee (token)', () => {
-
         it('R02_C3_01 - Call "get me"', () => {
             return request(app.getHttpServer()).get('/auth/me').auth(employee_token, { type: 'bearer' }).expect(200);
         });
@@ -126,7 +130,6 @@ describe('R02 - RBAC', () => {
     });
 
     describe('R02_C4 - Manager employee (token)', () => {
-
         it('R02_C4_01 - Call "get me"', () => {
             return request(app.getHttpServer()).get('/auth/me').auth(employee_manager_token, { type: 'bearer' }).expect(200);
         });

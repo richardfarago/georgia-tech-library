@@ -1,4 +1,3 @@
-
 import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
@@ -14,7 +13,6 @@ describe('R05 - Book', () => {
 
         app = module.createNestApplication();
         await app.init();
-
     });
 
     afterAll(async () => {
@@ -22,6 +20,6 @@ describe('R05 - Book', () => {
     });
 
     it('should be defined', () => {
-        expect(app).toBeDefined()
-    })
-})
+        expect(app).toBeDefined();
+    });
+});

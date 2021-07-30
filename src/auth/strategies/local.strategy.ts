@@ -16,7 +16,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
 
         const user: JwtUserDto = await this.authService.validateUser(username, password);
         if (!user) {
-            throw new UnauthorizedException("Invalid credentials");
+            throw new UnauthorizedException('Invalid credentials');
         }
 
         if (ALL_ROLES.filter((x) => x === user.role).length === 0) {
