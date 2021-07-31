@@ -21,7 +21,8 @@
     ],
     "coverageDirectory": "coverage/e2e",
     "collectCoverageFrom": [
-        "src/**"
+        "src/**/*.controller.(t|j)s",
+        "src/**/*.service.(t|j)s"
     ],
     "coveragePathIgnorePatterns": [
         ".module.ts$",

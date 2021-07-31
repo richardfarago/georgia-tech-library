@@ -11,7 +11,7 @@ import { PlainUserDto } from '../user/dto/plain-user.dto';
 
 @Injectable()
 export class LoanService {
-    constructor(@InjectRepository(Loan) private loan_repository: Repository<Loan>, @Inject(MemberService) private member_service: MemberService) {}
+    constructor(@InjectRepository(Loan) private loan_repository: Repository<Loan>, @Inject(MemberService) private member_service: MemberService) { }
 
     async create(user: PlainUserDto, create_loan_dto: CreateLoanDto): Promise<Loan> {
         const member = await this.member_service.findOne(user.id);
@@ -19,11 +19,11 @@ export class LoanService {
 
         //Check book limit
         const ongoing_loans = await this.loan_repository.query(
-            `SELECT * FROM LoanContent LC WHERE returned_at IS NULL AND loan_id IN (SELECT L.id FROM Member M INNER JOIN Loan L ON L.user_id = M.user_id WHERE M.user_id = '00005591-6afb-4c47-b010-e64350bffbd8')`,
+            `SELECT * FROM LoanContent LC WHERE returned_at IS NULL AND loan_id IN (SELECT L.id FROM Member M INNER JOIN Loan L ON L.user_id = M.user_id WHERE M.user_id = '${member.user_id}')`,
         );
         if (ongoing_loans.length + loan.loan_contents.length > member.loan_permission.book_limit) {
             throw new InternalServerErrorException(
-                `Book limit reached (${ongoing_loans.length + loan.loan_contents.length} > ${member.loan_permission.book_limit})`,
+                `Book limit reached.`,
             );
         }
 
@@ -32,7 +32,7 @@ export class LoanService {
             `SELECT * FROM LoanContent LC WHERE book_id IN (${loan.loan_contents.map((obj) => `'${obj.book_id}'`)}) AND returned_at IS NULL`,
         );
         if (unavailable_books.length > 0) {
-            throw new InternalServerErrorException(`Book(s) currently not available (${unavailable_books.map((obj) => `'${obj.book_id}'`)})`);
+            throw new InternalServerErrorException(`Book(s) currently not available.`);
         }
 
         //Check loanability
@@ -42,7 +42,7 @@ export class LoanService {
             )}) AND is_loanable = 0`,
         );
         if (unloanable_books.length > 0) {
-            throw new InternalServerErrorException(`Book(s) are not loanable (${unloanable_books.map((obj) => `'${obj.book_id}'`)})`);
+            throw new InternalServerErrorException(`Book(s) are not loanable.`);
         }
 
         //Create loan
@@ -66,11 +66,11 @@ export class LoanService {
         return this.loan_repository.findOne(id);
     }
 
-    async findLoanHistory(user: PlainUserDto): Promise<any> {
+    findLoanHistory(user: PlainUserDto): Promise<any> {
         return this.loan_repository.query(`SELECT * FROM Loan L INNER JOIN LoanContent LC ON L.id = LC.loan_id WHERE user_id = '${user.id}'`);
     }
 
-    async findActiveLoans(user: PlainUserDto): Promise<any> {
+    findActiveLoans(user: PlainUserDto): Promise<any> {
         return this.loan_repository.query(
             `SELECT * FROM Loan L INNER JOIN LoanContent LC ON L.id = LC.loan_id WHERE user_id = '${user.id}' AND returned_at IS NULL`,
         );

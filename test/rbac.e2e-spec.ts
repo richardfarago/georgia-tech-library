@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
 import { INestApplication } from '@nestjs/common';
-import { login_employee_dto, login_employee_manager_dto, login_member_dto } from '../src/common/utilities/test-data/auth.test-data';
+import { login_employee_dto, login_employee_manager_dto, login_student_dto } from '../src/common/utilities/test-data/auth.test-data';
 
 describe('R02 - RBAC', () => {
     let app: INestApplication;
@@ -21,7 +21,7 @@ describe('R02 - RBAC', () => {
 
         const member_response = await request(app.getHttpServer())
             .post('/auth/login')
-            .send({ username: login_member_dto.username, password: login_member_dto.password })
+            .send({ username: login_student_dto.username, password: login_student_dto.password })
             .expect(201);
         member_token = member_response.body.access_token;
 

@@ -7,7 +7,7 @@ import { LoanService } from './loan.service';
 
 @Controller('loan')
 export class LoanController {
-    constructor(private readonly loan_service: LoanService) {}
+    constructor(private readonly loan_service: LoanService) { }
 
     @Post()
     @RequirePermission(Permissions.CREATE_LOAN)

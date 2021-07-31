@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
 import { INestApplication } from '@nestjs/common';
-import { chief_token } from '../src/common/utilities/test-data/auth.test-data';
+import { chief_auth } from '../src/common/utilities/test-data/auth.test-data';
 import { create_employee_dto, update_employee } from '../src/common/utilities/test-data/employee.test-data';
 import { Employee } from '../src/employee/entities/employee.entity';
 
@@ -30,7 +30,7 @@ describe('R04 - Employee', () => {
 
     describe('R04_C1 - Create employee', () => {
         it('R04_C1_01 - Create employee (Check-out staff)', async () => {
-            const { body } = await request(app.getHttpServer()).post('/employee').auth(chief_token, { type: 'bearer' }).send(create_employee_dto).expect(201);
+            const { body } = await request(app.getHttpServer()).post('/employee').auth(chief_auth.token, { type: 'bearer' }).send(create_employee_dto).expect(201);
             expect(body).toHaveProperty('user_id');
             employee_id = body.user_id;
             employee = body;
@@ -41,7 +41,7 @@ describe('R04 - Employee', () => {
         it('R04_C2_01 - Find created employee', async () => {
             const { body } = await request(app.getHttpServer())
                 .get('/employee/' + employee_id)
-                .auth(chief_token, { type: 'bearer' })
+                .auth(chief_auth.token, { type: 'bearer' })
                 .expect(200);
             expect(body).not.toEqual({});
         });
@@ -51,7 +51,7 @@ describe('R04 - Employee', () => {
         it('R04_C3_01 - Promote created employee (to be Library assistant)', () => {
             return request(app.getHttpServer())
                 .patch('/employee/' + employee_id)
-                .auth(chief_token, { type: 'bearer' })
+                .auth(chief_auth.token, { type: 'bearer' })
                 .send(update_employee.body)
                 .expect(200);
         });
@@ -61,7 +61,7 @@ describe('R04 - Employee', () => {
         it('R04_C4_01 - Fire employee ', () => {
             return request(app.getHttpServer())
                 .delete('/employee/' + employee_id)
-                .auth(chief_token, { type: 'bearer' })
+                .auth(chief_auth.token, { type: 'bearer' })
                 .expect(200);
         });
     });

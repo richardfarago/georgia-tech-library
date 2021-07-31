@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
 import { INestApplication } from '@nestjs/common';
-import { login_member_dto } from '../src/common/utilities/test-data/auth.test-data';
+import { login_student_dto } from '../src/common/utilities/test-data/auth.test-data';
 
 describe('R01 - Authentication', () => {
     let app: INestApplication;
@@ -29,7 +29,7 @@ describe('R01 - Authentication', () => {
         it('R01_C1_01 - Log in with correct credentials', async () => {
             const { body } = await request(app.getHttpServer())
                 .post('/auth/login')
-                .send({ username: login_member_dto.username, password: login_member_dto.password })
+                .send({ username: login_student_dto.username, password: login_student_dto.password })
                 .expect(201);
             token = body.access_token;
             expect(body).toHaveProperty('access_token');
@@ -39,7 +39,7 @@ describe('R01 - Authentication', () => {
         it('R01_C1_02 - Log in with wrong password', async () => {
             const { body } = await request(app.getHttpServer())
                 .post('/auth/login')
-                .send({ username: login_member_dto.username, password: 'wrong password' })
+                .send({ username: login_student_dto.username, password: 'wrong password' })
                 .expect(401);
             expect(body.message).toEqual('Invalid credentials');
         });
@@ -58,7 +58,7 @@ describe('R01 - Authentication', () => {
             const { body } = await request(app.getHttpServer()).get('/auth/me').auth(token, { type: 'bearer' }).expect(200);
             expect(body).toEqual({
                 id: expect.any(String),
-                username: login_member_dto.username,
+                username: login_student_dto.username,
                 role: expect.any(String),
             });
         });

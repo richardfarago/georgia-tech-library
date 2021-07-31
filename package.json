@@ -103,9 +103,9 @@
             "^.+\\.(t|j)s$": "ts-jest"
         },
         "coverageDirectory": "../coverage/unit",
-        "coveragePathIgnorePatterns": [
-            ".module.ts$",
-            ".spec.ts$"
+        "collectCoverageFrom": [
+            "**/*.controller.(t|j)s",
+            "**/*.service.(t|j)s"
         ],
         "coverageReporters": [
             "json",
