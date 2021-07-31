@@ -40,13 +40,21 @@ describe('R05 - Book', () => {
         });
 
         it('R05_C1_02 - Create book with existing ISBN', () => {
-            return request(app.getHttpServer()).post('/book').auth(employee_auth.token, { type: 'bearer' }).send(create_book_description_dto).expect(400);
+            return request(app.getHttpServer())
+                .post('/book')
+                .auth(employee_auth.token, { type: 'bearer' })
+                .send(create_book_description_dto)
+                .expect(400);
         });
 
         it('R05_C1_03 - Create book without author', () => {
             const book_without_author = create_book_description_dto;
             delete book_without_author.authors;
-            return request(app.getHttpServer()).post('/book').auth(employee_auth.token, { type: 'bearer' }).send(create_book_description_dto).expect(400);
+            return request(app.getHttpServer())
+                .post('/book')
+                .auth(employee_auth.token, { type: 'bearer' })
+                .send(create_book_description_dto)
+                .expect(400);
         });
     });
 

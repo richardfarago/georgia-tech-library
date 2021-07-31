@@ -11,7 +11,7 @@ import { PlainUserDto } from '../user/dto/plain-user.dto';
 
 @Injectable()
 export class LoanService {
-    constructor(@InjectRepository(Loan) private loan_repository: Repository<Loan>, @Inject(MemberService) private member_service: MemberService) { }
+    constructor(@InjectRepository(Loan) private loan_repository: Repository<Loan>, @Inject(MemberService) private member_service: MemberService) {}
 
     async create(user: PlainUserDto, create_loan_dto: CreateLoanDto): Promise<Loan> {
         const member = await this.member_service.findOne(user.id);
@@ -22,9 +22,7 @@ export class LoanService {
             `SELECT * FROM LoanContent LC WHERE returned_at IS NULL AND loan_id IN (SELECT L.id FROM Member M INNER JOIN Loan L ON L.user_id = M.user_id WHERE M.user_id = '${member.user_id}')`,
         );
         if (ongoing_loans.length + loan.loan_contents.length > member.loan_permission.book_limit) {
-            throw new InternalServerErrorException(
-                `Book limit reached.`,
-            );
+            throw new InternalServerErrorException(`Book limit reached.`);
         }
 
         //Check availability

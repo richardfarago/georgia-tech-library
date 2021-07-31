@@ -30,7 +30,11 @@ describe('R04 - Employee', () => {
 
     describe('R04_C1 - Create employee', () => {
         it('R04_C1_01 - Create employee (Check-out staff)', async () => {
-            const { body } = await request(app.getHttpServer()).post('/employee').auth(chief_auth.token, { type: 'bearer' }).send(create_employee_dto).expect(201);
+            const { body } = await request(app.getHttpServer())
+                .post('/employee')
+                .auth(chief_auth.token, { type: 'bearer' })
+                .send(create_employee_dto)
+                .expect(201);
             expect(body).toHaveProperty('user_id');
             employee_id = body.user_id;
             employee = body;

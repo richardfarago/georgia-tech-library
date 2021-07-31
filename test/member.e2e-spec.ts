@@ -30,7 +30,11 @@ describe('R03 - Member', () => {
 
     describe('R03_C1 - Create member', () => {
         it('R03_C1_01 - Create member (student)', async () => {
-            const { body } = await request(app.getHttpServer()).post('/member').auth(employee_auth.token, { type: 'bearer' }).send(create_student_dto).expect(201);
+            const { body } = await request(app.getHttpServer())
+                .post('/member')
+                .auth(employee_auth.token, { type: 'bearer' })
+                .send(create_student_dto)
+                .expect(201);
             expect(body).toHaveProperty('user_id');
             member_id = body.user_id;
             member = body;

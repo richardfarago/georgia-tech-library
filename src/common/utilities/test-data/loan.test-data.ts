@@ -391,7 +391,7 @@ export const create_loan_bundle_student = {
         { book_id: 'dc8af5e7-b5bc-4616-8320-3d8dc6c83080' }, //Stealth
         { book_id: '13151cbe-459e-42e5-9380-107a4a81d193' }, //Paris Belongs to Us (Paris nous appartient)
     ],
-}
+};
 
 export const create_loan_bundle_professor = {
     loan_contents: [
@@ -401,7 +401,7 @@ export const create_loan_bundle_professor = {
         { book_id: '023af417-445f-47da-a9ac-3b4504f1704f' }, //Ruthless People
         { book_id: '02520cce-32bf-44c9-898e-0d789151c378' }, //Rabbit Test
     ],
-}
+};
 
 export const create_loan_bundle_library = {
     loan_contents: [
@@ -416,25 +416,23 @@ export const create_loan_bundle_library = {
         { book_id: '04b34120-1f63-4fee-95a6-1ba00d4a7751' }, //Promises
         { book_id: '04c79ed1-7a61-4b78-b62b-be8855f4336f' }, //Betrayal
     ],
-}
+};
 
 export const create_loan_bundle_limit_reached = {
     loan_contents: [
         { book_id: '00027af9-33e3-4970-9271-f0cecab87a41' }, //My Mother (Ma mère)
         { book_id: '004045b1-1045-4150-bf5c-d8f05cf7f058' }, //The Duke of Burgundy
-    ]
-}
+    ],
+};
 
 export const create_loan_bundle_unavailable_book = {
     loan_contents: [
         { book_id: '02527b21-09ed-42ae-8603-3d6f5c41d4ec' }, //Pulp Fiction
-    ]
-}
+    ],
+};
 
 export const create_loan_bundle_unloanable_book = {
     loan_contents: [
         { book_id: '0a13b3b0-d76d-4dbf-a97e-434f0868f015' }, //Rafa
-
-    ]
-}
-
+    ],
+};

@@ -8,7 +8,10 @@ import { v4 as uuid } from 'uuid';
 
 @Injectable()
 export class EmployeeService {
-    constructor(@InjectRepository(Employee) private employee_repository: Repository<Employee>, @InjectConnection() private db_connection: Connection) {}
+    constructor(
+        @InjectRepository(Employee) private employee_repository: Repository<Employee>,
+        @InjectConnection() private db_connection: Connection,
+    ) {}
 
     create(create_employee_dto: CreateEmployeeDto): Promise<Employee> {
         const employee: Employee = this.employee_repository.create(create_employee_dto);

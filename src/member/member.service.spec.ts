@@ -3,7 +3,14 @@ import { getConnectionToken, getRepositoryToken } from '@nestjs/typeorm';
 import { Member } from './entities/member.entity';
 import { MemberService } from './member.service';
 import { mock_connection } from '../common/utilities/mocks/dbConnectionMock';
-import { create_student_dto, create_lib_dto, member_list, member_single, update_member, member_id } from '../common/utilities/test-data/member.test-data';
+import {
+    create_student_dto,
+    create_lib_dto,
+    member_list,
+    member_single,
+    update_member,
+    member_id,
+} from '../common/utilities/test-data/member.test-data';
 
 describe('MemberService', () => {
     let service: MemberService;

@@ -14,7 +14,11 @@ async function bootstrap() {
     const app = await NestFactory.create(AppModule);
 
     //Swagger init
-    const config = new DocumentBuilder().setTitle('Georgia Tech Library').setDescription('Software Development PBA 1st Semester').addBearerAuth().build();
+    const config = new DocumentBuilder()
+        .setTitle('Georgia Tech Library')
+        .setDescription('Software Development PBA 1st Semester')
+        .addBearerAuth()
+        .build();
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('api', app, document, swaggerOptions);
 
