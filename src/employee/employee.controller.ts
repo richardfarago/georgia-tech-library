@@ -3,11 +3,11 @@ import { EmployeeService } from './employee.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
 import { RequirePermission } from '../common/decorators/permission.decorator';
-import { Permissions } from '../common/constants/permissions.enum';
+import { Permissions } from '../common/rbac/permissions.enum';
 
 @Controller('employee')
 export class EmployeeController {
-    constructor(private readonly employeeService: EmployeeService) {}
+    constructor(private readonly employeeService: EmployeeService) { }
 
     @Post()
     @RequirePermission(Permissions.CREATE_EMPLOYEE)

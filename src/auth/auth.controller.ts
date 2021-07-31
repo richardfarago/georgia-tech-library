@@ -4,7 +4,7 @@ import { AuthService } from './auth.service';
 import { Public } from '../common/decorators/public.decorator';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { RequirePermission } from '../common/decorators/permission.decorator';
-import { Permissions } from '../common/constants/permissions.enum';
+import { Permissions } from '../common/rbac/permissions.enum';
 import { JwtUserDto } from '../user/dto/jwt-user.dto';
 import { UpdateResult } from 'typeorm';
 
@@ -12,7 +12,7 @@ import { UpdateResult } from 'typeorm';
 @ApiTags('Authentication')
 @Controller('auth')
 export class AuthController {
-    constructor(private auth_service: AuthService) {}
+    constructor(private auth_service: AuthService) { }
 
     @Public()
     @UseGuards(LocalAuthGuard)

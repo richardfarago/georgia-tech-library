@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Post, Put, Request } from '@nestjs/common';
-import { Permissions } from '../common/constants/permissions.enum';
+import { Permissions } from '../common/rbac/permissions.enum';
 import { RequirePermission } from '../common/decorators/permission.decorator';
 import { CreateLoanDto } from './dto/create-loan.dto';
 import { Loan } from './entities/loan.entity';
@@ -7,7 +7,7 @@ import { LoanService } from './loan.service';
 
 @Controller('loan')
 export class LoanController {
-    constructor(private readonly loan_service: LoanService) {}
+    constructor(private readonly loan_service: LoanService) { }
 
     @Post()
     @RequirePermission(Permissions.CREATE_LOAN)

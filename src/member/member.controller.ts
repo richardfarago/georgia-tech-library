@@ -4,13 +4,13 @@ import { CreateMemberDto } from './dto/create-member.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { UpdateResult } from 'typeorm';
 import { RequirePermission } from '../common/decorators/permission.decorator';
-import { Permissions } from '../common/constants/permissions.enum';
+import { Permissions } from '../common/rbac/permissions.enum';
 
 @ApiBearerAuth()
 @ApiTags('Members')
 @Controller('member')
 export class MemberController {
-    constructor(private readonly memberService: MemberService) {}
+    constructor(private readonly memberService: MemberService) { }
 
     @Post()
     @RequirePermission(Permissions.CREATE_MEMBER)
