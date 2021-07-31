@@ -12,7 +12,7 @@ import { UpdateResult } from 'typeorm';
 @ApiTags('Authentication')
 @Controller('auth')
 export class AuthController {
-    constructor(private auth_service: AuthService) {}
+    constructor(private auth_service: AuthService) { }
 
     @Public()
     @UseGuards(LocalAuthGuard)
@@ -24,7 +24,7 @@ export class AuthController {
 
     @Get('me')
     @RequirePermission(Permissions.GET_ME)
-    getProfile(@Request() req) {
+    getProfile(@Request() req): JwtUserDto {
         return req.user;
     }
 
