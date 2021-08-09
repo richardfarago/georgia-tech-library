@@ -31,14 +31,14 @@ const validationOptions: ValidationPipeOptions = {
         TypeOrmModule.forRoot({
             type: 'mssql',
             host: process.env.AWS,
-            port: parseInt(process.env.PORT),
+            port: +process.env.PORT,
             username: process.env.USERNAME,
             password: process.env.PASSWORD,
             database: process.env.DATABASE,
             autoLoadEntities: true,
             synchronize: false,
             logging: false,
-            ssl: false,
+            ssl: true,
             keepConnectionAlive: true,
             namingStrategy: new SnakeNamingStrategy(),
             extra: {
