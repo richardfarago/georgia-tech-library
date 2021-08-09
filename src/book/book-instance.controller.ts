@@ -1,10 +1,10 @@
-import { Controller, Post, Body, Param, Delete, Get } from '@nestjs/common';
+import { Controller, Post, Body, Param, Delete, Get, ParseUUIDPipe } from '@nestjs/common';
 import { ParseISBNPipe } from '../common/pipes/isbn.pipe';
 import { BookInstanceService } from './book-instance.service';
 
 @Controller('book/:isbn')
 export class BookInstanceController {
-    constructor(private readonly book_instance_service: BookInstanceService) {}
+    constructor(private readonly book_instance_service: BookInstanceService) { }
 
     @Post()
     addToBook(@Param('isbn', ParseISBNPipe) isbn: string, @Body() body: any) {
@@ -12,12 +12,12 @@ export class BookInstanceController {
     }
 
     @Get(':id')
-    findOne(@Param() id: string) {
+    findOne(@Param('id', ParseUUIDPipe) id: string) {
         return this.book_instance_service.findOne(id);
     }
 
     @Delete(':id')
-    remove(@Param('id') id: string) {
+    remove(@Param('id', ParseUUIDPipe) id: string) {
         return this.book_instance_service.remove(id);
     }
 }

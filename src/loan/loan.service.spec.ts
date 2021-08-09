@@ -1,12 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { isDateString } from 'class-validator';
-import { find } from 'rxjs';
 import { book_id } from '../common/utilities/test-data/book.test-data';
 import { create_loan_dto, loan_id, loan_list, loan_single } from '../common/utilities/test-data/loan.test-data';
 import { member_single } from '../common/utilities/test-data/member.test-data';
 import { user_single } from '../common/utilities/test-data/user.test-data';
-import { MemberModule } from '../member/member.module';
 import { MemberService } from '../member/member.service';
 import { Loan } from './entities/loan.entity';
 import { LoanService } from './loan.service';
@@ -48,7 +45,7 @@ describe('LoanService', () => {
         expect(service).toBeDefined();
     });
 
-    describe('cretae', () => {
+    describe('create', () => {
         jest.spyOn(mock_loan_repository, 'create');
         jest.spyOn(mock_loan_repository, 'query');
         jest.spyOn(mock_member_service, 'findOne');

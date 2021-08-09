@@ -11,7 +11,10 @@ import RandExp = require('randexp');
 
 @Injectable()
 export class MemberService {
-    constructor(@InjectConnection() private connection: Connection, @InjectRepository(Member) private member_repository: Repository<Member>) {}
+    constructor(
+        @InjectConnection() private connection: Connection,
+        @InjectRepository(Member) private member_repository: Repository<Member>
+    ) { }
 
     async create(create_member_dto: CreateMemberDto): Promise<Member> {
         const member: Member = this.member_repository.create(create_member_dto);

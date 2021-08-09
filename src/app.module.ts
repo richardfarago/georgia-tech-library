@@ -12,7 +12,7 @@ import { MemberModule } from './member/member.module';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { APP_GUARD, APP_PIPE } from '@nestjs/core';
 import { EmployeeModule } from './employee/employee.module';
-import { RolesGuard } from './auth/guards/permission.guard';
+import { PermissionGuard } from './auth/guards/permission.guard';
 import { BookModule } from './book/book.module';
 import { LoanModule } from './loan/loan.module';
 
@@ -58,8 +58,8 @@ const validationOptions: ValidationPipeOptions = {
     providers: [
         AppService,
         { provide: APP_GUARD, useClass: JwtAuthGuard },
-        { provide: APP_GUARD, useClass: RolesGuard },
+        { provide: APP_GUARD, useClass: PermissionGuard },
         { provide: APP_PIPE, useValue: new ValidationPipe(validationOptions) }, // { provide: APP_PIPE, useFactory: () => new ValidationPipe(validationOptions) }
     ],
 })
-export class AppModule {}
+export class AppModule { }

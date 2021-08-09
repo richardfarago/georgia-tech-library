@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put, Request } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseUUIDPipe, Post, Put, Request } from '@nestjs/common';
 import { Permissions } from '../common/rbac/permissions.enum';
 import { RequirePermission } from '../common/decorators/permission.decorator';
 import { CreateLoanDto } from './dto/create-loan.dto';
@@ -23,7 +23,7 @@ export class LoanController {
 
     @Get(':id')
     @RequirePermission(Permissions.READ_LOAN)
-    findOne(@Param('id') id: string): Promise<Loan> {
+    findOne(@Param('id', ParseUUIDPipe) id: string): Promise<Loan> {
         return this.loan_service.findOne(id);
     }
 
@@ -41,13 +41,13 @@ export class LoanController {
 
     @Put(':loan_id/:book_id')
     @RequirePermission(Permissions.RETURN_BOOK)
-    returnBook(@Param('loan_id') loan_id: string, @Param('book_id') book_id: string): Promise<any> {
+    returnBook(@Param('loan_id', ParseUUIDPipe) loan_id: string, @Param('book_id') book_id: string): Promise<any> {
         return this.loan_service.returnBook(loan_id, book_id);
     }
 
     @Put(':loan_id')
     @RequirePermission(Permissions.FINISH_LOAN)
-    finishLoan(@Param('loan_id') loan_id: string): Promise<any> {
+    finishLoan(@Param('loan_id', ParseUUIDPipe) loan_id: string): Promise<any> {
         return this.loan_service.finishLoan(loan_id);
     }
 }
