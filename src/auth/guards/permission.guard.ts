@@ -3,11 +3,13 @@ import { Reflector } from '@nestjs/core';
 import { PERMISSION_KEY } from '../../common/decorators/permission.decorator';
 
 @Injectable()
-export class RolesGuard implements CanActivate {
-    constructor(private reflector: Reflector) {}
+export class PermissionGuard implements CanActivate {
+    constructor(private reflector: Reflector) { }
 
     canActivate(context: ExecutionContext): boolean {
-        const required_roles = this.reflector.getAllAndOverride<string[]>(PERMISSION_KEY, [context.getHandler(), context.getClass()]);
+        const required_roles = this.reflector.getAllAndOverride<string[]>(
+            PERMISSION_KEY, [context.getHandler(), context.getClass()]
+        );
 
         if (required_roles) {
             const { user } = context.switchToHttp().getRequest();
