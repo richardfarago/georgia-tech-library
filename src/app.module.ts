@@ -31,7 +31,7 @@ const validationOptions: ValidationPipeOptions = {
         TypeOrmModule.forRoot({
             type: 'mssql',
             host: process.env.AWS,
-            port: parseInt(process.env.PORT),
+            port: 1433,
             username: process.env.USERNAME,
             password: process.env.PASSWORD,
             database: process.env.DATABASE,
