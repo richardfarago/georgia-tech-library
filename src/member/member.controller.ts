@@ -3,8 +3,8 @@ import { MemberService } from './member.service';
 import { CreateMemberDto } from './dto/create-member.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { UpdateResult } from 'typeorm';
-import { RequirePermission } from '../common/decorators/permission.decorator';
-import { Permissions } from '../common/rbac/permissions.enum';
+import { RequirePermission } from '../rbac/decorators/permission.decorator';
+import { Permissions } from '../rbac/constants/permissions.enum';
 
 @ApiBearerAuth()
 @ApiTags('Members')

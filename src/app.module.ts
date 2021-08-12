@@ -12,7 +12,7 @@ import { MemberModule } from './member/member.module';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { APP_GUARD, APP_PIPE } from '@nestjs/core';
 import { EmployeeModule } from './employee/employee.module';
-import { PermissionGuard } from './auth/guards/permission.guard';
+import { PermissionGuard } from './rbac/guards/permission.guard';
 import { BookModule } from './book/book.module';
 import { LoanModule } from './loan/loan.module';
 
@@ -31,7 +31,7 @@ const validationOptions: ValidationPipeOptions = {
         TypeOrmModule.forRoot({
             type: 'mssql',
             host: process.env.AWS,
-            port: 1433,
+            port: parseInt(process.env.PORT),
             username: process.env.USERNAME,
             password: process.env.PASSWORD,
             database: process.env.DATABASE,

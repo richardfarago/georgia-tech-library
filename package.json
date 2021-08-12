@@ -109,7 +109,10 @@
         "coverageDirectory": "../coverage/unit",
         "collectCoverageFrom": [
             "**/*.controller.(t|j)s",
-            "**/*.service.(t|j)s"
+            "**/*.service.(t|j)s",
+            "**/*.guard.(t|j)s",
+            "**/*.strategy.(t|j)s",
+            "**/*.pipe.(t|j)s"
         ],
         "coverageReporters": [
             "json",

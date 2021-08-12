@@ -1,10 +1,10 @@
 import { Controller, Request, Post, UseGuards, Get, Put, Body } from '@nestjs/common';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { AuthService } from './auth.service';
-import { Public } from '../common/decorators/public.decorator';
+import { Public } from '../rbac/decorators/public.decorator';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { RequirePermission } from '../common/decorators/permission.decorator';
-import { Permissions } from '../common/rbac/permissions.enum';
+import { RequirePermission } from '../rbac/decorators/permission.decorator';
+import { Permissions } from '../rbac/constants/permissions.enum';
 import { JwtUserDto } from '../user/dto/jwt-user.dto';
 import { UpdateResult } from 'typeorm';
 

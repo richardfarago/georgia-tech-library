@@ -2,8 +2,8 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, ParseUUIDPipe } from
 import { EmployeeService } from './employee.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
-import { RequirePermission } from '../common/decorators/permission.decorator';
-import { Permissions } from '../common/rbac/permissions.enum';
+import { RequirePermission } from '../rbac/decorators/permission.decorator';
+import { Permissions } from '../rbac/constants/permissions.enum';
 
 @Controller('employee')
 export class EmployeeController {

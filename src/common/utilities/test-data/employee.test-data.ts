@@ -1,4 +1,4 @@
-import { Roles } from '../../rbac/roles.enum';
+import { Roles } from '../../../rbac/constants/roles.enum';
 import { UpdateEmployeeDto } from '../../../employee/dto/update-employee.dto';
 
 export const create_employee_dto = {

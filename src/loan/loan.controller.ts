@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, ParseUUIDPipe, Post, Put, Request } from '@nestjs/common';
-import { Permissions } from '../common/rbac/permissions.enum';
-import { RequirePermission } from '../common/decorators/permission.decorator';
+import { Permissions } from '../rbac/constants/permissions.enum';
+import { RequirePermission } from '../rbac/decorators/permission.decorator';
 import { CreateLoanDto } from './dto/create-loan.dto';
 import { Loan } from './entities/loan.entity';
 import { LoanService } from './loan.service';
