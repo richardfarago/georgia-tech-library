@@ -5,8 +5,8 @@ import { UnauthorizedException } from '@nestjs/common';
 @Injectable()
 export class LocalAuthGuard extends AuthGuard('local') {
     handleRequest(err, user, info) {
-        if (err || !user) {
-            throw err || new UnauthorizedException();
+        if (err) {
+            throw err;
         }
         return user;
     }

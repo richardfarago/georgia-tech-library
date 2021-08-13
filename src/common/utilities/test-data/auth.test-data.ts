@@ -50,3 +50,8 @@ export const chief_auth = {
     token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNlY2lsaWFfcmFtc2F5IiwiaWQiOiI3MjA5NWU3My1mYmE5LTQ3ZGYtOGExYS1iZWQyM2E0ZDI4ZjEiLCJyb2xlIjoiQ2hpZWYgbGlicmFyaWFuIiwiaWF0IjoxNjI3NjU5NzE2LCJleHAiOjE2MzI4NDM3MTZ9.6xrz4AHpNdTJZBEUWGwtT04__iNiBTd3pZbdSvFcDJ0',
     id: '72095e73-fba9-47df-8a1a-bed23a4d28f1',
 };
+
+export const change_pw_auth = {
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNmYW5zdG9uZW9vIiwiaWQiOiI3YmRlOGZhZC1hZjlmLTRlMjktODgwOC05MDA1YjIzZDQ5ODkiLCJyb2xlIjoiUHJvZmVzc29yIiwiaWF0IjoxNjI4ODc5NDQxLCJleHAiOjE2MzQwNjM0NDF9.xoDwjDPSUGCi0h9-_9zGm8pHVhvY1-vNzInwmsowbPk',
+    id: '7bde8fad-af9f-4e29-8808-9005b23d4989'
+}

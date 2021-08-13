@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
 import { INestApplication } from '@nestjs/common';
-import { login_student_dto } from '../src/common/utilities/test-data/auth.test-data';
+import { change_pw_auth, login_library_dto, login_student_dto } from '../src/common/utilities/test-data/auth.test-data';
 
 describe('R01 - Authentication', () => {
     let app: INestApplication;
@@ -36,7 +36,16 @@ describe('R01 - Authentication', () => {
             expect(body.access_token).toEqual(expect.any(String));
         });
 
-        it('R01_C1_02 - Log in with wrong password', async () => {
+        it('R01_C1_02 - Log in with correct credentials', async () => {
+            const { body } = await request(app.getHttpServer())
+                .post('/auth/login')
+                .send({ username: login_library_dto.username, password: login_library_dto.password })
+                .expect(201);
+            expect(body).toHaveProperty('access_token');
+            expect(body.access_token).toEqual(expect.any(String));
+        });
+
+        it('R01_C1_03 - Log in with wrong password', async () => {
             const { body } = await request(app.getHttpServer())
                 .post('/auth/login')
                 .send({ username: login_student_dto.username, password: 'wrong password' })
@@ -44,7 +53,7 @@ describe('R01 - Authentication', () => {
             expect(body.message).toEqual('Invalid credentials');
         });
 
-        it('R01_C1_03 - Log in with wrong username', async () => {
+        it('R01_C1_04 - Log in with wrong username', async () => {
             const { body } = await request(app.getHttpServer())
                 .post('/auth/login')
                 .send({ username: 'wrong username', password: 'wrong password' })
@@ -61,6 +70,10 @@ describe('R01 - Authentication', () => {
                 username: login_student_dto.username,
                 role: expect.any(String),
             });
+        });
+
+        it('R01_C2_02 - Change password', async () => {
+            const { body } = await request(app.getHttpServer()).put('/auth/password').auth(change_pw_auth.token, { type: 'bearer' }).send({ password: 'NEWPASS' }).expect(200);
         });
     });
 });

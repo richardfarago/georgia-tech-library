@@ -31,7 +31,7 @@ describe('R03 - Member', () => {
     });
 
     describe('R03_C1 - Create member', () => {
-        it('R03_C1_01 - Create member (student)', async () => {
+        it('R03_C1_01 - Create member (Student)', async () => {
             const { body } = await request(app.getHttpServer())
                 .post('/member')
                 .auth(employee_auth.token, { type: 'bearer' })
@@ -42,7 +42,7 @@ describe('R03 - Member', () => {
             member = body;
         });
 
-        it('R03_C1_02 - Create member (library)', async () => {
+        it('R03_C1_02 - Create member (Library)', async () => {
             const { body } = await request(app.getHttpServer())
                 .post('/member')
                 .auth(employee_auth.token, { type: 'bearer' })
@@ -102,14 +102,14 @@ describe('R03 - Member', () => {
     });
 
     describe('R03_C4 - Delete member', () => {
-        it('R03_C4_01 - Delete created member by ID', () => {
+        it('R03_C4_01 - Delete created member by ID (Student)', () => {
             return request(app.getHttpServer())
                 .delete('/member/' + member_id)
                 .auth(employee_auth.token, { type: 'bearer' })
                 .expect(200);
         });
 
-        it('R03_C4_02 - Delete created library by ID', () => {
+        it('R03_C4_02 - Delete created member by ID (Library)', () => {
             return request(app.getHttpServer())
                 .delete('/member/' + lib_id)
                 .auth(employee_auth.token, { type: 'bearer' })
