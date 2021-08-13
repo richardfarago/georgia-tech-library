@@ -1,3 +1,4 @@
+import { InternalServerErrorException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getConnectionToken, getRepositoryToken } from '@nestjs/typeorm';
 import { mock_connection } from '../common/utilities/mocks/dbConnectionMock';
@@ -84,6 +85,19 @@ describe('EmployeeService', () => {
 
             expect(mock_connection.transaction).toBeCalled();
             expect(service.findOne).toBeCalledWith(employee_id);
+        });
+
+        it('should fail while removing a employee', () => {
+            const error = new Error("This is an error")
+            jest.spyOn(mock_connection, 'transaction').mockImplementation((cb) => {
+                return cb({
+                    query: jest.fn(() => {
+                        throw error
+                    }),
+                });
+            })
+            expect(() => service.remove(employee_id)).rejects.toThrowError(InternalServerErrorException)
+            expect(mock_connection.transaction).toBeCalled();
         });
     });
 });

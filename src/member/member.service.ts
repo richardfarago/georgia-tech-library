@@ -55,18 +55,14 @@ export class MemberService {
             try {
                 const member: Member = await this.findOne(id);
 
-                if (member) {
-                    await manager.query(`DELETE FROM AuthUser WHERE id = '${member.user_id}'`); //--> Member relation cascades
-                    await manager.query(`DELETE FROM SchoolMember WHERE ssn = '${member.school_member?.ssn}'`);
-                    await manager.query(`DELETE FROM Library WHERE name = '${member.library?.name}'`);
-                    await manager.query(`DELETE FROM Address WHERE id IN ('${member.campus_address.id}','${member.school_member?.home_address.id}')`);
-                    await manager.query(`DELETE FROM MemberCard WHERE number = '${member.member_card.number}'`);
-                    return 'Member deleted';
-                } else {
-                    return 'Member does not exist';
-                }
+                await manager.query(`DELETE FROM AuthUser WHERE id = '${member.user_id}'`); //--> Member relation cascades
+                await manager.query(`DELETE FROM SchoolMember WHERE ssn = '${member.school_member?.ssn}'`);
+                await manager.query(`DELETE FROM Library WHERE name = '${member.library?.name}'`);
+                await manager.query(`DELETE FROM Address WHERE id IN ('${member.campus_address.id}','${member.school_member?.home_address.id}')`);
+                await manager.query(`DELETE FROM MemberCard WHERE number = '${member.member_card.number}'`);
+                return 'Member deleted';
+
             } catch (err) {
-                console.log(err);
                 throw new InternalServerErrorException(err);
             }
         });

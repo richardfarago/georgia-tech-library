@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
 import { INestApplication } from '@nestjs/common';
-import { create_student_dto, update_member } from '../src/common/utilities/test-data/member.test-data';
+import { create_lib_dto, create_student_dto, update_member } from '../src/common/utilities/test-data/member.test-data';
 import { employee_auth } from '../src/common/utilities/test-data/auth.test-data';
 import { Member } from '../src/member/entities/member.entity';
 import { non_existent_id } from '../src/common/utilities/test-data/user.test-data';
@@ -11,6 +11,7 @@ describe('R03 - Member', () => {
     let app: INestApplication;
     let member_id: string;
     let member: Member;
+    let lib_id: string
 
     beforeAll(async () => {
         const module: TestingModule = await Test.createTestingModule({
@@ -41,13 +42,23 @@ describe('R03 - Member', () => {
             member = body;
         });
 
-        it('R03_C1_02 - Create member with invalid phone number', async () => {
+        it('R03_C1_02 - Create member (library)', async () => {
+            const { body } = await request(app.getHttpServer())
+                .post('/member')
+                .auth(employee_auth.token, { type: 'bearer' })
+                .send(create_lib_dto)
+                .expect(201);
+            expect(body).toHaveProperty('user_id');
+            lib_id = body.user_id;
+        });
+
+        it('R03_C1_03 - Create member with invalid phone number', async () => {
             const create_member_invalid_phone = create_student_dto;
             create_member_invalid_phone.phone_number = '123';
             request(app.getHttpServer()).post('/member').auth(employee_auth.token, { type: 'bearer' }).send(create_student_dto).expect(400);
         });
 
-        it('R03_C1_03 - Create member with missing user credentials', () => {
+        it('R03_C1_04 - Create member with missing user credentials', () => {
             const create_member_invalid_phone = create_student_dto;
             delete create_member_invalid_phone.user;
             request(app.getHttpServer()).post('/member').auth(employee_auth.token, { type: 'bearer' }).send(create_student_dto).expect(400);
@@ -98,7 +109,14 @@ describe('R03 - Member', () => {
                 .expect(200);
         });
 
-        it('R03_C4_02 - Delete member (non-existent ID)', () => {
+        it('R03_C4_02 - Delete created library by ID', () => {
+            return request(app.getHttpServer())
+                .delete('/member/' + lib_id)
+                .auth(employee_auth.token, { type: 'bearer' })
+                .expect(200);
+        });
+
+        it('R03_C4_03 - Delete member (non-existent ID)', () => {
             return request(app.getHttpServer())
                 .delete('/member/' + non_existent_id) //Valid UUID but does not exist in DB
                 .auth(employee_auth.token, { type: 'bearer' })

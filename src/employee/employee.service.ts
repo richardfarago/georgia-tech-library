@@ -11,7 +11,7 @@ export class EmployeeService {
     constructor(
         @InjectRepository(Employee) private employee_repository: Repository<Employee>,
         @InjectConnection() private db_connection: Connection,
-    ) {}
+    ) { }
 
     create(create_employee_dto: CreateEmployeeDto): Promise<Employee> {
         const employee: Employee = this.employee_repository.create(create_employee_dto);
@@ -38,15 +38,10 @@ export class EmployeeService {
         return this.db_connection.transaction(async (manager) => {
             try {
                 const employee: Employee = await this.findOne(id);
-
-                if (employee) {
-                    await manager.query(`DELETE FROM AuthUser WHERE id = '${id}'`); // --> Employee relation cascades
-                    await manager.query(`DELETE FROM Address WHERE id = '${employee.home_address.id}'`);
-                    return 'Employee deleted';
-                }
-                return 'Employee does not exist';
+                await manager.query(`DELETE FROM AuthUser WHERE id = '${id}'`); // --> Employee relation cascades
+                await manager.query(`DELETE FROM Address WHERE id = '${employee.home_address.id}'`);
+                return 'Employee deleted';
             } catch (err) {
-                console.log(err);
                 throw new InternalServerErrorException(err);
             }
         });

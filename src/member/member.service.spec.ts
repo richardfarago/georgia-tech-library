@@ -11,6 +11,7 @@ import {
     update_member,
     member_id,
 } from '../common/utilities/test-data/member.test-data';
+import { InternalServerErrorException } from '@nestjs/common';
 
 describe('MemberService', () => {
     let service: MemberService;
@@ -112,6 +113,20 @@ describe('MemberService', () => {
 
             expect(mock_connection.transaction).toBeCalled();
             expect(service.findOne).toBeCalledWith(member_id);
+        });
+
+        it('should fail while removing a member', () => {
+            const error = new Error("This is an error")
+            jest.spyOn(mock_connection, 'transaction').mockImplementation((cb) => {
+                return cb({
+                    query: jest.fn(() => {
+                        throw error
+                    }),
+                });
+
+            })
+            expect(() => service.remove(member_id)).rejects.toThrowError(InternalServerErrorException)
+            expect(mock_connection.transaction).toBeCalled();
         });
     });
 });
