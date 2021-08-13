@@ -13,6 +13,7 @@ import {
     create_loan_bundle_unloanable_book,
 } from '../src/common/utilities/test-data/loan.test-data';
 import * as moment from 'moment';
+import { non_existent_id } from '../src/common/utilities/test-data/user.test-data';
 
 describe('R06 - Loan', () => {
     let app: INestApplication;
@@ -220,6 +221,10 @@ describe('R06 - Loan', () => {
 
         it('R06_C4_03 - Return books (Library)', async () => {
             await request(app.getHttpServer()).put(`/loan/${library_loan_id}`).auth(library_auth.token, { type: 'bearer' }).expect(200);
+        });
+
+        it('R05_C4_04 - Return book (non-existent loan ID)', async () => {
+            await request(app.getHttpServer()).put(`/loan/${non_existent_id}`).auth(library_auth.token, { type: 'bearer' }).expect(404);
         });
     });
 

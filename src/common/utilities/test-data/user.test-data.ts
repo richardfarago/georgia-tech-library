@@ -32,3 +32,5 @@ export const user_list: PlainUserDto[] = [
         username: 'charbincc',
     },
 ];
+
+export const non_existent_id: string = '4cacef44-3275-44db-8ae9-4cf9d8db6c52'

@@ -5,6 +5,7 @@ import { INestApplication } from '@nestjs/common';
 import { create_student_dto, update_member } from '../src/common/utilities/test-data/member.test-data';
 import { employee_auth } from '../src/common/utilities/test-data/auth.test-data';
 import { Member } from '../src/member/entities/member.entity';
+import { non_existent_id } from '../src/common/utilities/test-data/user.test-data';
 
 describe('R03 - Member', () => {
     let app: INestApplication;
@@ -79,6 +80,14 @@ describe('R03 - Member', () => {
                 .send({ phone_number: update_member.body.phone_number })
                 .expect(200);
         });
+
+        it('R03_C3_03 - Update member (non-existent ID)', () => {
+            return request(app.getHttpServer())
+                .patch('/member/' + non_existent_id) //Valid UUID but does not exist in DB
+                .auth(employee_auth.token, { type: 'bearer' })
+                .send({ phone_number: update_member.body.phone_number })
+                .expect(404);
+        });
     });
 
     describe('R03_C4 - Delete member', () => {
@@ -87,6 +96,13 @@ describe('R03 - Member', () => {
                 .delete('/member/' + member_id)
                 .auth(employee_auth.token, { type: 'bearer' })
                 .expect(200);
+        });
+
+        it('R03_C4_02 - Delete member (non-existent ID)', () => {
+            return request(app.getHttpServer())
+                .delete('/member/' + non_existent_id) //Valid UUID but does not exist in DB
+                .auth(employee_auth.token, { type: 'bearer' })
+                .expect(404);
         });
     });
 });

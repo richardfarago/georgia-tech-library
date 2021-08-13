@@ -1,4 +1,5 @@
-import { Body, Controller, Get, Param, ParseUUIDPipe, Post, Put, Request } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseUUIDPipe, Post, Put, Request, UseGuards } from '@nestjs/common';
+import { DoesExistGuard } from '../common/validation/guards/does-exist.guard';
 import { Permissions } from '../rbac/constants/permissions.enum';
 import { RequirePermission } from '../rbac/decorators/permission.decorator';
 import { CreateLoanDto } from './dto/create-loan.dto';
@@ -40,12 +41,14 @@ export class LoanController {
     }
 
     @Put(':loan_id/:book_id')
+    @UseGuards(new DoesExistGuard(Loan, 'loan_id'))
     @RequirePermission(Permissions.RETURN_BOOK)
     returnBook(@Param('loan_id', ParseUUIDPipe) loan_id: string, @Param('book_id') book_id: string): Promise<any> {
         return this.loan_service.returnBook(loan_id, book_id);
     }
 
     @Put(':loan_id')
+    @UseGuards(new DoesExistGuard(Loan, 'loan_id'))
     @RequirePermission(Permissions.FINISH_LOAN)
     finishLoan(@Param('loan_id', ParseUUIDPipe) loan_id: string): Promise<any> {
         return this.loan_service.finishLoan(loan_id);

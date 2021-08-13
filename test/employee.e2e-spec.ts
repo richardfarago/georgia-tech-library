@@ -5,6 +5,7 @@ import { INestApplication } from '@nestjs/common';
 import { chief_auth } from '../src/common/utilities/test-data/auth.test-data';
 import { create_employee_dto, update_employee } from '../src/common/utilities/test-data/employee.test-data';
 import { Employee } from '../src/employee/entities/employee.entity';
+import { non_existent_id } from '../src/common/utilities/test-data/user.test-data';
 
 describe('R04 - Employee', () => {
     let app: INestApplication;
@@ -59,14 +60,29 @@ describe('R04 - Employee', () => {
                 .send(update_employee.body)
                 .expect(200);
         });
+
+        it('R04_C3_02 - Update employee (non-existent ID)', () => {
+            return request(app.getHttpServer())
+                .patch('/employee/' + non_existent_id)
+                .auth(chief_auth.token, { type: 'bearer' })
+                .send(update_employee.body)
+                .expect(404);
+        });
     });
 
     describe('R04_C4 - Delete employee', () => {
-        it('R04_C4_01 - Fire employee ', () => {
+        it('R04_C4_01 - Fire employee', () => {
             return request(app.getHttpServer())
                 .delete('/employee/' + employee_id)
                 .auth(chief_auth.token, { type: 'bearer' })
                 .expect(200);
+        });
+
+        it('R04_C4_02 - Delete employee (non-existent ID)', () => {
+            return request(app.getHttpServer())
+                .delete('/employee/' + non_existent_id)
+                .auth(chief_auth.token, { type: 'bearer' })
+                .expect(404);
         });
     });
 });

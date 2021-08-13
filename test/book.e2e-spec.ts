@@ -4,7 +4,7 @@ import { AppModule } from '../src/app.module';
 import { INestApplication } from '@nestjs/common';
 import { BookDescription } from '../src/book/entities/book-description.entity';
 import { employee_auth } from '../src/common/utilities/test-data/auth.test-data';
-import { create_book_description_dto } from '../src/common/utilities/test-data/book.test-data';
+import { create_book_description_dto, non_existent_isbn } from '../src/common/utilities/test-data/book.test-data';
 
 describe('R05 - Book', () => {
     let app: INestApplication;
@@ -91,6 +91,14 @@ describe('R05 - Book', () => {
                 .send({ is_watchlist: true })
                 .expect(200);
         });
+
+        it('R05_C4_02 - Update book (non-existent ISBN)', () => {
+            return request(app.getHttpServer())
+                .patch('/book/' + non_existent_isbn)
+                .auth(employee_auth.token, { type: 'bearer' })
+                .send({ is_watchlist: true })
+                .expect(404);
+        });
     });
 
     describe('R05_C5 - Delete book', () => {
@@ -107,6 +115,13 @@ describe('R05 - Book', () => {
                 .auth(employee_auth.token, { type: 'bearer' })
                 .expect(200);
             expect(body).toEqual({});
+        });
+
+        it('R05_C5_03 - Delete book (non-existent ISBN)', async () => {
+            return request(app.getHttpServer())
+                .delete('/book/' + non_existent_isbn)
+                .auth(employee_auth.token, { type: 'bearer' })
+                .expect(404);
         });
     });
 });
