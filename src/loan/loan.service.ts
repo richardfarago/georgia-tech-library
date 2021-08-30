@@ -8,7 +8,6 @@ import * as moment from 'moment';
 import * as _ from 'lodash';
 import { PlainUserDto } from '../user/dto/plain-user.dto';
 import { Member } from '../member/entities/member.entity';
-var sem = require('semaphore')(1);
 
 @Injectable()
 export class LoanService {

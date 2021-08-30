@@ -1,9 +1,16 @@
 config:
     target: 'http://localhost:3000'
     phases:
-        - duration: 60
-          arrivalRate: 5
-          name: Phase 1
+        - duration: 30
+          arrivalRate: 10
+          name: Warm up
+        # - duration: 60
+        #   arrivalRate: 30
+        #   rampTo: 50
+        #   name: Ramp up load
+        # - duration: 120
+        #   arrivalRate: 50
+        #   name: Sustained load
     payload:
         - path: 'data/members.csv'
           order: sequence
