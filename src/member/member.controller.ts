@@ -5,7 +5,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { UpdateResult } from 'typeorm';
 import { RequirePermission } from '../rbac/decorators/permission.decorator';
 import { Permissions } from '../rbac/constants/permissions.enum';
-import { DoesExistGuard } from '../common/validation/guards/does-exist.guard';
+import { DoesExistGuard } from '../common/guards/does-exist.guard';
 import { Member } from './entities/member.entity';
 
 @ApiBearerAuth()

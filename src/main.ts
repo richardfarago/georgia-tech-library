@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder, SwaggerCustomOptions } from '@nestjs/swagger';
 import { logger } from './common/middleware/logger.middleware';
+const apiMetrics = require('prometheus-api-metrics');
 
 declare const module: any;
 const swaggerOptions: SwaggerCustomOptions = {
@@ -24,6 +25,7 @@ async function bootstrap() {
 
     //Logger middleware innit
     app.use(logger);
+    app.use(apiMetrics())
 
     //Hot-reload init
     // if (module.hot) {

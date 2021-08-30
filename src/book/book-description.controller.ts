@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { Connection } from 'typeorm';
 import { ParseISBNPipe } from '../common/pipes/isbn.pipe';
-import { DoesExistGuard } from '../common/validation/guards/does-exist.guard';
+import { DoesExistGuard } from '../common/guards/does-exist.guard';
 import { BookDescriptionService } from './book-description.service';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';

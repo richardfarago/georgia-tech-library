@@ -1,0 +1,46 @@
+config:
+    target: 'http://localhost:3000'
+    phases:
+        - duration: 60
+          arrivalRate: 5
+          name: Phase 1
+    payload:
+        - path: 'data/members.csv'
+          order: sequence
+          fields:
+              - 'username'
+              - 'password_hash'
+        - path: 'data/books.csv'
+          order: random
+          fields:
+              - 'book_id'
+scenarios:
+    - name: Loan
+      flow:
+          - post:
+                url: /auth/login
+                json:
+                    username: '{{ username }}'
+                    password: '{{ password_hash }}'
+                capture:
+                    json: '$.access_token'
+                    as: token
+          - post:
+                url: '/loan'
+                headers:
+                    authorization: 'Bearer {{ token }}'
+                json:
+                    loan_contents: [{ book_id: '{{book_id}}' }]
+                capture:
+                    json: '$.id'
+                    as: loan_id
+          - think: 1
+          - put:
+                url: '/loan/{{loan_id}}'
+                headers:
+                    authorization: 'Bearer {{ token }}'
+#RUN COMMAND
+#artillery run load-test/loan.yaml
+
+#WITH DEBUG
+#DEBUG=http artillery run load-test/loan.yaml

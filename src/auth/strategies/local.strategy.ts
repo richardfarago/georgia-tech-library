@@ -14,6 +14,8 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
         //TODO Hash password before checking
         // password = password.hash()
 
+        console.log('Login ' + username, password)
+
         const user: JwtUserDto = await this.authService.validateUser(username, password);
         if (!user) {
             throw new UnauthorizedException('Invalid credentials');

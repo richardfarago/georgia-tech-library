@@ -4,7 +4,7 @@ import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
 import { RequirePermission } from '../rbac/decorators/permission.decorator';
 import { Permissions } from '../rbac/constants/permissions.enum';
-import { DoesExistGuard } from '../common/validation/guards/does-exist.guard';
+import { DoesExistGuard } from '../common/guards/does-exist.guard';
 import { Employee } from './entities/employee.entity';
 
 @Controller('employee')

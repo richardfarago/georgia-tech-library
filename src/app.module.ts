@@ -15,8 +15,6 @@ import { EmployeeModule } from './employee/employee.module';
 import { PermissionGuard } from './rbac/guards/permission.guard';
 import { BookModule } from './book/book.module';
 import { LoanModule } from './loan/loan.module';
-import { PrometheusModule } from './prometheus/prometheus.module';
-import { MetricsModule } from './metrics/metrics.module';
 
 const validationOptions: ValidationPipeOptions = {
     whitelist: true,
@@ -32,9 +30,9 @@ const validationOptions: ValidationPipeOptions = {
         ConfigModule.forRoot({ isGlobal: true }),
         TypeOrmModule.forRoot({
             type: 'mssql',
-            host: process.env.AWS,
+            host: process.env.DOCKER,
             port: 1433,
-            username: process.env.USERNAME,
+            username: 'sa',
             password: process.env.PASSWORD,
             database: process.env.DATABASE,
             autoLoadEntities: true,
@@ -55,8 +53,6 @@ const validationOptions: ValidationPipeOptions = {
         EmployeeModule,
         BookModule,
         LoanModule,
-        PrometheusModule,
-        MetricsModule,
     ],
     controllers: [AppController],
     providers: [

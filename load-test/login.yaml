@@ -1,0 +1,40 @@
+config:
+    target: 'http://localhost:3000'
+    phases:
+        - duration: 10
+          arrivalRate: 5
+          name: Warm up
+        - duration: 10
+          arrivalRate: 5
+          rampTo: 50
+          name: Ramp up load
+        - duration: 30
+          arrivalRate: 50
+          name: Sustained load
+    payload:
+        path: 'data/emps.csv'
+        skipHeader: true
+        order: sequence
+        fields:
+            - 'username'
+            - 'password_hash'
+scenarios:
+    - name: Login
+      flow:
+          - post:
+                url: /auth/login
+                json:
+                    username: '{{ username }}'
+                    password: '{{ password_hash }}'
+                capture:
+                    json: '$.access_token'
+                    as: access_token
+                expect:
+                    '-statusCode': 200
+          - get:
+                url: /auth/me
+                headers:
+                    Authorization: Bearer {{ access_token }}
+                    Content-Type: application/json
+#RUN COMMAND
+# artillery run --output load-test/report.json load-test/login.yaml

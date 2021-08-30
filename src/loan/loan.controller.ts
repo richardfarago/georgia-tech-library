@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, ParseUUIDPipe, Post, Put, Request, UseGuards } from '@nestjs/common';
-import { DoesExistGuard } from '../common/validation/guards/does-exist.guard';
+import { DoesExistGuard } from '../common/guards/does-exist.guard';
 import { Permissions } from '../rbac/constants/permissions.enum';
 import { RequirePermission } from '../rbac/decorators/permission.decorator';
 import { CreateLoanDto } from './dto/create-loan.dto';

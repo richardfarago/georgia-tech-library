@@ -1,6 +1,6 @@
 import { Controller, Post, Body, Param, Delete, Get, ParseUUIDPipe, UseGuards } from '@nestjs/common';
 import { ParseISBNPipe } from '../common/pipes/isbn.pipe';
-import { DoesExistGuard } from '../common/validation/guards/does-exist.guard';
+import { DoesExistGuard } from '../common/guards/does-exist.guard';
 import { BookInstanceService } from './book-instance.service';
 import { BookDescription } from './entities/book-description.entity';
 import { BookInstance } from './entities/book-instance.entity';
