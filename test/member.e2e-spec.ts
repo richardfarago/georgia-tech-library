@@ -11,7 +11,7 @@ describe('R03 - Member', () => {
     let app: INestApplication;
     let member_id: string;
     let member: Member;
-    let lib_id: string
+    let lib_id: string;
 
     beforeAll(async () => {
         const module: TestingModule = await Test.createTestingModule({

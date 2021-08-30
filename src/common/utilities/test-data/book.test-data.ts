@@ -256,4 +256,4 @@ export const create_book_instance_dto = {
 
 export const book_id = 'BOOK_ID';
 
-export const non_existent_isbn = '9780451524935'
+export const non_existent_isbn = '9780451524935';

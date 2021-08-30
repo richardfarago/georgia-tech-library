@@ -11,15 +11,12 @@ import { Member } from '../member/entities/member.entity';
 
 @Injectable()
 export class LoanService {
-    constructor(
-        @InjectConnection() private connection: Connection,
-        @InjectRepository(Loan) private loan_repository: Repository<Loan>,
-    ) { }
+    constructor(@InjectConnection() private connection: Connection, @InjectRepository(Loan) private loan_repository: Repository<Loan>) {}
 
     create(user: PlainUserDto, create_loan_dto: CreateLoanDto): Promise<Loan> {
-        return this.connection.transaction("REPEATABLE READ", async (manager) => {
+        return this.connection.transaction('REPEATABLE READ', async (manager) => {
             try {
-                const member = await manager.getRepository(Member).findOne(user.id)
+                const member = await manager.getRepository(Member).findOne(user.id);
                 const loan = manager.getRepository(Loan).create(create_loan_dto);
 
                 //Check book limit
@@ -57,10 +54,16 @@ export class LoanService {
                     .add(member.loan_permission.loan_period + member.loan_permission.grace_period, 'days')
                     .format('YYYY-MM-DD HH:mm:ss');
 
-                console.log('Create loan ' + loan.id)
-                await manager.query(`INSERT INTO Loan(id,start_date,end_date,due_date,user_id) VALUES ('${loan.id}','${loan.start_date}','${loan.end_date}','${loan.due_date}','${loan.member.user_id}')`)
-                await manager.query(`INSERT INTO LoanContent(book_id, loan_id, returned_at) VALUES ${loan.loan_contents.map((obj) => `('${obj.book_id}','${loan.id}',NULL)`)}`)
-                return loan
+                console.log('Create loan ' + loan.id);
+                await manager.query(
+                    `INSERT INTO Loan(id,start_date,end_date,due_date,user_id) VALUES ('${loan.id}','${loan.start_date}','${loan.end_date}','${loan.due_date}','${loan.member.user_id}')`,
+                );
+                await manager.query(
+                    `INSERT INTO LoanContent(book_id, loan_id, returned_at) VALUES ${loan.loan_contents.map(
+                        (obj) => `('${obj.book_id}','${loan.id}',NULL)`,
+                    )}`,
+                );
+                return loan;
             } catch (err) {
                 throw new InternalServerErrorException(err);
             }
@@ -93,7 +96,7 @@ export class LoanService {
     }
 
     finishLoan(loan_id: string): Promise<UpdateResult> {
-        console.log('Finish loan ' + loan_id)
+        console.log('Finish loan ' + loan_id);
         const now = moment().format('YYYY-MM-DD HH:mm:ss');
         return this.loan_repository.query(`UPDATE LoanContent SET returned_at = '${now}' WHERE loan_id = '${loan_id}'`);
     }

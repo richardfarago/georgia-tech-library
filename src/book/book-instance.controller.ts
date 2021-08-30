@@ -7,7 +7,7 @@ import { BookInstance } from './entities/book-instance.entity';
 
 @Controller('book/:isbn')
 export class BookInstanceController {
-    constructor(private readonly book_instance_service: BookInstanceService) { }
+    constructor(private readonly book_instance_service: BookInstanceService) {}
 
     @Post()
     addToBook(@Param('isbn', ParseISBNPipe) isbn: string, @Body() body: any) {

@@ -25,7 +25,7 @@ async function bootstrap() {
 
     //Logger middleware innit
     app.use(logger);
-    app.use(apiMetrics())
+    app.use(apiMetrics());
 
     //Hot-reload init
     // if (module.hot) {
@@ -33,7 +33,7 @@ async function bootstrap() {
     //   module.hot.dispose(() => app.close());
     // }
 
-    await app.listen(process.env.PORT || 3000)
+    await app.listen(process.env.PORT || 3000);
 }
 
 bootstrap();

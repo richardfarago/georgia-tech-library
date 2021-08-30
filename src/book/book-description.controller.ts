@@ -10,7 +10,7 @@ import { BookInstance } from './entities/book-instance.entity';
 
 @Controller('book')
 export class BookDescriptionController {
-    constructor(private readonly book_service: BookDescriptionService) { }
+    constructor(private readonly book_service: BookDescriptionService) {}
 
     @Post()
     create(@Body() create_book_dto: CreateBookDto) {

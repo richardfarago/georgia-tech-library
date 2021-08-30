@@ -12,7 +12,7 @@ import { Member } from './entities/member.entity';
 @ApiTags('Members')
 @Controller('member')
 export class MemberController {
-    constructor(private readonly memberService: MemberService) { }
+    constructor(private readonly memberService: MemberService) {}
 
     @Post()
     @RequirePermission(Permissions.CREATE_MEMBER)

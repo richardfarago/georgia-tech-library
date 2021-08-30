@@ -88,15 +88,15 @@ describe('EmployeeService', () => {
         });
 
         it('should fail while removing a employee', () => {
-            const error = new Error("This is an error")
+            const error = new Error('This is an error');
             jest.spyOn(mock_connection, 'transaction').mockImplementation((cb) => {
                 return cb({
                     query: jest.fn(() => {
-                        throw error
+                        throw error;
                     }),
                 });
-            })
-            expect(() => service.remove(employee_id)).rejects.toThrowError(InternalServerErrorException)
+            });
+            expect(() => service.remove(employee_id)).rejects.toThrowError(InternalServerErrorException);
             expect(mock_connection.transaction).toBeCalled();
         });
     });

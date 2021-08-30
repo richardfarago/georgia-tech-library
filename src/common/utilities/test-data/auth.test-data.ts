@@ -53,5 +53,5 @@ export const chief_auth = {
 
 export const change_pw_auth = {
     token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNmYW5zdG9uZW9vIiwiaWQiOiI3YmRlOGZhZC1hZjlmLTRlMjktODgwOC05MDA1YjIzZDQ5ODkiLCJyb2xlIjoiUHJvZmVzc29yIiwiaWF0IjoxNjI4ODc5NDQxLCJleHAiOjE2MzQwNjM0NDF9.xoDwjDPSUGCi0h9-_9zGm8pHVhvY1-vNzInwmsowbPk',
-    id: '7bde8fad-af9f-4e29-8808-9005b23d4989'
-}
+    id: '7bde8fad-af9f-4e29-8808-9005b23d4989',
+};

@@ -9,7 +9,7 @@ import { Employee } from './entities/employee.entity';
 
 @Controller('employee')
 export class EmployeeController {
-    constructor(private readonly employeeService: EmployeeService) { }
+    constructor(private readonly employeeService: EmployeeService) {}
 
     @Post()
     @RequirePermission(Permissions.CREATE_EMPLOYEE)

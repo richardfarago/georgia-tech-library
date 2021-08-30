@@ -73,7 +73,11 @@ describe('R01 - Authentication', () => {
         });
 
         it('R01_C2_02 - Change password', async () => {
-            const { body } = await request(app.getHttpServer()).put('/auth/password').auth(change_pw_auth.token, { type: 'bearer' }).send({ password: 'NEWPASS' }).expect(200);
+            const { body } = await request(app.getHttpServer())
+                .put('/auth/password')
+                .auth(change_pw_auth.token, { type: 'bearer' })
+                .send({ password: 'NEWPASS' })
+                .expect(200);
         });
     });
 });
